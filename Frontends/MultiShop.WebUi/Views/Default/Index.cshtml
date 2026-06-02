@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UiLayout/Index.cshtml";
+}
+
+@await Component.InvokeAsync("_UiBreadCrumbComponent")
+
+@await Component.InvokeAsync("_UiLayoutCarouselComponent")
+
+@await Component.InvokeAsync("_UiLayoutFeatureComponent")
+
+@await Component.InvokeAsync("_UiLayoutCategoryComponent")
+
+@await Component.InvokeAsync("_UiLayoutFeaturedProductComponent")
+
+@await Component.InvokeAsync("_UiLayoutOfferComponent")
+
+@await Component.InvokeAsync("_UiLayoutMarkComponent")

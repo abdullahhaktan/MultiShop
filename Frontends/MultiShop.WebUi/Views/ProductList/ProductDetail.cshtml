@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "ProductDetail";
+    Layout = "~/Views/UiLayout/Index.cshtml";
+}
+
+@await Component.InvokeAsync("_UiBreadCrumbComponent")
+
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        @await Component.InvokeAsync("_UiProductDetailImageComponent")
+        @await Component.InvokeAsync("_UiProductDetailFeatureComponent")
+    </div>
+
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light p-30">
+                @await Component.InvokeAsync("_UiProductDetailTabsComponent")
+                <div class="tab-content">
+                    @await Component.InvokeAsync("_UiProductDetailDescriptionComponent")
+                    @await Component.InvokeAsync("_UiProductDetailAdditionalInformationComponent")
+                    @await Component.InvokeAsync("_UiCartSummaryComponent")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Component.InvokeAsync("_UiRelatedProductsComponent")
