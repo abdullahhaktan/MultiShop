@@ -54,7 +54,7 @@ namespace MultiShop.Order.WebApi.Controllers
             return Ok("OrderDetail başarıyla güncellendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrderDetail(int id)
         {
             await _removeOrderDetailCommandHandler.Handle(new RemoveOrderDetailCommand(id));

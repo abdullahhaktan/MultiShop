@@ -9,6 +9,7 @@ namespace MultiShop.Catalog.Services.CategoryServices
     public class CategoryService : ICategoryService
     {
         private readonly IMongoCollection<Category> _categoryCollection;
+        private readonly IMongoCollection<Product> _productCollection;
         private readonly IMapper _mapper;
 
         public CategoryService(IMapper mapper, IDatabaseSettings _databaseSettings)
@@ -17,6 +18,7 @@ namespace MultiShop.Catalog.Services.CategoryServices
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
             _categoryCollection = database.GetCollection<Category>(_databaseSettings.CategoryCollectionName);
             _mapper = mapper;
+            _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
         }
 
         public async Task CreateCategoryAsync(CreateCategoryDto createCategoryDto)
@@ -27,26 +29,37 @@ namespace MultiShop.Catalog.Services.CategoryServices
 
         public async Task DeleteCategoryAsync(string id)
         {
-            await _categoryCollection.DeleteOneAsync(x => x.CategoryId == id);
+            await _categoryCollection.DeleteOneAsync(x => x.Id == id);
         }
 
-        public async Task<List<ResultCategoryDto>> GetAllCategoryAsync()
+        public async Task<List<ResultCategoryDto>> GetAllCategoriesAsync()
         {
             var values = await _categoryCollection.Find(x => true).ToListAsync();
-            return _mapper.Map<List<ResultCategoryDto>>(values);
+            var categories = _mapper.Map<List<ResultCategoryDto>>(values);
+            foreach (var category in categories)
+            {
+                category.CategoryProductCount = (int?)await _productCollection.CountDocumentsAsync(p => p.CategoryId == category.Id);
+            }
+            return categories;
         }
 
-        public async Task<GetByCategoryIdDto> GetByCategoryIdAsync(string id)
+        public async Task<GetCategoryByIdDto> GetByIdAsync(string id)
         {
-            var value = await _categoryCollection.Find<Category>(x => x.CategoryId == id).FirstOrDefaultAsync();
+            var value = await _categoryCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-            return _mapper.Map<GetByCategoryIdDto>(value);
+            return _mapper.Map<GetCategoryByIdDto>(value);
+        }
+
+        public async Task<int> GetCategoryProductCountAsync(string id)
+        {
+            var count = await _productCollection.CountDocumentsAsync(x => x.Id == id);
+            return (int)count;
         }
 
         public async Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
         {
             var value = _mapper.Map<Category>(updateCategoryDto);
-            await _categoryCollection.FindOneAndReplaceAsync(x => x.CategoryId == updateCategoryDto.CategoryId, value);
+            await _categoryCollection.FindOneAndReplaceAsync(x => x.Id == updateCategoryDto.Id, value);
         }
     }
 }

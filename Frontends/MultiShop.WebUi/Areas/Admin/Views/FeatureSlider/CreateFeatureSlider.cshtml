@@ -1,0 +1,64 @@
+﻿@model CreateFeatureSliderDto
+@{
+    ViewData["Title"] = "Yeni Slider";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card card-outline card-success shadow-lg">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold">
+                            <i class="fa fa-picture-o mr-2 text-success"></i> Yeni Slider Girişi
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Slider Başlığı</label>
+                                        <input type="text" asp-for="Title" class="form-control" placeholder="Slider ana başlığını giriniz" />
+                                        <span asp-validation-for="Title" class="text-danger small"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Slider Açıklaması</label>
+                                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="Slider üzerinde görünecek kısa açıklama metni..."></textarea>
+                                        <span asp-validation-for="Description" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 bg-light p-4 rounded d-flex flex-column justify-content-between">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold text-primary">Görsel Bağlantısı (URL)</label>
+                                        <input type="text" asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+                                        <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="form-group p-3 bg-white border rounded shadow-sm">
+                                        <label class="font-weight-bold d-block mb-2">Yayın Durumu</label>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" asp-for="Status" class="custom-control-input" id="StatusCheck" checked>
+                                            <label class="custom-control-label text-muted" for="StatusCheck">
+                                                Slider eklenir eklenmez ana sayfada aktif olarak gösterilsin.
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="/Admin/FeatureSlider/Index" class="text-muted">
+                                <i class="fa fa-arrow-left mr-1"></i> İptal Et ve Dön
+                            </a>
+                            <button type="submit" class="btn btn-success px-5 shadow-sm">
+                                <i class="fa fa-save mr-2"></i> Slider'ı Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

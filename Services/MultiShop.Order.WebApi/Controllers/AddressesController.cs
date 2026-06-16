@@ -54,7 +54,7 @@ namespace MultiShop.Order.WebApi.Controllers
             return Ok("Address başarıyla güncellendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
             await _removeAddressCommandHandler.Handle(new RemoveAddressCommand(id));

@@ -1,0 +1,95 @@
+﻿@model GetProductImageByIdDto
+@{
+    ViewData["Title"] = "Görsel Seti Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card card-outline card-warning shadow-lg">
+                    <div class="card-header bg-white">
+                        <h3 class="card-title font-weight-bold text-warning">
+                            <i class="fa fa-refresh mr-2"></i> Ürün Görsel Setini Düzenle
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <input type="hidden" asp-for="Id" />
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="form-group border pb-3 pt-2 px-3 bg-light rounded">
+                                        <label class="font-weight-bold">İlişkili Ürün</label>
+                                        <select asp-for="ProductId" class="form-control">
+                                            @if (ViewBag.Products != null)
+                                            {
+                                                @foreach (var prod in ViewBag.Products)
+                                                {
+                                                    <option value="@prod.Id">@prod.ProductName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group p-2 border rounded bg-white text-center">
+                                        <label class="font-weight-bold small text-muted text-uppercase d-block">1. Görsel Linki</label>
+                                        <input type="text" asp-for="Image1" class="form-control form-control-sm mb-2" />
+                                        @if (!string.IsNullOrEmpty(Model?.Image1))
+                                        {
+                                            <img src="@Model.Image1" class="img-thumbnail" style="height:80px; object-fit:cover;" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group p-2 border rounded bg-white text-center">
+                                        <label class="font-weight-bold small text-muted text-uppercase d-block">2. Görsel Linki</label>
+                                        <input type="text" asp-for="Image2" class="form-control form-control-sm mb-2" />
+                                        @if (!string.IsNullOrEmpty(Model?.Image2))
+                                        {
+                                            <img src="@Model.Image2" class="img-thumbnail" style="height:80px; object-fit:cover;" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group p-2 border rounded bg-white text-center">
+                                        <label class="font-weight-bold small text-muted text-uppercase d-block">3. Görsel Linki</label>
+                                        <input type="text" asp-for="Image3" class="form-control form-control-sm mb-2" />
+                                        @if (!string.IsNullOrEmpty(Model?.Image3))
+                                        {
+                                            <img src="@Model.Image3" class="img-thumbnail" style="height:80px; object-fit:cover;" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group p-2 border rounded bg-white text-center">
+                                        <label class="font-weight-bold small text-muted text-uppercase d-block">4. Görsel Linki</label>
+                                        <input type="text" asp-for="Image4" class="form-control form-control-sm mb-2" />
+                                        @if (!string.IsNullOrEmpty(Model?.Image4))
+                                        {
+                                            <img src="@Model.Image4" class="img-thumbnail" style="height:80px; object-fit:cover;" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between">
+                            <a href="/Admin/ProductImage/Index" class="btn btn-light border">
+                                <i class="fa fa-times-circle mr-1"></i> İptal Et
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 font-weight-bold">
+                                <i class="fa fa-check mr-2"></i> Değişiklikleri Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

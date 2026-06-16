@@ -1,0 +1,72 @@
+﻿@model GetFeaturedProductByIdDto
+@{
+    ViewData["Title"] = "Öne Çıkan Ürün Düzenle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-outline card-warning shadow-lg">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold text-dark">
+                            <i class="fas fa-edit mr-2 text-warning"></i> Vitrin Ürününü Düzenle
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <input type="hidden" asp-for="Id" />
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label asp-for="ProductName" class="font-weight-bold">Ürün Adı</label>
+                                    <input type="text" asp-for="ProductName" class="form-control form-control-lg" required />
+                                    <span asp-validation-for="ProductName" class="text-danger small"></span>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label asp-for="ImageUrl" class="font-weight-bold">Ürün Görsel Linki (URL)</label>
+                                    <input type="text" asp-for="ImageUrl" class="form-control" required />
+                                    <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Price" class="font-weight-bold">Satış Fiyatı (₺)</label>
+                                    <input type="number" step="0.01" asp-for="Price" class="form-control" required />
+                                    <span asp-validation-for="Price" class="text-danger small"></span>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="OldPrice" class="font-weight-bold">İndirim Öncesi Fiyatı (₺)</label>
+                                    <input type="number" step="0.01" asp-for="OldPrice" class="form-control" />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Rating" class="font-weight-bold">Vitrin Puanı (0 - 5)</label>
+                                    <input type="number" step="0.1" min="0" max="5" asp-for="Rating" class="form-control" required />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ReviewCount" class="font-weight-bold">Yorum Sayısı</label>
+                                    <input type="number" asp-for="ReviewCount" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white d-flex justify-content-between border-top">
+                            <a href="/Admin/FeaturedProduct/Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-undo mr-1"></i> Değişiklikleri İptal Et
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 font-weight-bold text-dark">
+                                <i class="fas fa-sync-alt mr-1"></i> Vitrini Güncelle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

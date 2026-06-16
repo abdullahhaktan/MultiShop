@@ -42,7 +42,7 @@ namespace MultiShop.Order.WebApi.Controllers
             return Ok("Sipariş başarıyla eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveOrdering(int id)
         {
             await _mediator.Send(new RemoveOrderingCommand(id));

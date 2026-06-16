@@ -65,7 +65,7 @@ namespace MultiShop.Order.Persistence.Migrations
                     b.Property<int>("ProductAmount")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProductId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -73,7 +73,7 @@ namespace MultiShop.Order.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("ProductPrice")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("ProductTotalPrice")

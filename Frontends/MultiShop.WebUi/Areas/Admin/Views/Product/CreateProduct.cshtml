@@ -1,0 +1,83 @@
+﻿@model CreateProductDto
+@{
+    ViewData["Title"] = "Yeni Ürün";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card card-outline card-success shadow-lg">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold">
+                            <i class="fa fa-shopping-cart mr-2 text-success"></i> Ürün Envanter Kaydı
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Ürün İsmi</label>
+                                        <input type="text" asp-for="ProductName" class="form-control" placeholder="Tam ürün adını giriniz" />
+                                        <span asp-validation-for="ProductName" class="text-danger small"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Ürün Açıklaması</label>
+                                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="Ürün detayları, özellikleri..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Ürün Görsel URL</label>
+                                        <input type="text" asp-for="ImageUrl" class="form-control" placeholder="https://example.com/gorsel.jpg" />
+                                        <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 bg-light p-4 rounded">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold text-primary">Kategori Seçimi</label>
+                                        <select asp-for="CategoryId" class="form-control custom-select">
+                                            <option value="">Seçiniz...</option>
+                                            @if (ViewBag.Categories != null)
+                                            {
+                                                @foreach (var cat in ViewBag.Categories)
+                                                {
+                                                    <option value="@cat.Id">@cat.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-bold">Birim Fiyat</label>
+                                                <div class="input-group">
+                                                    <input type="number" asp-for="Price" class="form-control" placeholder="0.00" step="0.01" />
+                                                    <div class="input-group-append"><span class="input-group-text">₺</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-bold">Stok Miktarı</label>
+                                                <input type="number" asp-for="Stock" class="form-control" placeholder="0" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="/Admin/Product/Index" class="text-muted">
+                                <i class="fa fa-arrow-left mr-1"></i> İptal Et ve Dön
+                            </a>
+                            <button type="submit" class="btn btn-success px-5 shadow-sm">
+                                <i class="fa fa-save mr-2"></i> Ürünü Sisteme Tanımla
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

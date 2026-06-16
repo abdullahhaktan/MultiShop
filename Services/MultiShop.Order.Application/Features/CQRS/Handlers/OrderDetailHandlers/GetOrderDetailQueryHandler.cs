@@ -20,9 +20,9 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers
             return values.Select(x => new GetOrderDetailQueryResult
             {
                 OrderDetailId = x.OrderDetailId,
-                ProductId = x.ProductId,
+                Id = x.Id,
                 ProductName = x.ProductName,
-                ProductPrice = x.ProductPrice,
+                Price = x.Price,
                 ProductAmount = x.ProductAmount,
                 ProductTotalPrice = x.ProductTotalPrice,
                 OrderingId = x.OrderingId

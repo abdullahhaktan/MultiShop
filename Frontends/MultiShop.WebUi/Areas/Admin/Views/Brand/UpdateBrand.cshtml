@@ -1,0 +1,73 @@
+﻿@model GetBrandByIdDto
+
+@{
+    ViewData["Title"] = "Marka Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-4">
+    <div class="container-fluid">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-8">
+
+                <div class="card card-outline card-warning shadow">
+
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fa fa-pencil mr-2"></i>
+                            Marka Güncelle
+                        </h3>
+                    </div>
+
+                    <form method="post">
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="card-body">
+
+                            <div class="form-group">
+
+                                <label>Logo URL</label>
+
+                                <input type="text"
+                                       asp-for="ImageUrl"
+                                       class="form-control" />
+
+                            </div>
+
+                            <div class="text-center mt-4">
+
+                                <img src="@Model.ImageUrl"
+                                     style="max-height:150px;"
+                                     class="img-fluid" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-between">
+
+                            <a href="/Admin/Brand/Index"
+                               class="btn btn-secondary">
+                                Vazgeç
+                            </a>
+
+                            <button class="btn btn-warning">
+                                <i class="fa fa-save mr-1"></i>
+                                Güncelle
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "ProductDetail";
     Layout = "~/Views/UiLayout/Index.cshtml";
 }
@@ -8,8 +7,8 @@
 
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
-        @await Component.InvokeAsync("_UiProductDetailImageComponent")
-        @await Component.InvokeAsync("_UiProductDetailFeatureComponent")
+        @await Component.InvokeAsync("_UiProductDetailImageComponent", new {productId = ViewBag.id})        
+        @await Component.InvokeAsync("_UiProductDetailFeatureComponent", new { id = ViewBag.id })
     </div>
 
     <div class="row px-xl-5">
@@ -17,13 +16,13 @@
             <div class="bg-light p-30">
                 @await Component.InvokeAsync("_UiProductDetailTabsComponent")
                 <div class="tab-content">
-                    @await Component.InvokeAsync("_UiProductDetailDescriptionComponent")
-                    @await Component.InvokeAsync("_UiProductDetailAdditionalInformationComponent")
-                    @await Component.InvokeAsync("_UiCartSummaryComponent")
+                    @await Component.InvokeAsync("_UiProductDetailDescriptionComponent", new { id = ViewBag.id })
+                    @await Component.InvokeAsync("_UiProductDetailAdditionalInformationComponent", new { id = ViewBag.id })
+                    @await Component.InvokeAsync("_UiCartSummaryComponent", new { id = ViewBag.id })
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@await Component.InvokeAsync("_UiRelatedProductsComponent")
+@await Component.InvokeAsync("_UiRelatedProductsComponent", new { id = ViewBag.id })

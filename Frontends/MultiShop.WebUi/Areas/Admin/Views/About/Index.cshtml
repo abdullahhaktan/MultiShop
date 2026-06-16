@@ -1,0 +1,242 @@
+﻿@model GetAboutByIdDto
+
+@{
+    ViewData["Title"] = "Hakkımda Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-4">
+    <div class="container-fluid">
+
+        <!-- HEADER -->
+        <div class="mb-4 px-1">
+            <h4 class="mb-0 fw-bold" style="color:#1a1a2e;">
+                <i class="fa fa-info-circle mr-2" style="color:#6c63ff;"></i>
+                Hakkımda Yönetimi
+            </h4>
+            <p class="text-muted mb-0 small mt-1">
+                Siteye ait hakkımda bilgilerini düzenleyebilirsiniz.
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-12 mx-auto">
+
+                <!-- CARD -->
+                <div class="detail-card">
+
+                    <!-- CARD HEADER -->
+                    <div class="detail-card-header">
+                        <div class="header-icon">
+                            <i class="fa fa-edit"></i>
+                        </div>
+                        <div>
+                            <p class="header-title">Hakkımda Bilgilerini Düzenle</p>
+                            <p class="header-sub">Kaydettiğiniz değişiklikler anında yayına alınır.</p>
+                        </div>
+                    </div>
+
+                    <!-- FORM -->
+                    <form method="post" asp-action="UpdateAbout" asp-controller="About" asp-area="Admin">
+
+                        <!-- ID (hidden) -->
+                        <input type="hidden" name="Id" value="@Model?.Id" />
+
+                        <!-- DESCRIPTION -->
+                        <div class="field-group">
+                            <label class="field-label">
+                                <i class="fa fa-align-left mr-1"></i> Açıklama
+                            </label>
+
+                            <textarea name="Description"
+                                      class="field-textarea"
+                                      rows="5"
+                                      placeholder="Hakkımda açıklamasını giriniz...">@Model?.Description</textarea>
+                        </div>
+
+                        <!-- ADDRESS -->
+                        <div class="field-group">
+                            <label class="field-label">
+                                <i class="fa fa-map-marker mr-1"></i> Adres
+                            </label>
+
+                            <textarea name="Address"
+                                      class="field-textarea"
+                                      rows="3"
+                                      placeholder="Adres bilgisi...">@Model?.Address</textarea>
+                        </div>
+
+                        <!-- MAIL -->
+                        <div class="field-group">
+                            <label class="field-label">
+                                <i class="fa fa-envelope mr-1"></i> Mail
+                            </label>
+
+                            <input type="text"
+                                   name="Mail"
+                                   class="field-textarea"
+                                   value="@Model?.Mail"
+                                   placeholder="Mail adresi..." />
+                        </div>
+
+                        <!-- PHONE -->
+                        <div class="field-group">
+                            <label class="field-label">
+                                <i class="fa fa-phone mr-1"></i> Telefon
+                            </label>
+
+                            <input type="text"
+                                   name="Phone"
+                                   class="field-textarea"
+                                   value="@Model?.Phone"
+                                   placeholder="Telefon numarası..." />
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="form-footer">
+
+                            <a href="/Admin" class="btn-back">
+                                <i class="fa fa-arrow-left mr-1"></i> Geri
+                            </a>
+
+                            <button type="submit" class="btn-save">
+                                <i class="fa fa-save mr-1"></i> Kaydet
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- STYLE -->
+<style>
+    .detail-card {
+        background: #fff;
+        border-radius: 16px;
+        border: 1px solid #f0f0f5;
+        padding: 32px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+
+    .detail-card-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f2f2f7;
+    }
+
+    .header-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: #f0eeff;
+        color: #6c63ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+    }
+
+    .header-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin: 0;
+    }
+
+    .header-sub {
+        font-size: 0.8rem;
+        color: #aaa;
+        margin: 2px 0 0;
+    }
+
+    .field-group {
+        margin-bottom: 22px;
+    }
+
+    .field-label {
+        display: block;
+        font-size: 0.84rem;
+        font-weight: 700;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    .field-textarea {
+        width: 100%;
+        border: 1.5px solid #ececf4;
+        border-radius: 11px;
+        padding: 13px 15px;
+        font-size: 0.9rem;
+        color: #1a1a2e;
+        background: #fafafa;
+        outline: none;
+        resize: vertical;
+        transition: all 0.2s;
+        font-family: inherit;
+    }
+
+        .field-textarea:focus {
+            border-color: #6c63ff;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108,99,255,0.1);
+        }
+
+        .field-textarea::placeholder {
+            color: #c4c4d0;
+        }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f2f2f7;
+        padding-top: 20px;
+        margin-top: 10px;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        background: #f5f5fa;
+        color: #777;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+        .btn-back:hover {
+            background: #ececf4;
+            color: #444;
+        }
+
+    .btn-save {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, #6c63ff, #4f46e5);
+        color: #fff;
+        border: none;
+        padding: 10px 28px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(108,99,255,0.35);
+        transition: 0.25s;
+    }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108,99,255,0.45);
+        }
+</style>

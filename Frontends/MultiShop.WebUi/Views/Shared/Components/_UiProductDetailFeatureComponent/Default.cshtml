@@ -1,10 +1,11 @@
-﻿@*
+﻿@model GetProductDetailByIdDto
+@*
     Ui Product Detail Feature Component
 *@
 
 <div class="col-lg-7 h-auto mb-30">
     <div class="h-100 bg-light p-30">
-        <h3>Koşu Ayakkabısı - Air Run Pro</h3>
+        <h3>@Model.Product.ProductName</h3>
         <div class="d-flex mb-3">
             <div class="text-primary mr-2">
                 <small class="fas fa-star"></small>
@@ -15,11 +16,9 @@
             </div>
             <small class="pt-1">(99 Değerlendirme)</small>
         </div>
-        <h3 class="font-weight-semi-bold mb-4">₺1500.00</h3>
+        <h3 class="font-weight-semi-bold mb-4">₺@Model.Product.Price</h3>
         <p class="mb-4">
-            Hafif yapısı ve nefes alabilen kumaşı sayesinde günlük kullanım ve koşu için idealdir.
-            Darbe emici taban teknolojisi ile uzun süreli konfor sağlar.
-            Şehir içi ve spor aktivitelerinde maksimum performans sunar.
+            @Model.Product.Description
         </p>
         <div class="d-flex mb-3">
             <strong class="text-dark mr-3">Numaralar:</strong>

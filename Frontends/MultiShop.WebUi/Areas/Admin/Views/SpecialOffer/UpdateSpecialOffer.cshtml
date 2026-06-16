@@ -1,0 +1,64 @@
+﻿@model GetSpecialOfferByIdDto
+@{
+    ViewData["Title"] = "Teklif Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-outline card-warning shadow-lg">
+                    <div class="card-header bg-white">
+                        <h3 class="card-title font-weight-bold text-warning">
+                            <i class="fa fa-refresh mr-2"></i> Özel Teklif Güncelleme
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <input type="hidden" asp-for="Id" />
+
+                            <div class="form-group">
+                                <label class="font-weight-bold text-muted small uppercase">Teklif Başlığı</label>
+                                <input type="text" asp-for="Title" class="form-control border-left-warning shadow-sm" />
+                                <span asp-validation-for="Title" class="text-danger small"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold text-muted small uppercase">İndirim Oranı (%)</label>
+                                <input type="number" asp-for="DiscountRate" class="form-control border-left-warning shadow-sm" min="0" max="100" />
+                                <span asp-validation-for="DiscountRate" class="text-danger small"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold text-muted small uppercase">Görsel Adresi</label>
+                                        <input type="text" asp-for="ImageUrl" class="form-control mb-3" />
+                                        <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+                                    {
+                                        <label class="small font-weight-bold d-block text-muted text-center">Önizleme</label>
+                                        <img src="@Model.ImageUrl" alt="@Model?.Title" class="img-responsive rounded border shadow-sm"
+                                             style="max-height: 100px; margin: 0 auto; display: block;" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between">
+                            <a href="/Admin/SpecialOffer/Index" class="btn btn-default border">
+                                <i class="fa fa-times-circle mr-1"></i> İptal
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 font-weight-bold">
+                                <i class="fa fa-check mr-2"></i> Bilgileri Güncelle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

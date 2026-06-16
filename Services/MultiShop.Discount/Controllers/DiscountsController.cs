@@ -40,7 +40,7 @@ namespace MultiShop.Discount.Controllers
             return Ok("Kupon başarıyla oluşturuldu");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDiscount(int id)
         {
             await _discountService.DeleteDiscountAsync(id);

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UiLayout/Index.cshtml";
 }
@@ -17,7 +16,7 @@
         <div class="col-lg-9 col-md-8">
             <div class="row pb-3">
                 @await Component.InvokeAsync("_UiLayoutSortShowComponent")
-                @await Component.InvokeAsync("_UiProductListComponent")
+                @await Component.InvokeAsync("_UiProductListComponent",new {categoryId=ViewBag.categoryId})
                 @await Component.InvokeAsync("_UiLayoutPagingComponent")
             </div>
         </div>

@@ -1,0 +1,63 @@
+﻿@model CreateCategoryDto
+@{
+    ViewData["Title"] = "Yeni Kategori";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card card-outline card-success shadow-lg">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold text-success">
+                            <i class="fas fa-folder-plus mr-2"></i> Yeni Kategori Oluştur
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="form-group mb-4">
+                                <label asp-for="Name" class="font-weight-bold text-dark">Kategori İsmi</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-success text-white">
+                                            <i class="fas fa-tag"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" asp-for="Name" class="form-control" placeholder="Örn: Elektronik, Ev & Yaşam..." required />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ImageUrl" class="font-weight-bold text-dark">Kategori Görseli (URL)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-success text-white">
+                                            <i class="fas fa-image"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" asp-for="ImageUrl" class="form-control" placeholder="/ui-images/category-images/ornek.jpg" />
+                                </div>
+                                <p class="text-muted mt-2 small mb-0">
+                                    <i class="fas fa-info-circle mr-1"></i> Arayüzde vitrin kapak resmi olarak görüntülenecektir.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white d-flex justify-content-between border-top">
+                            <a href="/Admin/Category/Index" class="btn btn-default border">
+                                <i class="fas fa-chevron-left mr-1"></i> Vazgeç
+                            </a>
+                            <button type="submit" class="btn btn-success px-4 font-weight-bold">
+                                <i class="fas fa-save mr-1"></i> Kategoriyi Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

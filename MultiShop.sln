@@ -19,6 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Order.WebApi", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{E04B6850-A4AA-49BB-9084-B782C12C6F5D}"
 	ProjectSection(SolutionItems) = preProject
+		font-awesome link.txt = font-awesome link.txt
 		IdentityServerVersionErrorSolution.txt = IdentityServerVersionErrorSolution.txt
 		PortainerCmd.txt = PortainerCmd.txt
 		PortNumbers.txt = PortNumbers.txt
@@ -59,6 +60,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{F7D81FFD-CED4-4372-818A-82E552AD9DBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.WebUi", "Frontends\MultiShop.WebUi\MultiShop.WebUi.csproj", "{C7793CCF-7461-4A3B-9485-31D463616472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.DtoLayer", "Frontends\MultiShop.DtoLayer\MultiShop.DtoLayer.csproj", "{E6E1A13B-5430-43AF-864D-7BDA94F3CF0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,6 +125,10 @@ Global
 		{C7793CCF-7461-4A3B-9485-31D463616472}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7793CCF-7461-4A3B-9485-31D463616472}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7793CCF-7461-4A3B-9485-31D463616472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E1A13B-5430-43AF-864D-7BDA94F3CF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E1A13B-5430-43AF-864D-7BDA94F3CF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E1A13B-5430-43AF-864D-7BDA94F3CF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E1A13B-5430-43AF-864D-7BDA94F3CF0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +156,7 @@ Global
 		{B04517A2-23E2-49F7-A530-3891DCC859A4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{74A2C089-7C5F-46EE-A6AA-C3D95857EC7E} = {B04517A2-23E2-49F7-A530-3891DCC859A4}
 		{C7793CCF-7461-4A3B-9485-31D463616472} = {F7D81FFD-CED4-4372-818A-82E552AD9DBD}
+		{E6E1A13B-5430-43AF-864D-7BDA94F3CF0C} = {F7D81FFD-CED4-4372-818A-82E552AD9DBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C0159D9-B829-4B3E-9CE6-60558D3457A1}

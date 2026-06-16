@@ -1,16 +1,11 @@
-﻿@*
-    Ui Product Detail Component
+﻿@model GetProductDetailByIdDto
+@*
+    Ui Product Detail Description Component
 *@
 
 <div class="tab-pane fade show active" id="tab-pane-1">
     <h4 class="mb-3">Ürün Açıklaması</h4>
     <p>
-        Her mevsime uygun, konfor ve dayanıklılığı bir arada sunan bu ürün; günlük kullanım ve spor aktiviteleri için idealdir.
-        Nefes alabilen yapısı sayesinde gün boyu rahatlık sağlar. Şık tasarımı ile hem spor hem de günlük kombinlere uyum sağlar.
-        Uzun süreli kullanım için özel olarak geliştirilmiştir.
-    </p>
-    <p>
-        Hafif yapısı ve esnek tabanı sayesinde hareket özgürlüğü sunar. Darbe emici teknolojisi ile yürüyüş ve koşu sırasında maksimum konfor sağlar.
-        Kaliteli malzemesi sayesinde uzun ömürlü kullanım sunar ve formunu korur.
+       @Model.ProductDescription
     </p>
 </div>

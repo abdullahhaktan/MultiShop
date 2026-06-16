@@ -17,9 +17,9 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers
         {
             var value = await _repository.GetByIdAsync(command.OrderDetailId);
 
-            value.ProductId = command.ProductId;
+            value.Id = command.Id;
             value.ProductName = command.ProductName;
-            value.ProductPrice = command.ProductPrice;
+            value.Price = command.Price;
             value.ProductAmount = command.ProductAmount;
             value.ProductTotalPrice = command.ProductTotalPrice;
             value.OrderingId = command.OrderingId;

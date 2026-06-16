@@ -1,0 +1,315 @@
+﻿@model List<ResultProductWithCategoryDto>
+@{
+    ViewData["Title"] = "Ürünler";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-4">
+    <div class="container-fluid">
+
+        <div class="d-flex justify-content-between align-items-center mb-4 px-1">
+            <div>
+                <h4 class="mb-0 fw-bold" style="color:#1a1a2e;">
+                    <i class="fa fa-cubes mr-2" style="color:#6c63ff;"></i> Ürün Kataloğu
+                </h4>
+                <p class="text-muted mb-0 small mt-1">Toplam <strong>@(Model?.Count ?? 0)</strong> ürün listeleniyor.</p>
+            </div>
+            <a href="/Admin/Product/CreateProduct" class="btn btn-add-product">
+                <i class="fa fa-plus mr-1"></i> Yeni Ürün
+            </a>
+        </div>
+
+        <br />
+
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                        <div class="product-card">
+
+                            <div class="product-img-wrap">
+                                <span class="cat-badge">
+                                    <i class="fa fa-tag mr-1"></i>@(item.Category?.Name ?? "Kategorisiz")
+                                </span>
+
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="@item.ProductName" class="product-img" />
+                                }
+                                else
+                                {
+                                    <div class="no-img">
+                                        <i class="fa fa-image fa-2x"></i>
+                                        <span>Görsel Yok</span>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="product-body">
+                                <h6 class="product-name" title="@item.ProductName">@item.ProductName</h6>
+
+                                <div class="product-meta">
+                                    <span class="product-price">@item.Price.ToString("N2") ₺</span>
+
+                                    @if (item.Stock > 10)
+                                    {
+                                        <span class="stock-badge stock-ok">
+                                            <i class="fa fa-check-circle mr-1"></i>@item.Stock adet
+                                        </span>
+                                    }
+                                    else if (item.Stock > 0)
+                                    {
+                                        <span class="stock-badge stock-low">
+                                            <i class="fa fa-exclamation-circle mr-1"></i>Son @item.Stock
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="stock-badge stock-out">
+                                            <i class="fa fa-times-circle mr-1"></i>Tükendi
+                                        </span>
+                                    }
+                                </div>
+
+                                <div class="product-actions">
+                                    <a href="/Admin/Product/GetProductDetail/@item.Id" class="action-btn btn-detail" title="Detay">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="/Admin/Product/UpdateProduct/@item.Id" class="action-btn btn-edit" title="Düzenle">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="/Admin/ProductImage/GetProductImageIdByProductId/@item.Id" class="action-btn btn-image" title="Görsel Güncelle">
+                                        <i class="fa fa-picture-o"></i>
+                                    </a>
+                                    <a href="/Admin/Product/DeleteProduct/@item.Id"
+                                       class="action-btn btn-delete" title="Sil"
+                                       onclick="return confirm('@item.ProductName ürününü silmek istediğinize emin misiniz?')">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="fa fa-inbox fa-3x mb-3"></i>
+                        <h5>Henüz ürün eklenmemiş</h5>
+                        <p class="text-muted">Kataloğunuza ilk ürünü eklemek için "Yeni Ürün" butonunu kullanın.</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .btn-add-product {
+        background: linear-gradient(135deg, #6c63ff, #4f46e5);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 9px 22px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: all 0.25s;
+        box-shadow: 0 4px 14px rgba(108,99,255,0.35);
+    }
+
+        .btn-add-product:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108,99,255,0.45);
+        }
+
+    .product-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid #f0f0f5;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom:20px;
+    }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            border-color: #e0deff;
+        }
+
+    .product-img-wrap {
+        position: relative;
+        height: 195px;
+        background: #f7f7fb;
+        overflow: hidden;
+    }
+
+    .product-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-img {
+        transform: scale(1.04);
+    }
+
+    .no-img {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #bbb;
+    }
+
+        .no-img span {
+            font-size: 0.78rem;
+        }
+
+    .cat-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(108, 99, 255, 0.88);
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        z-index: 2;
+        letter-spacing: 0.02em;
+    }
+
+    .product-body {
+        padding: 16px 18px 18px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .product-name {
+        font-size: 0.93rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .product-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #f2f2f7;
+        padding-top: 12px;
+        margin-bottom: 14px;
+    }
+
+    .product-price {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #6c63ff;
+    }
+
+    .stock-badge {
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 4px 9px;
+        border-radius: 20px;
+    }
+
+    .stock-ok {
+        background: #edfaf4;
+        color: #1aab6d;
+    }
+
+    .stock-low {
+        background: #fff8e6;
+        color: #e0a800;
+    }
+
+    .stock-out {
+        background: #fff0f0;
+        color: #e05252;
+    }
+
+    .product-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .action-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        border-radius: 9px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: none;
+        transition: all 0.2s;
+        text-decoration: none;
+    }
+
+    .btn-detail {
+        background: #f0eeff;
+        color: #6c63ff;
+    }
+
+        .btn-detail:hover {
+            background: #6c63ff;
+            color: #fff;
+        }
+
+    .btn-edit {
+        background: #e6f7ff;
+        color: #1890ff;
+    }
+
+        .btn-edit:hover {
+            background: #1890ff;
+            color: #fff;
+        }
+
+    .btn-delete {
+        background: #fff0f0;
+        color: #e05252;
+    }
+
+        .btn-delete:hover {
+            background: #e05252;
+            color: #fff;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: #fff;
+        border-radius: 16px;
+        border: 1px solid #f0f0f5;
+        color: #aaa;
+    }
+
+        .empty-state h5 {
+            color: #555;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+</style>

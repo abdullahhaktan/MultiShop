@@ -5,7 +5,7 @@ using MultiShop.Catalog.Services.ProductServices;
 
 namespace MultiShop.Catalog.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -20,35 +20,43 @@ namespace MultiShop.Catalog.Controllers
         [HttpGet]
         public async Task<IActionResult> ProductList()
         {
-            var values = await _productService.GetAllProductsAsync();
+            var values = await _productService.GetAllProductsWithCategoriesAsync();
             return Ok(values);
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(string id)
         {
-            var value = await _productService.GetByProductIdAsync(id);
+            var value = await _productService.GetProductByIdAsync(id);
             return Ok(value);
+        }
+
+        [HttpGet("GetByCategory/{categoryId}")]
+        public async Task<IActionResult> GetProductsByCategory(string categoryId)
+        {
+            var values = await _productService.GetAllProductsWithCategoriesByCategoryAsync(categoryId);
+            return Ok(values);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
         {
             await _productService.CreateProductAsync(createProductDto);
-            return Ok("Kategori başarıyla eklendi");
+            return StatusCode(StatusCodes.Status201Created);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
             await _productService.DeleteProductAsync(id);
-            return Ok("Kategori başarıyla silindi");
+            return NoContent();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
         {
             await _productService.UpdateProductAsync(updateProductDto);
-            return Ok("Kategori başarıyla güncellendi");
+            return NoContent();
         }
     }
 }

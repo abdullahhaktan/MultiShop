@@ -9,6 +9,7 @@ namespace MultiShop.Catalog.Services.ProductDetailServices
     public class ProductDetailService : IProductDetailService
     {
         private readonly IMongoCollection<ProductDetail> _productDetailCollection;
+        private readonly IMongoCollection<Product> _productCollection;
         private readonly IMapper _mapper;
 
         public ProductDetailService(IMapper mapper, IDatabaseSettings _databaseSettings)
@@ -16,38 +17,31 @@ namespace MultiShop.Catalog.Services.ProductDetailServices
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
             _productDetailCollection = database.GetCollection<ProductDetail>(_databaseSettings.ProductDetailCollectionName);
+            _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
             _mapper = mapper;
-        }
-
-        public async Task CreateProductDetailAsync(CreateProductDetailDto createProductDetailDto)
-        {
-            var value = _mapper.Map<ProductDetail>(createProductDetailDto);
-            await _productDetailCollection.InsertOneAsync(value);
         }
 
         public async Task DeleteProductDetailAsync(string id)
         {
-            await _productDetailCollection.DeleteOneAsync(x => x.ProductId == id);
+            await _productDetailCollection.DeleteOneAsync(x => x.Id == id);
         }
 
-        public async Task<List<ResultProductDetailDto>> GetAllProductDetails()
+        public async Task<GetProductDetailByIdDto> GetByIdAsync(string id)
         {
-            var values = await _productDetailCollection.Find(x => true).ToListAsync();
-            return _mapper.Map<List<ResultProductDetailDto>>(values);
-        }
-
-        public async Task<GetByProductDetailIdDto> GetByProductDetailIdAsync(string id)
-        {
-            var value = await _productDetailCollection.Find<ProductDetail>
+            var productDetail = await _productDetailCollection.Find
                 (pd => pd.ProductId == id).FirstOrDefaultAsync();
 
-            return _mapper.Map<GetByProductDetailIdDto>(value);
+            var product = await _productCollection.Find(p => p.Id == productDetail.ProductId).FirstOrDefaultAsync();
+
+            productDetail.Product = product;
+
+            return _mapper.Map<GetProductDetailByIdDto>(productDetail);
         }
 
         public async Task UpdateProductDetailAsync(UpdateProductDetailDto updateProductDetailDto)
         {
             var value = _mapper.Map<ProductDetail>(updateProductDetailDto);
-            await _productDetailCollection.FindOneAndReplaceAsync(x => x.ProductId == updateProductDetailDto.ProductId, value);
+            await _productDetailCollection.FindOneAndReplaceAsync(x => x.Id == updateProductDetailDto.Id, value);
         }
     }
 }

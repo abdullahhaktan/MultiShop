@@ -1,0 +1,72 @@
+﻿@model GetProductByIdDto
+@{
+    ViewData["Title"] = "Ürün Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card card-outline card-warning shadow-lg">
+                    <div class="card-header bg-white">
+                        <h3 class="card-title font-weight-bold text-warning">
+                            <i class="fa fa-refresh mr-2"></i> Ürün Bilgilerini Güncelle
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold text-muted small uppercase">Ürün Adı</label>
+                                        <input type="text" asp-for="ProductName" class="form-control border-left-warning shadow-sm" />
+                                        <span asp-validation-for="ProductName" class="text-danger small"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold text-muted small uppercase">Detaylı Açıklama</label>
+                                        <textarea asp-for="Description" class="form-control" rows="6"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold text-muted small uppercase">Ürün Görsel URL</label>
+                                        <input type="text" asp-for="ImageUrl" class="form-control shadow-sm" />
+                                        <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group border-bottom pb-2">
+                                        <label class="font-weight-bold">Kategori</label>
+                                        <select asp-for="CategoryId" class="form-control shadow-sm">
+                                            @if (ViewBag.Categories != null)
+                                            {
+                                                @foreach (var category in ViewBag.Categories)
+                                                {
+                                                    <option value="@category.Id">@category.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Fiyat Bilgisi</label>
+                                        <input type="number" asp-for="Price" class="form-control mb-2" step="0.01" />
+                                        <label class="font-weight-bold">Stok Durumu</label>
+                                        <input type="number" asp-for="Stock" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between">
+                            <a href="/Admin/Product/Index" class="btn btn-light border">
+                                <i class="fa fa-times-circle mr-1"></i> Değişiklikleri İptal Et
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 font-weight-bold">
+                                <i class="fa fa-check mr-2"></i> Verileri Güncelle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

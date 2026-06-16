@@ -1,0 +1,51 @@
+﻿@model CreateSpecialOfferDto
+@{
+    ViewData["Title"] = "Yeni Özel Teklif";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-outline card-success shadow-lg">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold">
+                            <i class="fa fa-plus-circle mr-2 text-success"></i> Yeni Özel Teklif Tanımla
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Teklif Başlığı</label>
+                                <input type="text" asp-for="Title" class="form-control" placeholder="Örn: Günün Fırsatı, Süper İndirim vb." />
+                                <span asp-validation-for="Title" class="text-danger small"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">İndirim Oranı (%)</label>
+                                <input type="number" asp-for="DiscountRate" class="form-control" placeholder="Örn: 50" min="0" max="100" />
+                                <span asp-validation-for="DiscountRate" class="text-danger small"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Görsel Bağlantısı (URL)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-link"></i></div>
+                                    <input type="text" asp-for="ImageUrl" class="form-control" placeholder="Resim URL'sini buraya yapıştırın" />
+                                </div>
+                                <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="/Admin/SpecialOffer/Index" class="text-muted">
+                                <i class="fa fa-arrow-left mr-1"></i> Vazgeç
+                            </a>
+                            <button type="submit" class="btn btn-success px-5 shadow-sm">
+                                <i class="fa fa-save mr-2"></i> Teklifi Oluştur
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

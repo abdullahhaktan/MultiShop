@@ -21,9 +21,9 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers
             return new GetOrderDetailByIdQueryResult
             {
                 OrderDetailId = value.OrderDetailId,
-                ProductId = value.ProductId,
+                Id = value.Id,
                 ProductName = value.ProductName,
-                ProductPrice = value.ProductPrice,
+                Price = value.Price,
                 ProductAmount = value.ProductAmount,
                 ProductTotalPrice = value.ProductTotalPrice,
                 OrderingId = value.OrderingId

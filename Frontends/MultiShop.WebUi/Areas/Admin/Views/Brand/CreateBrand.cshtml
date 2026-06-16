@@ -1,0 +1,73 @@
+﻿@model CreateBrandDto
+
+@{
+    ViewData["Title"] = "Yeni Marka";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-outline card-primary shadow">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fa fa-tags mr-2"></i>
+                            Yeni Marka Ekle
+                        </h3>
+                    </div>
+
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Logo URL</label>
+                                <input type="text"
+                                       asp-for="ImageUrl"
+                                       class="form-control"
+                                       placeholder="https://..." />
+                            </div>
+                            <div class="text-center mt-4">
+                                <img id="preview"
+                                     src=""
+                                     style="max-height:150px; display:none;" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="card-footer d-flex justify-content-between">
+
+                            <a href="/Admin/Brand/Index"
+                               class="btn btn-secondary">
+                                Geri Dön
+                            </a>
+
+                            <button class="btn btn-primary">
+                                <i class="fa fa-save mr-1"></i>
+                                Kaydet
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script>
+    document.querySelector("#ImageUrl")
+    ?.addEventListener("keyup", function () {
+
+        let preview = document.getElementById("preview");
+
+        preview.src = this.value;
+
+        preview.style.display = "block";
+    });
+</script>

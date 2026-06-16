@@ -47,9 +47,9 @@ namespace MultiShop.Order.Persistence.Migrations
                 {
                     OrderDetailId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductAmount = table.Column<int>(type: "int", nullable: false),
                     ProductTotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     OrderingId = table.Column<int>(type: "int", nullable: false)

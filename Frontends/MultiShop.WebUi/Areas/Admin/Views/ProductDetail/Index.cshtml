@@ -1,0 +1,79 @@
+﻿@model GetProductDetailByIdDto
+
+@{
+    ViewData["Title"] = "Ürün Detayları";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card card-outline card-primary" style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+
+                    @* Başlık Bölümü *@
+                    <div class="card-header d-flex justify-content-between align-items-center" style="padding: 15px;">
+                        <h3 class="card-title mb-0">
+                            <i class="fa fa-info-circle mr-2 text-primary"></i> @ViewBag.v3 (@ViewBag.v2)
+                        </h3>
+                    </div>
+
+                    @* Form ve İçerik Bölümü *@
+                    <div class="card-body" style="padding: 20px;">
+                        @if (Model != null)
+                        {
+                            <form asp-action="UpdateProductDetail" asp-controller="ProductDetail" asp-area="Admin" method="post">
+
+                                @* Form post edildiğinde ID'lerin kaybolmaması için gizli inputlar *@
+                                <input type="hidden" name="Id" value="@Model.Id" />
+                                <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="ProductDescription" class="font-weight-bold text-secondary">
+                                        <i class="fa fa-file-text-o mr-1"></i> Ürün Açıklaması
+                                    </label>
+                                    <textarea asp-for="ProductDescription" class="form-control" rows="5"
+                                              placeholder="Ürünün detaylı açıklamasını buraya yazınız..." style="border-radius: 5px;"></textarea>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label asp-for="ProductInfo" class="font-weight-bold text-secondary">
+                                        <i class="fa fa-list-alt mr-1"></i> Ürün Bilgisi / Teknik Özellikler
+                                    </label>
+                                    <textarea asp-for="ProductInfo" class="form-control" rows="5"
+                                              placeholder="Ürünün teknik bilgilerini veya ek detaylarını buraya yazınız..." style="border-radius: 5px;"></textarea>
+                                </div>
+
+                                <hr />
+
+                                <div class="d-flex justify-content-start align-items-center pt-2">
+                                    <button type="submit" class="btn btn-primary shadow-sm mr-2">
+                                        <i class="fa fa-save mr-1"></i> Değişiklikleri Kaydet
+                                    </button>
+                                    <a href="/Admin/Product/Index" class="btn btn-secondary shadow-sm">
+                                        <i class="fa fa-arrow-left mr-1"></i> Ürün Listesine Dön
+                                    </a>
+                                </div>
+
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="text-center py-5 text-muted">
+                                <i class="fa fa-exclamation-triangle fa-3x mb-3 text-warning"></i>
+                                <h5>Bu ürüne ait herhangi bir detay verisi bulunamadı veya yüklenirken bir hata oluştu.</h5>
+                                <p class="small">Lütfen API bağlantılarını veya ürün ID bilgisini kontrol edin.</p>
+                                <a href="/Admin/Product/Index" class="btn btn-secondary shadow-sm mt-3">
+                                    <i class="fa fa-arrow-left mr-1"></i> Ürün Listesine Dön
+                                </a>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

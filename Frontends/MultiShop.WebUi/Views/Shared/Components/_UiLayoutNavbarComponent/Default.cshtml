@@ -1,4 +1,5 @@
-﻿@*
+﻿@model List<ResultCategoryDto>
+@*
     Ui Layout NavbarComponent Component
 *@
 
@@ -19,15 +20,10 @@
                             <a href="" class="dropdown-item">Bebek Elbiseleri</a>
                         </div>
                     </div>
-                    <a href="" class="nav-item nav-link">Gömlekler</a>
-                    <a href="" class="nav-item nav-link">Kotlar</a>
-                    <a href="" class="nav-item nav-link">Mayo & Bikini</a>
-                    <a href="" class="nav-item nav-link">Pijamalar</a>
-                    <a href="" class="nav-item nav-link">Spor Giyim</a>
-                    <a href="" class="nav-item nav-link">Tulumlar</a>
-                    <a href="" class="nav-item nav-link">Blazerlar</a>
-                    <a href="" class="nav-item nav-link">Ceketler</a>
-                    <a href="" class="nav-item nav-link">Ayakkabılar</a>
+                    @foreach(var item in Model)
+                    {
+                        <a href="/ProductList/Index/@item.Id" class="nav-item nav-link">@item.Name</a>
+                    }
                 </div>
             </nav>
         </div>

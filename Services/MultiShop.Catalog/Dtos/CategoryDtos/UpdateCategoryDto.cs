@@ -2,7 +2,9 @@
 {
     public class UpdateCategoryDto
     {
-        public string CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public int? CategoryProductCount { get; set; }
     }
 }

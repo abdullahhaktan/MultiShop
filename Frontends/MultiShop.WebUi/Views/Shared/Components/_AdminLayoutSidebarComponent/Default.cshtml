@@ -1,0 +1,119 @@
+﻿@*
+    Admin Layout Sidebar Component
+*@
+
+<style>
+    .main-sidebar {
+        height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        scroll-behavior: smooth;
+    }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: #2c3b41;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #1e282c;
+            border-radius: 3px;
+        }
+
+            .main-sidebar::-webkit-scrollbar-thumb:hover {
+                background: #151b1f;
+            }
+
+    .main-sidebar {
+        scrollbar-width: thin;
+        scrollbar-color: #1e282c #2c3b41;
+    }
+</style>
+
+<aside class="main-sidebar dark-bg" style="padding-top: 70px;">
+    <section class="sidebar">
+        <div class="user-panel black-bg">
+            <div class="pull-left image">
+                <img src="~/admin-images/admin-profile.png" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>Abdullah Haktan</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+            <br />
+            <br />
+        </div>
+
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header dark-bg">NAVİGASYON</li>
+
+            <li>
+                <a href="/Default/Index">
+                    <i class="fa fa-home"></i> <span>Menüye Git (Site)</span>
+                </a>
+            </li>
+
+            <li class="header dark-bg">YÖNETİM PANELİ</li>
+
+            <li>
+                <a href="/Admin/Category/Index">
+                    <i class="fa fa-th"></i> <span>Kategoriler</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/Product/Index">
+                    <i class="fa fa-shopping-cart"></i> <span>Ürünler</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/ProductImage/Index">
+                    <i class="fa fa-picture-o"></i> <span>Ürün Görselleri</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/FeaturedProduct/Index">
+                    <i class="fa fa-star"></i> <span>Öne Çıkan Ürünler</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/FeatureSlider/Index">
+                    <i class="fa fa-image"></i> <span>Öne Çıkan Slider</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/SpecialOffer/Index">
+                    <i class="fa fa-gift"></i> <span>Özel Teklifler</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/Feature/Index">
+                    <i class="fa fa-list"></i> <span>Özellikler</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/Brand/Index">
+                    <i class="fa fa-tags"></i> <span>Markalar</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Admin/About/Index">
+                    <i class="fa fa-info-circle"></i> <span>Hakkında</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+</aside>

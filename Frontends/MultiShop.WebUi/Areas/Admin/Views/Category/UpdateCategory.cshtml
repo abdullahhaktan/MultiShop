@@ -1,0 +1,62 @@
+﻿@model GetCategoryByIdDto
+@{
+    ViewData["Title"] = "Kategori Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card card-outline card-warning shadow-lg">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold text-dark">
+                            <i class="fas fa-edit mr-2 text-warning"></i> Kategoriyi Düzenle
+                        </h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <input type="hidden" asp-for="Id" />
+
+                            <div class="form-group mb-4">
+                                <label asp-for="Name" class="font-weight-bold text-dark">Kategori Adı</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-warning text-white">
+                                            <i class="fas fa-pen"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" asp-for="Name" class="form-control font-weight-bold" />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ImageUrl" class="font-weight-bold text-dark">Kategori Görsel Adresi (URL)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-warning text-white">
+                                            <i class="fas fa-image"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" asp-for="ImageUrl" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white d-flex justify-content-between border-top">
+                            <a href="/Admin/Category/Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-undo mr-1"></i> Listeye Dön
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 font-weight-bold text-dark">
+                                <i class="fas fa-sync-alt mr-1"></i> Değişiklikleri Uygula
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
