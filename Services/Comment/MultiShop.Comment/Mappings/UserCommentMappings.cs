@@ -8,7 +8,7 @@ namespace MultiShop.Comment.Mappings
     {
         public UserCommentMappings()
         {
-            CreateMap<UserComment, CreateUserCommentDto>();
+            CreateMap<UserComment, CreateUserCommentDto>().ReverseMap();
             CreateMap<UserComment, ResultUserCommentDto>();
             CreateMap<UserComment, GetUserCommentByIdDto>();
             CreateMap<UserComment, UpdateUserCommentDto>();

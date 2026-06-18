@@ -1,0 +1,95 @@
+﻿@model CreateUserCommentDto
+@*
+    Ui Create User Comment Component
+*@
+
+<div class="col-md-6">
+    <h4 class="mb-4">Yorum bırakın</h4>
+    <small>E-posta adresiniz yayınlanmayacaktır. Zorunlu alanlar * ile işaretlenmiştir.</small>
+
+    @* Tıklanabilir Yıldız Yapısı *@
+    <div class="d-flex my-3">
+        <p class="mb-0 mr-2">Puanınız * :</p>
+        <div class="text-primary" id="star-rating-container" style="cursor: pointer;">
+            <i class="far fa-star rating-star" data-value="1"></i>
+            <i class="far fa-star rating-star" data-value="2"></i>
+            <i class="far fa-star rating-star" data-value="3"></i>
+            <i class="far fa-star rating-star" data-value="4"></i>
+            <i class="far fa-star rating-star" data-value="5"></i>
+        </div>
+    </div>
+
+    <form asp-action="CreateComment" asp-controller="ProductList" method="post">
+
+        @* Seçilen puan bu gizli input'a yazılacak (Varsayılan olarak 5 verdik) *@
+        <input type="hidden" id="selected-rating" asp-for="Rating" value="5" />
+
+        <input type="hidden" asp-for="ProductId" value="@ViewBag.id" />
+        <input type="hidden" asp-for="CreatedDate" value="@DateTime.Now" />
+        <input type="hidden" asp-for="Status" value="true" />
+
+        <div class="form-group">
+            <label for="message">Yorumunuz *</label>
+            <textarea asp-for="CommentDetail" cols="30" rows="5" class="form-control" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Adınız Soyadınız *</label>
+            <input type="text" class="form-control" asp-for="NameSurname" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-posta *</label>
+            <input type="email" class="form-control" asp-for="Email" required>
+        </div>
+
+        <div class="form-group mb-0">
+            <input type="submit" value="Değerlendirme Gönder" class="btn btn-primary px-3">
+        </div>
+    </form>
+</div>
+
+@* Yıldızların dinamik çalışmasını sağlayan JS kodu *@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll(".rating-star");
+        const ratingInput = document.getElementById("selected-rating");
+
+        // Sayfa ilk açıldığında varsayılan olarak 5 yıldızı da doldur
+        updateStars(ratingInput.value);
+
+        stars.forEach(star => {
+            // Yıldıza tıklandığında
+            star.addEventListener("click", function () {
+                const ratingValue = this.getAttribute("data-value");
+                ratingInput.value = ratingValue; // DTO'ya gidecek inputu güncelle
+                updateStars(ratingValue); // Yıldız görsellerini güncelle
+            });
+
+            // Fare üzerine geldiğinde (Önizleme için)
+            star.addEventListener("mouseover", function () {
+                const hoverValue = this.getAttribute("data-value");
+                updateStars(hoverValue);
+            });
+
+            // Fare yıldızların üzerinden çekildiğinde (Seçili olana geri dön)
+            star.addEventListener("mouseleave", function () {
+                updateStars(ratingInput.value);
+            });
+        });
+
+        // Yıldızların içini dolduran yardımcı fonksiyon
+        function updateStars(value) {
+            stars.forEach(star => {
+                const starValue = star.getAttribute("data-value");
+                if (starValue <= value) {
+                    star.classList.remove("far"); // Boş yıldız sınıfını sil
+                    star.classList.add("fas");    // Dolu yıldız sınıfını ekle
+                } else {
+                    star.classList.remove("fas");
+                    star.classList.add("far");
+                }
+            });
+        }
+    });
+</script>

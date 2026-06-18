@@ -21,6 +21,11 @@ namespace MultiShop.WebUi.Components.Ui_Product_Detail_Components
             {
                 var id = await responseMessage.Content.ReadAsStringAsync();
 
+                if(string.IsNullOrEmpty(id))
+                {
+                    return View(new GetProductImageByIdDto());
+                }
+
                 var responseMessage1 = await client.GetAsync($"https://localhost:7070/api/ProductImages/{id}");
                 if (responseMessage1.IsSuccessStatusCode)
                 {

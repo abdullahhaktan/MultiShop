@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiShop.DtoLayer.UserCommentDtos;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace MultiShop.WebUi.Controllers
 {
@@ -27,6 +30,21 @@ namespace MultiShop.WebUi.Controllers
             HttpContext.Items["a1"] = "/ProductList/Index";
 
             ViewBag.id = id;
+            return View();
+        }
+
+        public async Task<IActionResult> CreateComment(CreateUserCommentDto createUserCommentDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createUserCommentDto);
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7095/api/UserComments", content);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("ProductDetail", new { id = createUserCommentDto.ProductId });
+            }
+
             return View();
         }
     }
