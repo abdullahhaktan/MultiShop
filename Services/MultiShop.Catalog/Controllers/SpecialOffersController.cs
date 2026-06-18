@@ -49,7 +49,7 @@ namespace MultiShop.Catalog.Controllers
         public async Task<IActionResult> UpdateSpecialOffer(UpdateSpecialOfferDto updateSpecialOfferDto)
         {
             await _specialOfferService.UpdateSpecialOfferAsync(updateSpecialOfferDto);
-            return NoContent();
+            return Ok(updateSpecialOfferDto);
         }
     }
 }

@@ -1,0 +1,89 @@
+﻿@model GetUserCommentByIdDto
+
+@{
+    ViewData["Title"] = "UpdateComment";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4 justify-content-center" style="display: flex; justify-content: center;">
+        <div class="col-sm-12 col-xl-8" style="width: 70%; margin: 0 auto;">
+            <div class="bg-light rounded h-100 p-4 shadow-sm" style="background-color: #f8f9fa; padding: 25px; border-radius: 8px; border: 1px solid #dee2e6;">
+                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-4" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #dee2e6; padding-bottom: 15px; margin-bottom: 20px;">
+                    <h5 class="mb-0 text-dark font-weight-bold" style="margin: 0; color: #343a40; font-weight: bold;">
+                        <i class="fa fa-pencil text-warning me-2" style="color: #ffc107; margin-right: 8px;"></i>Yorum Detaylarını Güncelle
+                    </h5>
+                    <a href="/Admin/UserComment/Index" class="btn btn-sm btn-secondary" style="background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 13px;">
+                        <i class="fa fa-arrow-left" style="margin-right: 5px;"></i>Listeye Dön
+                    </a>
+                </div>
+
+                <form asp-action="UpdateUserComment" asp-area="Admin" asp-controller="UserComment" method="post">
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.ProductId)
+                    @Html.HiddenFor(x => x.CreatedDate)
+
+                    <div class="row" style="display: flex; margin-bottom: 15px; gap: 20px;">
+                        <div class="col-md-6" style="flex: 1;">
+                            <label class="form-label fw-bold text-secondary" style="font-weight: bold; color: #495057; display: block; margin-bottom: 5px;">Adı Soyadı</label>
+                            <div class="input-group" style="display: flex;">
+                                <span class="input-group-text bg-white" style="background-color: #e9ecef; border: 1px solid #ced4da; padding: 6px 12px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;"><i class="fa fa-user text-muted"></i></span>
+                                <input type="text" class="form-control" asp-for="NameSurname" required placeholder="Kullanıcı adı" style="flex: 1; border: 1px solid #ced4da; padding: 6px 12px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="flex: 1;">
+                            <label class="form-label fw-bold text-secondary" style="font-weight: bold; color: #495057; display: block; margin-bottom: 5px;">E-Posta Adresi</label>
+                            <div class="input-group" style="display: flex;">
+                                <span class="input-group-text bg-white" style="background-color: #e9ecef; border: 1px solid #ced4da; padding: 6px 12px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;"><i class="fa fa-envelope text-muted"></i></span>
+                                <input type="email" class="form-control" asp-for="Email" required placeholder="ornek@mail.com" style="flex: 1; border: 1px solid #ced4da; padding: 6px 12px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display: flex; margin-bottom: 15px; gap: 20px;">
+                        <div class="col-md-6" style="flex: 1;">
+                            <label class="form-label fw-bold text-secondary" style="font-weight: bold; color: #495057; display: block; margin-bottom: 5px;">Profil Resmi URL</label>
+                            <div class="input-group" style="display: flex;">
+                                <span class="input-group-text bg-white" style="background-color: #e9ecef; border: 1px solid #ced4da; padding: 6px 12px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;"><i class="fa fa-image text-muted"></i></span>
+                                <input type="text" class="form-control" asp-for="ImageUrl" placeholder="Görsel linki (Opsiyonel)" style="flex: 1; border: 1px solid #ced4da; padding: 6px 12px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="flex: 1;">
+                            <label class="form-label fw-bold text-secondary" style="font-weight: bold; color: #495057; display: block; margin-bottom: 5px;">Verilen Puan (Rating)</label>
+                            <div class="input-group" style="display: flex;">
+                                <span class="input-group-text bg-white" style="background-color: #e9ecef; border: 1px solid #ced4da; padding: 6px 12px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;"><i class="fa fa-star" style="color: #ffc107;"></i></span>
+                                <select class="form-select" asp-for="Rating" style="flex: 1; border: 1px solid #ced4da; padding: 6px 12px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; background-color: #white;">
+                                    <option value="1">1 Yıldız - Çok Kötü</option>
+                                    <option value="2">2 Yıldız - Kötü</option>
+                                    <option value="3">3 Yıldız - Orta</option>
+                                    <option value="4">4 Yıldız - İyi</option>
+                                    <option value="5">5 Yıldız - Mükemmel</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4" style="margin-bottom: 20px;">
+                        <label class="form-label fw-bold text-secondary" style="font-weight: bold; color: #495057; display: block; margin-bottom: 5px;">Yorum Metni</label>
+                        <textarea class="form-control" asp-for="CommentDetail" rows="5" required placeholder="Kullanıcı yorumunu buraya yazın..." style="width: 100%; border: 1px solid #ced4da; padding: 10px; border-radius: 4px; box-sizing: border-box; font-family: inherit;"></textarea>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between border-top pt-3" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #dee2e6; padding-top: 15px;">
+                        <div class="form-check form-switch" style="display: flex; align-items: center;">
+                            <input class="form-check-input" type="checkbox" role="switch" id="StatusSwitch" asp-for="Status" style="cursor: pointer; width: 35px; height: 18px;">
+                            <label class="form-check-input-label ms-2 fw-bold" for="StatusSwitch" style="cursor: pointer; font-weight: bold; margin-left: 10px; color: #495057;">
+                                Yorum Sitede Yayınlansın Mı? (Aktif/Pasif)
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning text-dark font-weight-bold px-4 py-2" style="background-color: #ffc107; color: #212529; border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer;">
+                            <i class="fa fa-save" style="margin-right: 5px;"></i> Değişiklikleri Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

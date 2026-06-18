@@ -20,7 +20,7 @@ namespace MultiShop.Catalog.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductDetailById(string id)
         {
-            var value = await _productDetailService.GetByIdAsync(id);
+            var value = await _productDetailService.GetByProductDetailIdAsync(id);
             return Ok(value);
         }
 
@@ -28,7 +28,7 @@ namespace MultiShop.Catalog.Controllers
         public async Task<IActionResult> UpdateProductDetail(UpdateProductDetailDto updateProductDetailDto)
         {
             await _productDetailService.UpdateProductDetailAsync(updateProductDetailDto);
-            return NoContent();
+            return Ok(updateProductDetailDto);
         }
     }
 }

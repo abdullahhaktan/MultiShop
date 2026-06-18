@@ -6,6 +6,7 @@ namespace MultiShop.WebUi.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            ViewBag.v0 = "Ana Sayfa";
             return View();
         }
     }

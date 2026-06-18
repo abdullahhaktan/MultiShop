@@ -35,7 +35,7 @@ namespace MultiShop.Catalog.Controllers
         public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
         {
             await _aboutService.UpdateAboutAsync(updateAboutDto);
-            return NoContent();
+            return Ok(updateAboutDto);
         }
     }
 }

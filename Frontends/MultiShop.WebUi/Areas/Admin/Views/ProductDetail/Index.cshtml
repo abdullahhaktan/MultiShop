@@ -29,24 +29,74 @@
                                 <input type="hidden" name="Id" value="@Model.Id" />
                                 <input type="hidden" name="ProductId" value="@Model.ProductId" />
 
+                                @* Ürün Açıklaması *@
                                 <div class="form-group mb-3">
                                     <label asp-for="ProductDescription" class="font-weight-bold text-secondary">
                                         <i class="fa fa-file-text-o mr-1"></i> Ürün Açıklaması
                                     </label>
-                                    <textarea asp-for="ProductDescription" class="form-control" rows="5"
+                                    <textarea asp-for="ProductDescription" class="form-control" rows="4"
                                               placeholder="Ürünün detaylı açıklamasını buraya yazınız..." style="border-radius: 5px;"></textarea>
                                 </div>
 
+                                @* Ürün Bilgisi / Teknik Özellikler *@
                                 <div class="form-group mb-4">
                                     <label asp-for="ProductInfo" class="font-weight-bold text-secondary">
                                         <i class="fa fa-list-alt mr-1"></i> Ürün Bilgisi / Teknik Özellikler
                                     </label>
-                                    <textarea asp-for="ProductInfo" class="form-control" rows="5"
+                                    <textarea asp-for="ProductInfo" class="form-control" rows="4"
                                               placeholder="Ürünün teknik bilgilerini veya ek detaylarını buraya yazınız..." style="border-radius: 5px;"></textarea>
+                                </div>
+
+                                <h5 class="text-primary font-weight-bold mb-3 border-bottom pb-2">
+                                    <i class="fa fa-tags mr-1"></i> Ek Bilgi Maddeleri (8 Özellik)
+                                </h5>
+
+                                @* Ek Bilgiler - Yan Yana 2 Sütun Düzeni (4 Sol - 4 Sağ) *@
+                                <div class="row">
+                                    @* Sol Sütun (1-4) *@
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureOne" class="small font-weight-bold text-muted">Özellik 1</label>
+                                            <input type="text" asp-for="FeatureOne" class="form-control" placeholder="1. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureTwo" class="small font-weight-bold text-muted">Özellik 2</label>
+                                            <input type="text" asp-for="FeatureTwo" class="form-control" placeholder="2. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureThree" class="small font-weight-bold text-muted">Özellik 3</label>
+                                            <input type="text" asp-for="FeatureThree" class="form-control" placeholder="3. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureFour" class="small font-weight-bold text-muted">Özellik 4</label>
+                                            <input type="text" asp-for="FeatureFour" class="form-control" placeholder="4. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                    </div>
+
+                                    @* Sağ Sütun (5-8) *@
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureFive" class="small font-weight-bold text-muted">Özellik 5</label>
+                                            <input type="text" asp-for="FeatureFive" class="form-control" placeholder="5. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureSix" class="small font-weight-bold text-muted">Özellik 6</label>
+                                            <input type="text" asp-for="FeatureSix" class="form-control" placeholder="6. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureSeven" class="small font-weight-bold text-muted">Özellik 7</label>
+                                            <input type="text" asp-for="FeatureSeven" class="form-control" placeholder="7. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="FeatureEight" class="small font-weight-bold text-muted">Özellik 8</label>
+                                            <input type="text" asp-for="FeatureEight" class="form-control" placeholder="8. madde içeriğini giriniz..." style="border-radius: 5px;" />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <hr />
 
+                                @* Butonlar *@
                                 <div class="d-flex justify-content-start align-items-center pt-2">
                                     <button type="submit" class="btn btn-primary shadow-sm mr-2">
                                         <i class="fa fa-save mr-1"></i> Değişiklikleri Kaydet

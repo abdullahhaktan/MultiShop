@@ -45,7 +45,7 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Product", new { area = "Admin" });
             }
 
-            return View("Index", updateProductDetailDto);
+            return View("Index", new GetProductDetailByIdDto());
 
         }
 

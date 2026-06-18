@@ -21,7 +21,6 @@ namespace MultiShop.Discount.Controllers
         public async Task<IActionResult> CuponList()
         {
             var values = await _discountService.GetAllDiscountAsync();
-
             return Ok(values);
         }
 
@@ -36,7 +35,6 @@ namespace MultiShop.Discount.Controllers
         public async Task<IActionResult> CreateDiscount(CreateDiscountDto createCuponDto)
         {
             await _discountService.CreateDiscountAsync(createCuponDto);
-
             return Ok("Kupon başarıyla oluşturuldu");
         }
 

@@ -49,7 +49,7 @@ namespace MultiShop.Catalog.Controllers
         public async Task<IActionResult> UpdateFeatureSlider(UpdateFeatureSliderDto updateFeatureSliderDto)
         {
             await _featureSliderService.UpdateFeatureSliderAsync(updateFeatureSliderDto);
-            return NoContent();
+            return Ok(updateFeatureSliderDto);
         }
     }
 }

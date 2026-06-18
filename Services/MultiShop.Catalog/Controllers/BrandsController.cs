@@ -49,7 +49,7 @@ namespace MultiShop.Catalog.Controllers
         public async Task<IActionResult> UpdateBrand(UpdateBrandDto updateBrandDto)
         {
             await _brandService.UpdateBrandAsync(updateBrandDto);
-            return NoContent();
+            return Ok(updateBrandDto);
         }
     }
 }

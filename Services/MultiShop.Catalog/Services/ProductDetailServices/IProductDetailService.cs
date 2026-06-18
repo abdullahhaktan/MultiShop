@@ -5,6 +5,6 @@ namespace MultiShop.Catalog.Services.ProductDetailServices
     public interface IProductDetailService
     {
         Task UpdateProductDetailAsync(UpdateProductDetailDto productDetailDto);
-        Task<GetProductDetailByIdDto> GetByIdAsync(string id);
+        Task<GetProductDetailByIdDto> GetByProductDetailIdAsync(string id);
     }
 }

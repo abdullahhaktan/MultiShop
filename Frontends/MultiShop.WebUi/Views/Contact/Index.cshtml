@@ -3,4 +3,6 @@
     Layout = "~/Views/UiLayout/Index.cshtml";
 }
 
+@await Component.InvokeAsync("_UiContactBreadCrumbComponent")
+
 @await Component.InvokeAsync("_UiContactComponent")

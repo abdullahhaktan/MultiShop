@@ -18,7 +18,7 @@
                 <div class="tab-content">
                     @await Component.InvokeAsync("_UiProductDetailDescriptionComponent", new { id = ViewBag.id })
                     @await Component.InvokeAsync("_UiProductDetailAdditionalInformationComponent", new { id = ViewBag.id })
-                    @await Component.InvokeAsync("_UiCartSummaryComponent", new { id = ViewBag.id })
+                    @await Component.InvokeAsync("_UiUserCommentComponent", new { productId = ViewBag.id })
                 </div>
             </div>
         </div>

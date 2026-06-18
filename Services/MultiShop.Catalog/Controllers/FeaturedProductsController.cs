@@ -47,7 +47,7 @@ namespace MultiShop.Catalog.Controllers
         public async Task<IActionResult> UpdateFeaturedProduct(UpdateFeaturedProductDto updateFeaturedProductDto)
         {
             await _productService.UpdateFeaturedProductAsync(updateFeaturedProductDto);
-            return NoContent();
+            return Ok(updateFeaturedProductDto);
         }
     }
 }
