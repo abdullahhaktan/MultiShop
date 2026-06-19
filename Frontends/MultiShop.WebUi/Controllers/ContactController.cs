@@ -12,5 +12,11 @@ namespace MultiShop.WebUi.Controllers
 
             return View();
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View();
+        //}
     }
 }

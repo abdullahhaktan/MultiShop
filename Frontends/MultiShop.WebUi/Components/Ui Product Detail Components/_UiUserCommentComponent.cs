@@ -16,11 +16,11 @@ namespace MultiShop.WebUi.Components.Ui_Product_Detail_Components
 
             var responseMessage1 = await client.GetAsync($"https://localhost:7070/api/Products/{id}");
 
-            if(responseMessage1.IsSuccessStatusCode)
+            if (responseMessage1.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage1.Content.ReadAsStringAsync();
                 var value = JsonConvert.DeserializeObject<GetProductByIdDto>(jsonData);
-                if(value!=null)
+                if (value != null)
                 {
                     ViewBag.Product = value.ProductName;
                 }

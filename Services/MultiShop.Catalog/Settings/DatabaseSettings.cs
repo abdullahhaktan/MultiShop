@@ -3,6 +3,7 @@
     public class DatabaseSettings : IDatabaseSettings
     {
         public string CategoryCollectionName { get; set; }
+        public string ContactCollectionName { get; set; }
         public string ProductCollectionName { get; set; }
         public string ProductDetailCollectionName { get; set; }
         public string ProductImageCollectionName { get; set; }

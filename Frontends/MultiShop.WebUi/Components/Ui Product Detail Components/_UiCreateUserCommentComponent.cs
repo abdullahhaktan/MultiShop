@@ -3,7 +3,7 @@ using MultiShop.DtoLayer.UserCommentDtos;
 
 namespace MultiShop.WebUi.Components.Ui_Product_Detail_Components
 {
-    public class _UiCreateUserCommentComponent:ViewComponent
+    public class _UiCreateUserCommentComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {

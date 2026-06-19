@@ -4,7 +4,7 @@ using MultiShop.Comment.Entities;
 
 namespace MultiShop.Comment.Mappings
 {
-    public class UserCommentMappings:Profile
+    public class UserCommentMappings : Profile
     {
         public UserCommentMappings()
         {

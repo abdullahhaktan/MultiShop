@@ -9,7 +9,7 @@ namespace MultiShop.Comment.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserCommentsController(CommentContext _context,IMapper _mapper) : ControllerBase
+    public class UserCommentsController(CommentContext _context, IMapper _mapper) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> CommentList()
@@ -18,7 +18,7 @@ namespace MultiShop.Comment.Controllers
             var comments = _mapper.Map<List<ResultUserCommentDto>>(values);
             return Ok(comments);
         }
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCommentById(int id)
         {

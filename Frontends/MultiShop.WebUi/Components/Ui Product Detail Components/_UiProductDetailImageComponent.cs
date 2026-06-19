@@ -21,7 +21,7 @@ namespace MultiShop.WebUi.Components.Ui_Product_Detail_Components
             {
                 var id = await responseMessage.Content.ReadAsStringAsync();
 
-                if(string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id))
                 {
                     return View(new GetProductImageByIdDto());
                 }
