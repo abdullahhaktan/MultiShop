@@ -1,6 +1,13 @@
 ﻿namespace MultiShop.DtoLayer.ContactDtos
 {
-    internal class GetContactByIdDto
+    public class GetContactByIdDto
     {
+        public string Id { get; set; }
+        public string NameSurname { get; set; }
+        public string Email { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
+        public bool IsRead { get; set; } = false;
+        public DateTime SendDate { get; set; } = DateTime.Now;
     }
 }

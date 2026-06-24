@@ -1,0 +1,1198 @@
+﻿@model CreateRegisterDto
+
+@{
+    ViewData["Title"] = "Kayıt Ol - MultiShop";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+            /* Animated Background - Mobile Friendly */
+            body::before {
+                content: '';
+                position: absolute;
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(circle, rgba(102, 126, 234, 0.12) 0%, transparent 70%);
+                top: -100px;
+                right: -100px;
+                animation: float 8s ease-in-out infinite;
+            }
+
+            body::after {
+                content: '';
+                position: absolute;
+                width: 250px;
+                height: 250px;
+                background: radial-gradient(circle, rgba(118, 75, 162, 0.10) 0%, transparent 70%);
+                bottom: -80px;
+                left: -80px;
+                animation: float 10s ease-in-out infinite reverse;
+            }
+
+        @@keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(20px, -20px) scale(1.05);
+            }
+        }
+
+        /* Floating Shapes - Daha küçük ve responsive */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.04;
+            animation: floatShape 15s infinite;
+        }
+
+        .shape-1 {
+            width: 150px;
+            height: 150px;
+            background: #667eea;
+            top: 5%;
+            left: 3%;
+        }
+
+        .shape-2 {
+            width: 100px;
+            height: 100px;
+            background: #764ba2;
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 3s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            background: #f093fb;
+            top: 40%;
+            left: 85%;
+            animation-delay: 6s;
+        }
+
+        @@keyframes floatShape {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(15px, -20px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-15px, 15px) rotate(240deg);
+            }
+        }
+
+        /* Main Container */
+        .register-wrapper {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: slideUp 0.8s ease;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ============================================
+                           LEFT PANEL - BRANDING (Tam Responsive)
+                           ============================================ */
+        .register-brand {
+            flex: 1;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.10));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 400px;
+            position: relative;
+        }
+
+            .register-brand .brand-icon {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                border-radius: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 38px;
+                color: white;
+                margin-bottom: 20px;
+                box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+                animation: pulse 2s ease-in-out infinite;
+                flex-shrink: 0;
+            }
+
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .register-brand h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+            .register-brand h1 span {
+                background: linear-gradient(135deg, #667eea, #f093fb);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+        .register-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 280px;
+            font-weight: 300;
+            margin-bottom: 0;
+        }
+
+        /* Brand Features - HER ZAMAN GÖRÜNÜR */
+        .brand-features {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 260px;
+        }
+
+            .brand-features .feature-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 13px;
+                font-weight: 300;
+            }
+
+                .brand-features .feature-item i {
+                    width: 28px;
+                    height: 28px;
+                    background: rgba(102, 126, 234, 0.18);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #667eea;
+                    font-size: 13px;
+                    flex-shrink: 0;
+                }
+
+        /* ============================================
+                           RIGHT PANEL - FORM
+                           ============================================ */
+        .register-form {
+            flex: 1.2;
+            padding: 40px 35px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+            .register-form .form-header {
+                margin-bottom: 28px;
+            }
+
+                .register-form .form-header h2 {
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #ffffff;
+                    margin-bottom: 4px;
+                }
+
+                .register-form .form-header p {
+                    color: rgba(255, 255, 255, 0.45);
+                    font-size: 13px;
+                    font-weight: 300;
+                    margin-bottom: 0;
+                }
+
+        /* Form Groups */
+        .form-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+            .form-group .input-icon {
+                position: absolute;
+                left: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: rgba(255, 255, 255, 0.25);
+                font-size: 15px;
+                transition: all 0.3s ease;
+                z-index: 2;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 12px 16px 12px 44px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 2px solid rgba(255, 255, 255, 0.06);
+                border-radius: 14px;
+                font-size: 14px;
+                font-family: 'Inter', sans-serif;
+                color: #ffffff;
+                transition: all 0.3s ease;
+                outline: none;
+                -webkit-appearance: none;
+            }
+
+                .form-group input::placeholder {
+                    color: rgba(255, 255, 255, 0.25);
+                    font-weight: 300;
+                    font-size: 13px;
+                }
+
+                .form-group input:focus {
+                    border-color: #667eea;
+                    background: rgba(255, 255, 255, 0.07);
+                    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.08);
+                }
+
+                    .form-group input:focus ~ .input-icon {
+                        color: #667eea;
+                    }
+
+                .form-group input:not(:placeholder-shown) {
+                    background: rgba(255, 255, 255, 0.06);
+                }
+
+            /* Password Toggle */
+            .form-group .toggle-password {
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.25);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                z-index: 2;
+                font-size: 15px;
+                padding: 5px;
+            }
+
+                .form-group .toggle-password:hover {
+                    color: #667eea;
+                }
+
+        /* Validation */
+        .validation-message {
+            color: #ff6b6b;
+            font-size: 11px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 400;
+        }
+
+        .form-group.has-error input {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .form-group.has-error .validation-message {
+            display: block;
+        }
+
+        /* Submit Button */
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .btn-register::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+                transition: left 0.6s;
+            }
+
+            .btn-register:hover::before {
+                left: 100%;
+            }
+
+            .btn-register:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 35px rgba(102, 126, 234, 0.30);
+            }
+
+            .btn-register:active {
+                transform: translateY(0);
+            }
+
+            .btn-register i {
+                font-size: 17px;
+            }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+            .divider::before,
+            .divider::after {
+                content: "";
+                flex: 1;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .divider span {
+                padding: 0 16px;
+                font-weight: 300;
+            }
+
+        /* Social Login */
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+            .social-login a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                color: rgba(255, 255, 255, 0.4);
+                font-size: 16px;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+
+                .social-login a:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                    border-color: #667eea;
+                    color: #667eea;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.12);
+                }
+
+        /* Footer */
+        .register-footer {
+            text-align: center;
+            margin-top: 18px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+            .register-footer a {
+                color: #667eea;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+
+                .register-footer a:hover {
+                    color: #f093fb;
+                }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 90%;
+        }
+
+        .toast-message {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #ffffff;
+            animation: slideInRight 0.4s ease;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+            .toast-message.success {
+                border-left-color: #51cf66;
+            }
+
+            .toast-message.error {
+                border-left-color: #ff6b6b;
+            }
+
+        @@keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Loading Spinner */
+        .btn-register.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-register .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        .btn-register.loading .spinner {
+            display: inline-block;
+        }
+
+        .btn-register.loading .btn-text {
+            display: none;
+        }
+
+        @@keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ============================================
+                           RESPONSIVE - TÜM EKRAN BOYUTLARI
+                           ============================================ */
+
+        /* Tablet ve Küçük Ekranlar (max-width: 991px) */
+        @@media (max-width: 991px) {
+            .register-wrapper {
+                max-width: 550px;
+                border-radius: 24px;
+            }
+
+            .register-brand {
+                padding: 30px 25px;
+                min-height: auto;
+            }
+
+                .register-brand .brand-icon {
+                    width: 65px;
+                    height: 65px;
+                    font-size: 30px;
+                    border-radius: 20px;
+                }
+
+                .register-brand h1 {
+                    font-size: 24px;
+                }
+
+                .register-brand p {
+                    font-size: 13px;
+                    max-width: 100%;
+                }
+
+            .brand-features {
+                max-width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px 16px;
+            }
+
+                .brand-features .feature-item {
+                    font-size: 12px;
+                }
+
+                    .brand-features .feature-item i {
+                        width: 24px;
+                        height: 24px;
+                        font-size: 11px;
+                    }
+
+            .register-form {
+                padding: 30px 25px;
+            }
+
+                .register-form .form-header h2 {
+                    font-size: 22px;
+                }
+
+            .shape-1, .shape-2, .shape-3 {
+                display: none;
+            }
+        }
+
+        /* Mobil (max-width: 768px) - 2 KOLON TEK SÜTUN OLUYOR */
+        @@media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 30px;
+            }
+
+            .register-wrapper {
+                flex-direction: column;
+                border-radius: 20px;
+                max-width: 100%;
+            }
+            /* Left Panel - Üstte, daha kompakt */
+            .register-brand {
+                padding: 25px 20px 20px;
+                min-height: auto;
+                border-radius: 20px 20px 0 0;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 10px 20px;
+            }
+
+                .register-brand .brand-icon {
+                    width: 55px;
+                    height: 55px;
+                    font-size: 26px;
+                    border-radius: 16px;
+                    margin-bottom: 0;
+                    flex-shrink: 0;
+                }
+
+                .register-brand .brand-text {
+                    flex: 1;
+                    min-width: 120px;
+                    text-align: left;
+                }
+
+                .register-brand h1 {
+                    font-size: 22px;
+                    margin-bottom: 2px;
+                }
+
+                .register-brand p {
+                    font-size: 12px;
+                    max-width: 100%;
+                }
+
+            .brand-features {
+                margin-top: 8px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px 14px;
+                width: 100%;
+                max-width: 100%;
+                padding-top: 8px;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+                .brand-features .feature-item {
+                    font-size: 11px;
+                    gap: 8px;
+                }
+
+                    .brand-features .feature-item i {
+                        width: 22px;
+                        height: 22px;
+                        font-size: 10px;
+                    }
+            /* Right Panel - Form */
+            .register-form {
+                padding: 25px 20px 30px;
+                border-radius: 0 0 20px 20px;
+            }
+
+                .register-form .form-header {
+                    margin-bottom: 20px;
+                }
+
+                    .register-form .form-header h2 {
+                        font-size: 20px;
+                    }
+
+                    .register-form .form-header p {
+                        font-size: 12px;
+                    }
+
+            .form-group {
+                margin-bottom: 14px;
+            }
+
+                .form-group input {
+                    padding: 11px 14px 11px 40px;
+                    font-size: 13px;
+                    border-radius: 12px;
+                }
+
+                .form-group .input-icon {
+                    left: 12px;
+                    font-size: 14px;
+                }
+
+                .form-group .toggle-password {
+                    right: 12px;
+                    font-size: 14px;
+                }
+            /* Name & Surname - Mobilde alt alta */
+            .row.g-3 {
+                --bs-gutter-y: 0.5rem;
+            }
+
+                .row.g-3 .col-md-6 {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+            .btn-register {
+                padding: 13px;
+                font-size: 14px;
+                border-radius: 12px;
+            }
+
+            .divider {
+                margin: 14px 0;
+                font-size: 10px;
+            }
+
+            .social-login a {
+                width: 38px;
+                height: 38px;
+                font-size: 14px;
+            }
+
+            .register-footer {
+                font-size: 12px;
+                margin-top: 14px;
+            }
+
+            .toast-message {
+                font-size: 12px;
+                padding: 10px 16px;
+            }
+
+            body::before,
+            body::after {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Çok Küçük Ekranlar (max-width: 400px) */
+        @@media (max-width: 400px) {
+            body {
+                padding: 6px;
+                padding-top: 15px;
+            }
+
+            .register-brand {
+                padding: 18px 14px 14px;
+                gap: 8px 12px;
+            }
+
+                .register-brand .brand-icon {
+                    width: 44px;
+                    height: 44px;
+                    font-size: 20px;
+                    border-radius: 12px;
+                }
+
+                .register-brand .brand-text {
+                    min-width: 80px;
+                }
+
+                .register-brand h1 {
+                    font-size: 18px;
+                }
+
+                .register-brand p {
+                    font-size: 11px;
+                    line-height: 1.4;
+                }
+
+            .brand-features {
+                gap: 4px 10px;
+            }
+
+                .brand-features .feature-item {
+                    font-size: 10px;
+                    gap: 6px;
+                }
+
+                    .brand-features .feature-item i {
+                        width: 18px;
+                        height: 18px;
+                        font-size: 9px;
+                    }
+
+            .register-form {
+                padding: 18px 14px 22px;
+            }
+
+                .register-form .form-header h2 {
+                    font-size: 18px;
+                }
+
+                .register-form .form-header p {
+                    font-size: 11px;
+                }
+
+            .form-group input {
+                padding: 10px 12px 10px 36px;
+                font-size: 12px;
+                border-radius: 10px;
+            }
+
+            .form-group .input-icon {
+                left: 10px;
+                font-size: 12px;
+            }
+
+            .form-group .toggle-password {
+                right: 10px;
+                font-size: 12px;
+            }
+
+            .btn-register {
+                padding: 11px;
+                font-size: 13px;
+                border-radius: 10px;
+            }
+
+            .social-login a {
+                width: 34px;
+                height: 34px;
+                font-size: 12px;
+            }
+
+            .register-footer {
+                font-size: 11px;
+            }
+
+            .validation-message {
+                font-size: 10px;
+            }
+        }
+
+        /* Landscape Phone - Yatay modda iyileştirme */
+        @@media (max-height: 600px) and (orientation: landscape) {
+            .register-wrapper {
+                flex-direction: row;
+                max-width: 800px;
+            }
+
+            .register-brand {
+                padding: 20px 15px;
+                min-height: auto;
+            }
+
+                .register-brand .brand-icon {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 22px;
+                }
+
+                .register-brand h1 {
+                    font-size: 20px;
+                }
+
+                .register-brand p {
+                    font-size: 11px;
+                }
+
+            .brand-features .feature-item {
+                font-size: 10px;
+            }
+
+            .register-form {
+                padding: 20px 18px;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+            }
+
+                .form-group input {
+                    padding: 9px 12px 9px 36px;
+                    font-size: 12px;
+                }
+
+            .btn-register {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Shapes -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+
+    <div class="register-wrapper">
+        <!-- Left Panel - Branding (Tam Responsive) -->
+        <div class="register-brand">
+            <div class="brand-icon">
+                <i class="fas fa-store-alt"></i>
+            </div>
+            <div class="brand-text">
+                <h1>Multi<span>Shop</span></h1>
+                <p>Alışverişin yeni adresi</p>
+            </div>
+            <div class="brand-features">
+                <div class="feature-item">
+                    <i class="fas fa-truck"></i>
+                    <span>Hızlı Kargo</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Güvenli</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-headset"></i>
+                    <span>7/24 Destek</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Form -->
+        <div class="register-form">
+            <div class="form-header">
+                <h2>Hesap Oluştur</h2>
+                <p>MultiShop'a katılmak için bilgilerini gir</p>
+            </div>
+
+            <form asp-action="Index" asp-controller="Register" method="post" id="registerForm" novalidate>
+                @Html.AntiForgeryToken()
+
+                <!-- Username -->
+                <div class="form-group" id="usernameGroup">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" asp-for="Username" placeholder="Kullanıcı Adı" />
+                    <span asp-validation-for="Username" class="validation-message">
+                         Kullanıcı adı gerekli
+                    </span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group" id="emailGroup">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" asp-for="Email" placeholder="E-posta Adresi" />
+                    <span asp-validation-for="Email" class="validation-message">
+                         Geçerli e-posta girin
+                    </span>
+                </div>
+
+                <!-- Name & Surname Row - Mobilde alt alta -->
+                <div class="row g-2">
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group" id="nameGroup">
+                            <i class="fas fa-id-card input-icon"></i>
+                            <input type="text" asp-for="Name" placeholder="Ad" />
+                            <span asp-validation-for="Name" class="validation-message">
+                                 Ad gerekli
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group" id="surnameGroup">
+                            <i class="fas fa-id-card input-icon"></i>
+                            <input type="text" asp-for="Surname" placeholder="Soyad" />
+                            <span asp-validation-for="Surname" class="validation-message">
+                                 Soyad gerekli
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group" id="passwordGroup">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" asp-for="Password" placeholder="Şifre" id="passwordInput" />
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <span asp-validation-for="Password" class="validation-message">
+                         Şifre en az 6 karakter
+                    </span>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-register" id="submitBtn">
+                    <span class="spinner"></span>
+                    <span class="btn-text"><i class="fas fa-user-plus"></i> Kayıt Ol</span>
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="divider">
+                <span>veya</span>
+            </div>
+
+            <!-- Social Login -->
+            <div class="social-login">
+                <a href="#" title="Google ile giriş yap"><i class="fab fa-google"></i></a>
+                <a href="#" title="Facebook ile giriş yap"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Twitter ile giriş yap"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="GitHub ile giriş yap"><i class="fab fa-github"></i></a>
+            </div>
+
+            <!-- Footer -->
+            <div class="register-footer">
+                Zaten hesabın var mı? <a href="/Login/Index">Giriş Yap</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            // ========== PASSWORD TOGGLE ==========
+            $('#togglePassword').click(function () {
+                const input = $('#passwordInput');
+                const icon = $(this).find('i');
+
+                if (input.attr('type') === 'password') {
+                    input.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    input.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+
+            // ========== REAL-TIME VALIDATION ==========
+            function validateField(input) {
+                const group = input.closest('.form-group');
+                const val = input.val().trim();
+
+                if (val === '') {
+                    group.addClass('has-error');
+                    return false;
+                }
+
+                if (input.attr('type') === 'email') {
+                    const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                    if (!emailRegex.test(val)) {
+                        group.addClass('has-error');
+                        return false;
+                    }
+                }
+
+                if (input.attr('name') === 'Password' && val.length < 6) {
+                    group.addClass('has-error');
+                    return false;
+                }
+
+                group.removeClass('has-error');
+                return true;
+            }
+
+            $('.form-group input').on('blur', function () {
+                validateField($(this));
+            });
+
+            $('.form-group input').on('input', function () {
+                const group = $(this).closest('.form-group');
+                const val = $(this).val().trim();
+
+                if (val === '') {
+                    group.addClass('has-error');
+                } else {
+                    group.removeClass('has-error');
+                }
+
+                if ($(this).attr('type') === 'email' && val !== '') {
+                    const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                    if (!emailRegex.test(val)) {
+                        group.addClass('has-error');
+                    } else {
+                        group.removeClass('has-error');
+                    }
+                }
+
+                if ($(this).attr('name') === 'Password' && val !== '' && val.length < 6) {
+                    group.addClass('has-error');
+                } else if ($(this).attr('name') === 'Password' && val.length >= 6) {
+                    group.removeClass('has-error');
+                }
+            });
+
+            // ========== FORM SUBMIT ==========
+            $('#registerForm').on('submit', function (e) {
+                let isValid = true;
+
+                $('.form-group input').each(function () {
+                    if (!validateField($(this))) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    showToast('Lütfen tüm alanları doğru doldurun.', 'error');
+                    return false;
+                }
+
+                const btn = $('#submitBtn');
+                btn.addClass('loading');
+
+                setTimeout(() => {
+                    btn.removeClass('loading');
+                }, 5000);
+            });
+
+            // ========== TOAST SYSTEM ==========
+            function showToast(message, type = 'success') {
+                const container = $('#toastContainer');
+                const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+                const toast = $(`
+                            <div class="toast-message ${type}">
+                                <i class="fas ${icon}"></i>
+                                <span>${message}</span>
+                            </div>
+                        `);
+
+                container.append(toast);
+
+                setTimeout(() => {
+                    toast.fadeOut(400, function () {
+                        $(this).remove();
+                    });
+                }, 5000);
+            }
+
+            // ========== TEMP DATA MESSAGES ==========
+            @if (TempData["RegisterSuccess"] != null)
+            {
+                    <text>showToast('@TempData["RegisterSuccess"]', 'success');</text>
+            }
+
+            @if (TempData["RegisterError"] != null)
+            {
+                    <text>showToast('@TempData["RegisterError"]', 'error');</text>
+            }
+
+        });
+    </script>
+
+</body>
+</html>

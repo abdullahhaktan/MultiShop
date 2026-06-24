@@ -7,6 +7,8 @@ namespace MultiShop.WebUi.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.v0 = "Ana Sayfa";
+            var user = User.Claims;
+            int x;
             return View();
         }
     }
