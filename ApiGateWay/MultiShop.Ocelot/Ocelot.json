@@ -31,7 +31,7 @@
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "OcelotAuthenticationScheme",
-        "AllowedScopes": [ "DiscountFullPermission" ]
+        "AllowedScopes": [ "DicountFullPermission" ]
       }
     },
     {
@@ -116,7 +116,7 @@
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "OcelotAuthenticationScheme",
-        "AllowedScopes": [ "CommentFullPermission" ]
+        "AllowedScopes": [ "PaymentFullPermission" ]
       }
     },
     {
@@ -133,9 +133,10 @@
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "OcelotAuthenticationScheme",
-        "AllowedScopes": [ "ImagesFullPermission" ]
+        "AllowedScopes": [ "ImageFullPermission" ]
       }
     }
+    //Burada virgul atıp devamı gelecek
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5000"

@@ -363,3 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 Services/Comment/MultiShop.Comment/appsettings.Development.json
 Services/Comment/MultiShop.Comment/appsettings.json
+
+# appsettings koruması
+**/appsettings.json
+**/appsettings.*.json

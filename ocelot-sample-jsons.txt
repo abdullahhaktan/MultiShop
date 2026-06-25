@@ -1,0 +1,6 @@
+Sonradan Eklenebilir
+
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotAuthenticationScheme",
+        "AllowedScopes": [ "ImagesFullPermission" ]
+      }
