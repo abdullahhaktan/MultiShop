@@ -339,7 +339,3 @@ GitHub Issues:
 https://github.com/abdullahhaktan/MultiShop/issues
 
 ---
-
-⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın.
-
-⭐ If you like this project, don't forget to give it a star.
