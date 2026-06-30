@@ -1,52 +1,89 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.ProductDetailDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.WebUi.Services.CatalogServices.PrdoductDetailServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
-    public class ProductDetailController(IHttpClientFactory _httpClientFactory) : Controller
+    public class ProductDetailController : Controller
     {
+        private readonly IProductDetailService _productDetailService;
+
+        public ProductDetailController(IProductDetailService productDetailService)
+        {
+            _productDetailService = productDetailService;
+        }
+
+        private async Task getRoutingsAsync()
+        {
+            HttpContext.Items["v0"] = "Özel Teklif İşlemleri";
+            HttpContext.Items["v0"] = "Özel Teklif Listesi";
+            HttpContext.Items["v2"] = "/Admin/ProductDetail/Index";
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index(string id)
         {
-            HttpContext.Items["v0"] = "Ürün Detay İşlemleri";
-            HttpContext.Items["v1"] = "Ürün Detay Listesi";
-            HttpContext.Items["v2"] = "/Admin/ProductDetail/Index";
+            await getRoutingsAsync();
+            var values = await _productDetailService.GetProductDetailByIdAsync(id);
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7070/api/ProductDetails/{id}");
+            return View(values);
+        }
 
-            if (responseMessage.IsSuccessStatusCode)
+        [HttpGet]
+        public async Task<IActionResult> CreateProductDetail()
+        {
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<GetProductDetailByIdDto>(jsonData);
+                await getRoutingsAsync();
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateProductDetail(string id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
+
+                await getRoutingsAsync();
+
+                var value = await _productDetailService.GetProductDetailByIdAsync(id);
+                if (value == null)
+                    return View("Error");
+
                 return View(value);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateProductDetail(UpdateProductDetailDto updateProductDetailDto)
         {
-            var client = _httpClientFactory.CreateClient();
-
-            var jsonData = JsonConvert.SerializeObject(updateProductDetailDto);
-
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/ProductDetails", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "Product", new { area = "Admin" });
+                if (updateProductDetailDto == null)
+                    return View("Error");
+
+                await _productDetailService.UpdateProductDetailAsync(updateProductDetailDto);
+
+                return RedirectToAction("Index");
             }
-
-            return View("Index", new GetProductDetailByIdDto());
-
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
     }

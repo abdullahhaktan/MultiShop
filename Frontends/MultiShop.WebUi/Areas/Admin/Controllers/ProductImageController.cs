@@ -1,144 +1,122 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MultiShop.DtoLayer.ProductDetailDtos;
-using MultiShop.DtoLayer.ProductDtos;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.ProductImageDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.WebUi.Services.CatalogServices.ProductImageServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
-    public class ProductImageController(IHttpClientFactory _httpClientFactory) : Controller
+    public class ProductImageController : Controller
     {
-        private async Task LoadProductsAsync()
-        {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Products");
+        private readonly IProductImageService _specialOfferService;
 
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var products = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
-                ViewBag.Products = products;
-            }
+        public ProductImageController(IProductImageService specialOfferService)
+        {
+            _specialOfferService = specialOfferService;
+        }
+
+        private async Task getRoutingsAsync()
+        {
+            HttpContext.Items["v0"] = "Ürün Görsel İşlemleri";
+            HttpContext.Items["v0"] = "Ürün Görsel Listesi";
+            HttpContext.Items["v2"] = "/Admin/ProductImage/Index";
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            HttpContext.Items["v0"] = "Ürün Görsel İşlemleri";
-            HttpContext.Items["v1"] = "Ürün Görsel Listesi";
-            HttpContext.Items["v2"] = "/Admin/ProductImage/Index";
+            await getRoutingsAsync();
+            var values = await _specialOfferService.GetAllProductImageAsync();
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/ProductImages");
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultProductImageWithProductDto>>(jsonData);
-                return View(values);
-            }
-
-            return View();
+            return View(values);
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateProductImage()
         {
-            await LoadProductsAsync();
+            try
+            {
+                await getRoutingsAsync();
 
-            HttpContext.Items["v0"] = "Ürün Görsel İşlemleri";
-            HttpContext.Items["v1"] = "Ürün Görsel Ekleme";
-            HttpContext.Items["v2"] = "/Admin/ProductImage/Index";
-
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProductImage([FromForm] CreateProductImageDto createProductImageDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createProductImageDto);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7070/api/ProductImages", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "ProductImage", new { area = "Admin" });
-            }
+                if (createProductImageDto == null)
+                    return View("Error");
 
-            await LoadProductsAsync();
-            return View();
+                await _specialOfferService.CreateProductImageAsync(createProductImageDto);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> DeleteProductImage(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7070/api/ProductImages/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "ProductImage", new { area = "Admin" });
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
+
+                await _specialOfferService.DeleteProductImageAsync(id);
+
+                return RedirectToAction("Index");
             }
-
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetProductImageIdByProductId(string id)
-        {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7070/api/ProductImages/GetProductImageIdByProductId/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            catch (Exception ex)
             {
-                var productImageId = await responseMessage.Content.ReadAsStringAsync();
-                return RedirectToAction("UpdateProductImage", new { id = productImageId });
+                return View("Error");
             }
-
-            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateProductImage(string id)
         {
-            await LoadProductsAsync();
-
-            HttpContext.Items["v0"] = "Ürün Görsel İşlemleri";
-            HttpContext.Items["v1"] = "Ürün Görsel Güncelleme";
-            HttpContext.Items["v2"] = "/Admin/ProductImage/Index";
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7070/api/ProductImages/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<GetProductImageByIdDto>(jsonData);
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
+
+                await getRoutingsAsync();
+
+                var value = await _specialOfferService.GetProductImageByIdAsync(id);
+                if (value == null)
+                    return View("Error");
+
                 return View(value);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateProductImage(UpdateProductImageDto updateProductImageDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateProductImageDto);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/ProductImages", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "ProductImage", new { area = "Admin" });
-            }
+                if (updateProductImageDto == null)
+                    return View("Error");
 
-            await LoadProductsAsync();
-            return View();
+                await _specialOfferService.UpdateProductImageAsync(updateProductImageDto);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
     }

@@ -9,10 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{E04B6850-A4AA-49BB-9084-B782C12C6F5D}"
 	ProjectSection(SolutionItems) = preProject
+		access token ve refresh token nedir.txt = access token ve refresh token nedir.txt
 		font-awesome link.txt = font-awesome link.txt
 		identity-server-version-error-solution.txt = identity-server-version-error-solution.txt
-		ocelot-sample-jsons.txt = ocelot-sample-jsons.txt
 		ocelot-link.txt = ocelot-link.txt
+		ocelot-sample-jsons.txt = ocelot-sample-jsons.txt
 		port-numbers.txt = port-numbers.txt
 		portainer-cmd.txt = portainer-cmd.txt
 		sample-users.txt = sample-users.txt

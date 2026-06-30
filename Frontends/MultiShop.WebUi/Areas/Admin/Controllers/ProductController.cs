@@ -1,129 +1,162 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MultiShop.DtoLayer.CategoryDtos;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.ProductDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.WebUi.Services.Catalog_Services.CategoryServices;
+using MultiShop.WebUi.Services.Catalog_Services.ProductServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
-    public class ProductController(IHttpClientFactory _httpClientFactory) : Controller
+    public class ProductController : Controller
     {
+        private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+
+        public ProductController(IProductService productService, ICategoryService categoryService)
+        {
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
+        }
+
         private async Task LoadCategoriesAsync()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Categories");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var categories = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
-                ViewBag.Categories = categories;
+                var values = await _categoryService.GetAllCategoryAsync();
+                if (values == null)
+                    ViewBag.Categories = null;
+
+                ViewBag.Categories = values;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Categories = $"Kategorileri çekme esnasında bir problem oluştu.+ {ex.Message}";
+            }
+        }
+
+        private async Task getRoutingsAsync()
+        {
+            try
+            {
+                HttpContext.Items["v0"] = "Ürün İşlemleri";
+                HttpContext.Items["v1"] = "Ürün Listesi";
+                HttpContext.Items["v2"] = "/Admin/Product/Index";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("getRoutingsAsync işlemi sırasında bir hata oluştu.", ex);
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            HttpContext.Items["v0"] = "Ürün İşlemleri";
-            HttpContext.Items["v1"] = "Ürün Listesi";
-            HttpContext.Items["v2"] = "/Admin/Product/Index";
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Products");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
+                await getRoutingsAsync();
+                var values = await _productService.GetAllProductWithCategoryAsync();
+                if (values == null)
+                    return View(new List<ResultProductWithCategoryDto>());
+
                 return View(values);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateProduct()
         {
-            await LoadCategoriesAsync();
+            try
+            {
+                await LoadCategoriesAsync();
+                await getRoutingsAsync();
 
-            HttpContext.Items["v0"] = "Ürün İşlemleri";
-            HttpContext.Items["v1"] = "Ürün Ekleme";
-            HttpContext.Items["v2"] = "/Admin/Product/Index";
-
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto createProductDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createProductDto);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7070/api/Products", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "Product", new { area = "Admin" });
-            }
+                if (createProductDto == null)
+                    return View("Error");
 
-            await LoadCategoriesAsync();
-            return View();
+                await _productService.CreateProductAsync(createProductDto);
+                await LoadCategoriesAsync();
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> DeleteProduct(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7070/api/Products/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "Product", new { area = "Admin" });
-            }
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
 
-            return View();
+                await _productService.DeleteProductAsync(id);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateProduct(string id)
         {
-            await LoadCategoriesAsync();
-
-
-            HttpContext.Items["v0"] = "Ürün İşlemleri";
-            HttpContext.Items["v1"] = "Ürün Güncelleme";
-            HttpContext.Items["v2"] = "/Admin/Product/Index";
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7070/api/Products/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<GetProductByIdDto>(jsonData);
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
+
+                await LoadCategoriesAsync();
+                await getRoutingsAsync();
+
+                var value = await _productService.GetProductByIdAsync(id);
+                if (value == null)
+                    return View("Error");
+
                 return View(value);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateProductDto);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/Products", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "Product", new { area = "Admin" });
-            }
+                if (updateProductDto == null)
+                    return View("Error");
 
-            await LoadCategoriesAsync();
-            return View();
+                await _productService.UpdateProductAsync(updateProductDto);
+
+                await LoadCategoriesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
     }

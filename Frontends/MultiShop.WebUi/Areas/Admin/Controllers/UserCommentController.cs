@@ -1,84 +1,122 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.UserCommentDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.WebUi.Services.CatalogServices.UserCommentServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
-    public class UserCommentController(IHttpClientFactory _httpClientFactory) : Controller
+    public class UserCommentController : Controller
     {
+        private readonly IUserCommentService _userCommentService;
+
+        public UserCommentController(IUserCommentService userCommentService)
+        {
+            _userCommentService = userCommentService;
+        }
+
+        private async Task getRoutingsAsync()
+        {
+            HttpContext.Items["v0"] = "Özel Teklif İşlemleri";
+            HttpContext.Items["v0"] = "Özel Teklif Listesi";
+            HttpContext.Items["v2"] = "/Admin/UserComment/Index";
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            HttpContext.Items["v0"] = "Yorum İşlemleri";
-            HttpContext.Items["v1"] = "Yorum Listesi";
-            HttpContext.Items["v2"] = "/Admin/Comment/Index";
+            await getRoutingsAsync();
+            var values = await _userCommentService.GetAllUserCommentAsync();
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7095/api/UserComments");
+            return View(values);
+        }
 
-            if (responseMessage.IsSuccessStatusCode)
+        [HttpGet]
+        public async Task<IActionResult> CreateUserComment()
+        {
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultUserCommentDto>>(jsonData);
-                return View(values);
-            }
+                await getRoutingsAsync();
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUserComment([FromForm] CreateUserCommentDto createUserCommentDto)
+        {
+            try
+            {
+                if (createUserCommentDto == null)
+                    return View("Error");
+
+                await _userCommentService.CreateUserCommentAsync(createUserCommentDto);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> DeleteUserComment(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7095/api/Comments/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "Comment", new { area = "Admin" });
-            }
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
 
-            return View();
+                await _userCommentService.DeleteUserCommentAsync(id);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateUserComment(string id)
         {
-            HttpContext.Items["v0"] = "Yorum İşlemleri";
-            HttpContext.Items["v1"] = "Yorum Güncelleme";
-            HttpContext.Items["v2"] = "/Admin/Comment/Index";
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7095/api/UserComments/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<GetUserCommentByIdDto>(jsonData);
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
+
+                await getRoutingsAsync();
+
+                var value = await _userCommentService.GetUserCommentByIdAsync(id);
+                if (value == null)
+                    return View("Error");
+
                 return View(value);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUserComment(UpdateUserCommentDto updateUserUserCommentDto)
+        public async Task<IActionResult> UpdateUserComment(UpdateUserCommentDto updateUserCommentDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateUserUserCommentDto);
-
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7095/api/UserComments", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
+                if (updateUserCommentDto == null)
+                    return View("Error");
+
+                await _userCommentService.UpdateUserCommentAsync(updateUserCommentDto);
+
                 return RedirectToAction("Index");
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
-
     }
 }

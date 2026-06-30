@@ -1,109 +1,141 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.FeatureSliderDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
-    public class FeatureSliderController(IHttpClientFactory _httpClientFactory) : Controller
+    public class FeatureSliderController : Controller
     {
+        private readonly IFeatureSliderService _featureSliderService;
+
+        public FeatureSliderController(IFeatureSliderService featureSliderService)
+        {
+            _featureSliderService = featureSliderService;
+        }
+
+        private async Task getRoutingsAsync()
+        {
+            try
+            {
+                HttpContext.Items["v0"] = "Slayt İşlemleri";
+                HttpContext.Items["v1"] = "Slayt Listesi";
+                HttpContext.Items["v2"] = "/Admin/FeatureSlider/Index";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("getRoutingsAsync işlemi sırasında bir hata oluştu.", ex);
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            HttpContext.Items["v0"] = "Slayt İşlemleri";
-            HttpContext.Items["v1"] = "Slayt Listesi";
-            HttpContext.Items["v2"] = "/Admin/FeatureSlider/Index";
+            await getRoutingsAsync();
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/FeatureSliders");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultFeatureSliderDto>>(jsonData);
+                await getRoutingsAsync();
+                var values = await _featureSliderService.GetAllFeatureSliderAsync();
+                if (values == null)
+                    return View(new List<ResultFeatureSliderDto>());
+
                 return View(values);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateFeatureSlider()
         {
-            HttpContext.Items["v0"] = "Slayt İşlemleri";
-            HttpContext.Items["v1"] = "Slayt Ekleme";
-            HttpContext.Items["v2"] = "/Admin/FeatureSlider/Index";
+            try
+            {
+                await getRoutingsAsync();
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateFeatureSlider(CreateFeatureSliderDto createFeatureSliderDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createFeatureSliderDto);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7070/api/FeatureSliders", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "FeatureSlider", new { area = "Admin" });
-            }
+                if (createFeatureSliderDto == null)
+                    return View("Error");
 
-            return View();
+                await _featureSliderService.CreateFeatureSliderAsync(createFeatureSliderDto);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> DeleteFeatureSlider(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7070/api/FeatureSliders/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "FeatureSlider", new { area = "Admin" });
-            }
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
 
-            return View();
+                await _featureSliderService.DeleteFeatureSliderAsync(id);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateFeatureSlider(string id)
         {
-            HttpContext.Items["v0"] = "Slayt İşlemleri";
-            HttpContext.Items["v1"] = "Slayt Güncelleme";
-            HttpContext.Items["v2"] = "/Admin/FeatureSlider/Index";
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7070/api/FeatureSliders/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<GetFeatureSliderByIdDto>(jsonData);
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
+
+                await getRoutingsAsync();
+
+                var value = await _featureSliderService.GetFeatureSliderByIdAsync(id);
+                if (value == null)
+                    return View("Error");
+
                 return View(value);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateFeatureSlider(UpdateFeatureSliderDto updateFeatureSliderDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateFeatureSliderDto);
-
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/FeatureSliders", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
+                if (updateFeatureSliderDto == null)
+                    return View("Error");
+
+                await _featureSliderService.UpdateFeatureSliderAsync(updateFeatureSliderDto);
+
                 return RedirectToAction("Index");
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
     }

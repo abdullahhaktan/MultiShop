@@ -1,101 +1,122 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.SpecialOfferDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
-    public class SpecialOfferController(IHttpClientFactory _httpClientFactory) : Controller
+    public class SpecialOfferController : Controller
     {
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        private readonly ISpecialOfferService _specialOfferService;
+
+        public SpecialOfferController(ISpecialOfferService specialOfferService)
+        {
+            _specialOfferService = specialOfferService;
+        }
+
+        private async Task getRoutingsAsync()
         {
             HttpContext.Items["v0"] = "Özel Teklif İşlemleri";
             HttpContext.Items["v0"] = "Özel Teklif Listesi";
             HttpContext.Items["v2"] = "/Admin/SpecialOffer/Index";
+        }
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/SpecialOffers");
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            await getRoutingsAsync();
+            var values = await _specialOfferService.GetAllSpecialOfferAsync();
 
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultSpecialOfferDto>>(jsonData);
-                return View(values);
-            }
-
-            return View();
+            return View(values);
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateSpecialOffer()
         {
-            return View();
+            try
+            {
+                await getRoutingsAsync();
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSpecialOffer(CreateSpecialOfferDto createSpecialOfferDto)
+        public async Task<IActionResult> CreateSpecialOffer([FromForm] CreateSpecialOfferDto createSpecialOfferDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createSpecialOfferDto);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7070/api/SpecialOffers", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "SpecialOffer", new { area = "Admin" });
-            }
+                if (createSpecialOfferDto == null)
+                    return View("Error");
 
-            return View();
+                await _specialOfferService.CreateSpecialOfferAsync(createSpecialOfferDto);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> DeleteSpecialOffer(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7070/api/SpecialOffers/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index", "SpecialOffer", new { area = "Admin" });
-            }
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
 
-            return View();
+                await _specialOfferService.DeleteSpecialOfferAsync(id);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateSpecialOffer(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7070/api/SpecialOffers/{id}");
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<GetSpecialOfferByIdDto>(jsonData);
+                if (string.IsNullOrEmpty(id))
+                    return View("Error");
+
+                await getRoutingsAsync();
+
+                var value = await _specialOfferService.GetSpecialOfferByIdAsync(id);
+                if (value == null)
+                    return View("Error");
+
                 return View(value);
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateSpecialOffer(UpdateSpecialOfferDto updateSpecialOfferDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateSpecialOfferDto);
-
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/SpecialOffers", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
+                if (updateSpecialOfferDto == null)
+                    return View("Error");
+
+                await _specialOfferService.UpdateSpecialOfferAsync(updateSpecialOfferDto);
+
                 return RedirectToAction("Index");
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
     }
