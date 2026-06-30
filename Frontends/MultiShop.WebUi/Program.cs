@@ -9,6 +9,8 @@ using MultiShop.WebUi.Services.CatalogServices.AboutServices;
 using MultiShop.WebUi.Services.CatalogServices.BrandServices;
 using MultiShop.WebUi.Services.CatalogServices.FeaturedProductdProductServices;
 using MultiShop.WebUi.Services.CatalogServices.FeaturedProductServices;
+using MultiShop.WebUi.Services.CatalogServices.FeatureServices;
+using MultiShop.WebUi.Services.CatalogServices.ProductImageServices;
 using MultiShop.WebUi.Services.CatalogServices.UserCommentServices;
 using MultiShop.WebUi.Services.Concrete;
 using MultiShop.WebUi.Services.Interfaces;
@@ -90,12 +92,22 @@ builder.Services.AddHttpClient<IBrandService, BrandService>(opt =>
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
+builder.Services.AddHttpClient<IFeatureService, FeatureService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
 builder.Services.AddHttpClient<IFeaturedProductService, FeaturedProductService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 builder.Services.AddHttpClient<IUserCommentService, UserCommentService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IProductImageService, ProductImageService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
