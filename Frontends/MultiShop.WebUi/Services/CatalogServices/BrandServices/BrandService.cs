@@ -18,7 +18,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.BrandServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateBrandDto>("brands", createBrandDto);
+                await _httpClient.PostAsJsonAsync("brands", createBrandDto);
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.BrandServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateBrandDto>("brands", updateBrandDto);
+                await _httpClient.PutAsJsonAsync("brands", updateBrandDto);
             }
             catch (Exception ex)
             {

@@ -1,6 +1,6 @@
 ﻿using MultiShop.DtoLayer.ProductDtos;
 
-namespace MultiShop.DtoLayer.ProductDetailDtos
+namespace MultiShop.DtoLayer.ProductImageDtos
 {
     public class GetProductImageByIdDto
     {

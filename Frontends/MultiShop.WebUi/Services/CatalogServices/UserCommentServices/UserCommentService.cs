@@ -18,7 +18,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.UserCommentServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateUserCommentDto>("userComments", createUserCommentDto);
+                await _httpClient.PostAsJsonAsync("userComments", createUserCommentDto);
             }
             catch (Exception ex)
             {
@@ -54,6 +54,9 @@ namespace MultiShop.WebUi.Services.CatalogServices.UserCommentServices
                     return new List<ResultUserCommentDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultUserCommentDto>>(jsonData);
+                if (values == null)
+                    return new List<ResultUserCommentDto>();
+
                 return values;
             }
             catch (Exception ex)
@@ -74,6 +77,9 @@ namespace MultiShop.WebUi.Services.CatalogServices.UserCommentServices
                     throw new Exception("API'den yanıt alınamadı.");
 
                 var value = await responseMessage.Content.ReadFromJsonAsync<GetUserCommentByIdDto>();
+                if (value == null)
+                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
+
                 return value;
             }
             catch (Exception ex)
@@ -89,7 +95,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.UserCommentServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateUserCommentDto>("userComments", updateUserCommentDto);
+                await _httpClient.PutAsJsonAsync("userComments", updateUserCommentDto);
             }
             catch (Exception ex)
             {

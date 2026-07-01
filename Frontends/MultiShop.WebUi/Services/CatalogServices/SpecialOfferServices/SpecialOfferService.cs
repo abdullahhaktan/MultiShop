@@ -18,7 +18,7 @@ namespace MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateSpecialOfferDto>("specialOffers", createSpecialOfferDto);
+                await _httpClient.PostAsJsonAsync("specialOffers", createSpecialOfferDto);
             }
             catch (Exception ex)
             {
@@ -54,6 +54,9 @@ namespace MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices
                     return new List<ResultSpecialOfferDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultSpecialOfferDto>>(jsonData);
+                if (values == null)
+                    return new List<ResultSpecialOfferDto>();
+
                 return values;
             }
             catch (Exception ex)
@@ -74,6 +77,9 @@ namespace MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices
                     throw new Exception("API'den yanıt alınamadı.");
 
                 var value = await responseMessage.Content.ReadFromJsonAsync<GetSpecialOfferByIdDto>();
+                if (value == null)
+                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
+
                 return value;
             }
             catch (Exception ex)
@@ -89,7 +95,7 @@ namespace MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateSpecialOfferDto>("specialOffers", updateSpecialOfferDto);
+                await _httpClient.PutAsJsonAsync("specialOffers", updateSpecialOfferDto);
             }
             catch (Exception ex)
             {

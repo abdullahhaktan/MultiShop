@@ -19,7 +19,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.FeaturedProductdProductServic
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateFeaturedProductDto>("features", createFeaturedProductDto);
+                await _httpClient.PostAsJsonAsync("featuredProducts", createFeaturedProductDto);
             }
             catch (Exception ex)
             {
@@ -34,7 +34,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.FeaturedProductdProductServic
 
             try
             {
-                await _httpClient.DeleteAsync($"features/{id}");
+                await _httpClient.DeleteAsync($"featuredProducts/{id}");
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.FeaturedProductdProductServic
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateFeaturedProductDto>("features", updateFeaturedProductDto);
+                await _httpClient.PutAsJsonAsync("featuredProducts", updateFeaturedProductDto);
             }
             catch (Exception ex)
             {

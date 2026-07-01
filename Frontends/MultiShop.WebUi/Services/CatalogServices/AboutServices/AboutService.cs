@@ -17,7 +17,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.AboutServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateAboutDto>("abouts", createAboutDto);
+                await _httpClient.PostAsJsonAsync("abouts", createAboutDto);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.AboutServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateAboutDto>("abouts", updateAboutDto);
+                await _httpClient.PutAsJsonAsync("abouts", updateAboutDto);
             }
             catch (Exception ex)
             {

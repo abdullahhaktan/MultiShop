@@ -21,6 +21,9 @@ namespace MultiShop.Catalog.Services.AboutServices
 
         public async Task CreateAboutAsync(CreateAboutDto createAboutDto)
         {
+            if (createAboutDto == null)
+                throw new ArgumentNullException(nameof(createAboutDto));
+
             var about = _mapper.Map<About>(createAboutDto);
             await _aboutCollection.InsertOneAsync(about);
         }
@@ -28,11 +31,17 @@ namespace MultiShop.Catalog.Services.AboutServices
         public async Task<GetAboutByIdDto> GetByIdAsync()
         {
             var value = await _aboutCollection.Find(x => true).FirstOrDefaultAsync();
+            if (value == null)
+                return new GetAboutByIdDto();
+
             return _mapper.Map<GetAboutByIdDto>(value);
         }
 
         public async Task UpdateAboutAsync(UpdateAboutDto updateAboutDto)
         {
+            if (updateAboutDto == null)
+                throw new ArgumentNullException(nameof(updateAboutDto));
+
             var value = _mapper.Map<About>(updateAboutDto);
             await _aboutCollection.FindOneAndReplaceAsync(x => x.Id == updateAboutDto.Id, value);
         }

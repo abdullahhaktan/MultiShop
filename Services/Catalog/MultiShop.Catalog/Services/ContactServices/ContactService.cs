@@ -21,6 +21,9 @@ namespace MultiShop.Catalog.Services.ContactServices
 
         public async Task CreateContactAsync(CreateContactDto createContactDto)
         {
+            if (createContactDto == null)
+                throw new ArgumentNullException(nameof(createContactDto));
+
             createContactDto.SendDate = DateTime.UtcNow;
             var value = _mapper.Map<Contact>(createContactDto);
             await _contactCollection.InsertOneAsync(value);
@@ -28,23 +31,38 @@ namespace MultiShop.Catalog.Services.ContactServices
 
         public async Task DeleteContactAsync(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Id boş olamaz.", nameof(id));
+
             await _contactCollection.DeleteOneAsync(x => x.Id == id);
         }
 
         public async Task<List<ResultContactDto>> GetAllContactsAsync()
         {
             var values = await _contactCollection.Find(x => true).ToListAsync();
+            if (values == null || values.Count == 0)
+                return new List<ResultContactDto>();
+
             return _mapper.Map<List<ResultContactDto>>(values);
         }
 
         public async Task<GetContactByIdDto> GetContactByIdAsync(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Id boş olamaz.", nameof(id));
+
             var value = await _contactCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            if (value == null)
+                return new GetContactByIdDto();
+
             return _mapper.Map<GetContactByIdDto>(value);
         }
 
         public async Task UpdateContactAsync(UpdateContactDto updateContactDto)
         {
+            if (updateContactDto == null)
+                throw new ArgumentNullException(nameof(updateContactDto));
+
             var value = _mapper.Map<Contact>(updateContactDto);
             await _contactCollection.FindOneAndReplaceAsync(x => x.Id == updateContactDto.Id, value);
         }

@@ -18,7 +18,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.FeatureServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateFeatureDto>("features", createFeatureDto);
+                await _httpClient.PostAsJsonAsync("features", createFeatureDto);
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.FeatureServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateFeatureDto>("features", updateFeatureDto);
+                await _httpClient.PutAsJsonAsync("features", updateFeatureDto);
             }
             catch (Exception ex)
             {

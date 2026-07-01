@@ -1,5 +1,4 @@
-﻿using MultiShop.DtoLayer.ProductDetailDtos;
-using MultiShop.DtoLayer.ProductImageDtos;
+﻿using MultiShop.DtoLayer.ProductImageDtos;
 
 namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
 {

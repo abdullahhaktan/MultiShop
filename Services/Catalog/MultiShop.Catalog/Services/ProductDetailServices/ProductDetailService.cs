@@ -23,23 +23,35 @@ namespace MultiShop.Catalog.Services.ProductDetailServices
 
         public async Task DeleteProductDetailAsync(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Id boş olamaz.", nameof(id));
+
             await _productDetailCollection.DeleteOneAsync(x => x.Id == id);
         }
 
         public async Task<GetProductDetailByIdDto> GetByProductDetailIdAsync(string id)
         {
-            var productDetail = await _productDetailCollection.Find
-                (pd => pd.ProductId == id).FirstOrDefaultAsync();
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Id boş olamaz.", nameof(id));
+
+            var productDetail = await _productDetailCollection.Find(pd => pd.ProductId == id).FirstOrDefaultAsync();
+            if (productDetail == null)
+                return new GetProductDetailByIdDto();
 
             var product = await _productCollection.Find(p => p.Id == productDetail.ProductId).FirstOrDefaultAsync();
-
-            productDetail.Product = product;
+            if (product != null)
+            {
+                productDetail.Product = product;
+            }
 
             return _mapper.Map<GetProductDetailByIdDto>(productDetail);
         }
 
         public async Task UpdateProductDetailAsync(UpdateProductDetailDto updateProductDetailDto)
         {
+            if (updateProductDetailDto == null)
+                throw new ArgumentNullException(nameof(updateProductDetailDto));
+
             var value = _mapper.Map<ProductDetail>(updateProductDetailDto);
             await _productDetailCollection.FindOneAndReplaceAsync(x => x.Id == updateProductDetailDto.Id, value);
         }

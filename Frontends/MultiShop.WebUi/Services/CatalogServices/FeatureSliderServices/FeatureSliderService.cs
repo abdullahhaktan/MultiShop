@@ -1,5 +1,4 @@
-﻿
-using MultiShop.DtoLayer.FeatureSliderDtos;
+﻿using MultiShop.DtoLayer.FeatureSliderDtos;
 using Newtonsoft.Json;
 
 namespace MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices
@@ -19,7 +18,7 @@ namespace MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateFeatureSliderDto>("featureSliders", createFeatureSliderDto);
+                await _httpClient.PostAsJsonAsync("featureSliders", createFeatureSliderDto);
             }
             catch (Exception ex)
             {
@@ -55,6 +54,9 @@ namespace MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices
                     return new List<ResultFeatureSliderDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultFeatureSliderDto>>(jsonData);
+                if (values == null)
+                    return new List<ResultFeatureSliderDto>();
+
                 return values;
             }
             catch (Exception ex)
@@ -75,6 +77,9 @@ namespace MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices
                     throw new Exception("API'den yanıt alınamadı.");
 
                 var value = await responseMessage.Content.ReadFromJsonAsync<GetFeatureSliderByIdDto>();
+                if (value == null)
+                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
+
                 return value;
             }
             catch (Exception ex)
@@ -90,7 +95,7 @@ namespace MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateFeatureSliderDto>("featureSliders", updateFeatureSliderDto);
+                await _httpClient.PutAsJsonAsync("featureSliders", updateFeatureSliderDto);
             }
             catch (Exception ex)
             {

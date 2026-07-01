@@ -1,5 +1,4 @@
-﻿
-using MultiShop.DtoLayer.ProductDetailDtos;
+﻿using MultiShop.DtoLayer.ProductDetailDtos;
 
 namespace MultiShop.WebUi.Services.CatalogServices.PrdoductDetailServices
 {
@@ -23,6 +22,9 @@ namespace MultiShop.WebUi.Services.CatalogServices.PrdoductDetailServices
                     throw new Exception("API'den yanıt alınamadı.");
 
                 var value = await responseMessage.Content.ReadFromJsonAsync<GetProductDetailByIdDto>();
+                if (value == null)
+                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
+
                 return value;
             }
             catch (Exception ex)

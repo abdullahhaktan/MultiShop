@@ -21,29 +21,47 @@ namespace MultiShop.Catalog.Services.SpecialOfferServices
 
         public async Task CreateSpecialOfferAsync(CreateSpecialOfferDto createSpecialOfferDto)
         {
+            if (createSpecialOfferDto == null)
+                throw new ArgumentNullException(nameof(createSpecialOfferDto));
+
             var value = _mapper.Map<SpecialOffer>(createSpecialOfferDto);
             await _specialOfferCollection.InsertOneAsync(value);
         }
 
         public async Task DeleteSpecialOfferAsync(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Id boş olamaz.", nameof(id));
+
             await _specialOfferCollection.DeleteOneAsync(x => x.Id == id);
         }
 
         public async Task<List<ResultSpecialOfferDto>> GetAllSpecialOffersAsync()
         {
             var values = await _specialOfferCollection.Find(x => true).ToListAsync();
+            if (values == null || values.Count == 0)
+                return new List<ResultSpecialOfferDto>();
+
             return _mapper.Map<List<ResultSpecialOfferDto>>(values);
         }
 
         public async Task<GetSpecialOfferByIdDto> GetByIdAsync(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Id boş olamaz.", nameof(id));
+
             var value = await _specialOfferCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            if (value == null)
+                return new GetSpecialOfferByIdDto();
+
             return _mapper.Map<GetSpecialOfferByIdDto>(value);
         }
 
         public async Task UpdateSpecialOfferAsync(UpdateSpecialOfferDto updateSpecialOfferDto)
         {
+            if (updateSpecialOfferDto == null)
+                throw new ArgumentNullException(nameof(updateSpecialOfferDto));
+
             var value = _mapper.Map<SpecialOffer>(updateSpecialOfferDto);
             await _specialOfferCollection.FindOneAndReplaceAsync(x => x.Id == updateSpecialOfferDto.Id, value);
         }

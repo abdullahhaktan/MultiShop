@@ -1,5 +1,4 @@
-﻿using MultiShop.DtoLayer.ProductDetailDtos;
-using MultiShop.DtoLayer.ProductImageDtos;
+﻿using MultiShop.DtoLayer.ProductImageDtos;
 using Newtonsoft.Json;
 
 namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
@@ -36,7 +35,6 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
             {
                 await _httpClient.DeleteAsync($"productImages/{id}");
             }
-
             catch (Exception ex)
             {
                 throw new Exception("DeleteProductImageAsync işlemi sırasında bir hata oluştu.", ex);
@@ -48,17 +46,14 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
             try
             {
                 var responseMessage = await _httpClient.GetAsync("productImages");
-
                 if (responseMessage == null)
                     throw new Exception("API'den yanıt alınamadı.");
 
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-
                 if (string.IsNullOrEmpty(jsonData))
                     return new List<ResultProductImageWithProductDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultProductImageWithProductDto>>(jsonData);
-
                 if (values == null)
                     return new List<ResultProductImageWithProductDto>();
 
@@ -73,23 +68,23 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
         public async Task<GetProductImageByIdDto> GetProductImageByIdAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
-                throw new ArgumentNullException(nameof(id));
+                return new GetProductImageByIdDto();
 
             try
             {
                 var responseMessage = await _httpClient.GetAsync("productImages/" + id);
 
-                if (responseMessage == null)
-                    throw new Exception("API'den yanıt alınamadı.");
+                if (responseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    return new GetProductImageByIdDto();
+
+                if (!responseMessage.IsSuccessStatusCode)
+                    throw new Exception($"API'den başarısız yanıt alındı. Status: {responseMessage.StatusCode}");
 
                 var value = await responseMessage.Content.ReadFromJsonAsync<GetProductImageByIdDto>();
-
                 if (value == null)
-                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
-
+                    return new GetProductImageByIdDto();
                 return value;
             }
-
             catch (Exception ex)
             {
                 throw new Exception("GetProductImageByIdAsync işlemi sırasında bir hata oluştu.", ex);
@@ -105,20 +100,15 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
             {
                 var responseMessage = await _httpClient.GetAsync("productImages/GetProductImageIdByProductId/" + id);
 
-                if (responseMessage == null)
-                    throw new Exception("API'den yanıt alınamadı.");
+                if (!responseMessage.IsSuccessStatusCode)
+                    throw new Exception($"API'den başarısız yanıt alındı. Status: {responseMessage.StatusCode}");
 
                 var value = await responseMessage.Content.ReadAsStringAsync();
-
-                if (string.IsNullOrEmpty(value))
-                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
-
                 return value;
             }
-
             catch (Exception ex)
             {
-                throw new Exception("GetProductImageByIdAsync işlemi sırasında bir hata oluştu.", ex);
+                throw new Exception("GetProductImageIdByProductIdAsync işlemi sırasında bir hata oluştu.", ex);
             }
         }
 

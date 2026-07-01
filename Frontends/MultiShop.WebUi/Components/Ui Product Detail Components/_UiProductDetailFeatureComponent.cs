@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.DtoLayer.ProductDetailDtos;
 using MultiShop.WebUi.Services.CatalogServices.PrdoductDetailServices;
-using Newtonsoft.Json;
 
 namespace MultiShop.WebUi.Components.Ui_Product_Detail_Components
 {

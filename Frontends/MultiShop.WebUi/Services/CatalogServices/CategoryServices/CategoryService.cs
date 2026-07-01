@@ -19,7 +19,7 @@ namespace MultiShop.WebUI.Services.CatalogServices.CategoryServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateCategoryDto>("categories", createCategoryDto);
+                await _httpClient.PostAsJsonAsync("categories", createCategoryDto);
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace MultiShop.WebUI.Services.CatalogServices.CategoryServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateCategoryDto>("categories", updateCategoryDto);
+                await _httpClient.PutAsJsonAsync("categories", updateCategoryDto);
             }
             catch (Exception ex)
             {
