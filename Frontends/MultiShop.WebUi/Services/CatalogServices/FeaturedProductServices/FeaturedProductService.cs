@@ -46,7 +46,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.FeaturedProductdProductServic
         {
             try
             {
-                var responseMessage = await _httpClient.GetAsync("features");
+                var responseMessage = await _httpClient.GetAsync("featuredProducts");
                 if (responseMessage == null)
                     throw new Exception("API'den yanıt alınamadı.");
 
@@ -70,7 +70,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.FeaturedProductdProductServic
 
             try
             {
-                var responseMessage = await _httpClient.GetAsync("features/" + id);
+                var responseMessage = await _httpClient.GetAsync("featuredProducts/" + id);
                 if (responseMessage == null)
                     throw new Exception("API'den yanıt alınamadı.");
 

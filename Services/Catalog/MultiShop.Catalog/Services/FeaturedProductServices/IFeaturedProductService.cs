@@ -8,6 +8,6 @@ namespace MultiShop.Catalog.Services.FeaturedProductServices
         Task CreateFeaturedProductAsync(CreateFeaturedProductDto createFeaturedProductDto);
         Task UpdateFeaturedProductAsync(UpdateFeaturedProductDto updateFeaturedProductDto);
         Task DeleteFeaturedProductAsync(string id);
-        Task<GetFeaturedProductByIdDto> GetByIdAsync(string id);
+        Task<GetFeaturedProductByIdDto> GetFeaturedProductByIdAsync(string id);
     }
 }

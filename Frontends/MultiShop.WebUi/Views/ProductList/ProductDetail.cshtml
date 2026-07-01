@@ -18,7 +18,11 @@
                 <div class="tab-content">
                     @await Component.InvokeAsync("_UiProductDetailDescriptionComponent", new { id = ViewBag.id })
                     @await Component.InvokeAsync("_UiProductDetailAdditionalInformationComponent", new { id = ViewBag.id })
-                    @await Component.InvokeAsync("_UiUserCommentComponent", new { productId = ViewBag.id })
+
+                   @* Burayı yorum satırına aldık comment'i ayrı bir mikroservise aldıktan sonra devem edeceğiz *@
+
+@*                     @await Component.InvokeAsync("_UiUserCommentComponent", new { productId = ViewBag.id }) *@
+
                 </div>
             </div>
         </div>

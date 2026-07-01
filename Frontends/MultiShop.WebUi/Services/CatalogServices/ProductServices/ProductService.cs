@@ -56,7 +56,13 @@ namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
                     return new List<ResultProductDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
-                return values;
+
+                if (values != null)
+                {
+                    return values;
+                }
+
+                return new List<ResultProductDto>();
             }
             catch (Exception ex)
             {
@@ -77,7 +83,11 @@ namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
                     return new List<ResultProductWithCategoryDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
-                return values;
+                if (values != null)
+                {
+                    return values;
+                }
+                return new List<ResultProductWithCategoryDto>();
             }
             catch (Exception ex)
             {
@@ -87,12 +97,9 @@ namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
 
         public async Task<List<ResultProductWithCategoryDto>> GetAllProductWithCategoryByCategoryIdAsync(string categoryId)
         {
-            if (string.IsNullOrEmpty(categoryId))
-                throw new ArgumentNullException(nameof(categoryId));
-
             try
             {
-                var responseMessage = await _httpClient.GetAsync($"products/ProductListWithCategoryByCategoryId/{categoryId}");
+                var responseMessage = await _httpClient.GetAsync($"products/GetByCategory/{categoryId}");
                 if (responseMessage == null)
                     throw new Exception("API'den yanıt alınamadı.");
 
@@ -101,7 +108,11 @@ namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
                     return new List<ResultProductWithCategoryDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
-                return values;
+                if (values != null)
+                {
+                    return values;
+                }
+                return new List<ResultProductWithCategoryDto>();
             }
             catch (Exception ex)
             {
@@ -120,8 +131,12 @@ namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
                 if (responseMessage == null)
                     throw new Exception("API'den yanıt alınamadı.");
 
-                var values = await responseMessage.Content.ReadFromJsonAsync<GetProductByIdDto>();
-                return values;
+                var value = await responseMessage.Content.ReadFromJsonAsync<GetProductByIdDto>();
+                if (value != null)
+                {
+                    return value;
+                }
+                throw new Exception("Ürün bulunamadı.");
             }
             catch (Exception ex)
             {

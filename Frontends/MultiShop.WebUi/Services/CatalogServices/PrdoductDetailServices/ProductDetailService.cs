@@ -38,7 +38,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.PrdoductDetailServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateProductDetailDto>("productDetails", updateProductDetailDto);
+                await _httpClient.PutAsJsonAsync("productDetails", updateProductDetailDto);
             }
             catch (Exception ex)
             {

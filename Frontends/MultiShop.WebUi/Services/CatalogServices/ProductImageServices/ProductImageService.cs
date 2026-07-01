@@ -19,7 +19,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
 
             try
             {
-                await _httpClient.PostAsJsonAsync<CreateProductImageDto>("productImages", createProductImageDto);
+                await _httpClient.PostAsJsonAsync("productImages", createProductImageDto);
             }
             catch (Exception ex)
             {
@@ -36,13 +36,14 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
             {
                 await _httpClient.DeleteAsync($"productImages/{id}");
             }
+
             catch (Exception ex)
             {
                 throw new Exception("DeleteProductImageAsync işlemi sırasında bir hata oluştu.", ex);
             }
         }
 
-        public async Task<List<ResultProductImageDto>> GetAllProductImageAsync()
+        public async Task<List<ResultProductImageWithProductDto>> GetAllProductImageAsync()
         {
             try
             {
@@ -54,12 +55,12 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
 
                 if (string.IsNullOrEmpty(jsonData))
-                    return new List<ResultProductImageDto>();
+                    return new List<ResultProductImageWithProductDto>();
 
-                var values = JsonConvert.DeserializeObject<List<ResultProductImageDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultProductImageWithProductDto>>(jsonData);
 
                 if (values == null)
-                    return new List<ResultProductImageDto>();
+                    return new List<ResultProductImageWithProductDto>();
 
                 return values;
             }
@@ -77,12 +78,44 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
             try
             {
                 var responseMessage = await _httpClient.GetAsync("productImages/" + id);
+
                 if (responseMessage == null)
                     throw new Exception("API'den yanıt alınamadı.");
 
                 var value = await responseMessage.Content.ReadFromJsonAsync<GetProductImageByIdDto>();
+
+                if (value == null)
+                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
+
                 return value;
             }
+
+            catch (Exception ex)
+            {
+                throw new Exception("GetProductImageByIdAsync işlemi sırasında bir hata oluştu.", ex);
+            }
+        }
+
+        public async Task<string> GetProductImageIdByProductIdAsync(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException(nameof(id));
+
+            try
+            {
+                var responseMessage = await _httpClient.GetAsync("productImages/GetProductImageIdByProductId/" + id);
+
+                if (responseMessage == null)
+                    throw new Exception("API'den yanıt alınamadı.");
+
+                var value = await responseMessage.Content.ReadAsStringAsync();
+
+                if (string.IsNullOrEmpty(value))
+                    throw new Exception("API'den geçerli bir yanıt alınamadı.");
+
+                return value;
+            }
+
             catch (Exception ex)
             {
                 throw new Exception("GetProductImageByIdAsync işlemi sırasında bir hata oluştu.", ex);
@@ -96,7 +129,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.ProductImageServices
 
             try
             {
-                await _httpClient.PutAsJsonAsync<UpdateProductImageDto>("productImages", updateProductImageDto);
+                await _httpClient.PutAsJsonAsync("productImages", updateProductImageDto);
             }
             catch (Exception ex)
             {

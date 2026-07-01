@@ -1,35 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.ProductDtos;
-using Newtonsoft.Json;
+using MultiShop.WebUi.Services.Catalog_Services.ProductServices;
 
 namespace MultiShop.WebUi.Components.Ui_Product_Components
 {
-    public class _UiProductListComponent(IHttpClientFactory _httpClientFactory) : ViewComponent
+    public class _UiProductListComponent : ViewComponent
     {
+        private readonly IProductService _productService;
+
+        public _UiProductListComponent(IProductService productService)
+        {
+            _productService = productService;
+        }
+
         public async Task<IViewComponentResult> InvokeAsync(string categoryId)
         {
-            var client = _httpClientFactory.CreateClient();
             var responseMessage = new HttpResponseMessage();
+            var values = new List<ResultProductWithCategoryDto>();
 
             if (categoryId != null)
             {
-                responseMessage = await client.GetAsync($"https://localhost:7070/api/Products/GetByCategory/{categoryId}");
-
-            }
-            else
-            {
-                responseMessage = await client.GetAsync($"https://localhost:7070/api/Products");
-            }
-
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
+                values = await _productService.GetAllProductWithCategoryByCategoryIdAsync(categoryId);
                 return View(values);
             }
 
-            return View();
+            else
+            {
+                var values1 = new List<ResultProductWithCategoryDto>();
+                var allProducts = await _productService.GetAllProductAsync();
+                foreach (var item in allProducts)
+                {
+                    values1.Add(new ResultProductWithCategoryDto
+                    {
+                        Id = item.Id,
+                        ProductName = item.ProductName,
+                        Price = item.Price,
+                        OldPrice = item.OldPrice,
+                        Stock = item.Stock,
+                        ImageUrl = item.ImageUrl,
+                        Description = item.Description,
+                        CategoryId = item.CategoryId
+                    });
+                }
+
+                return View(values1);
+            }
         }
     }
 }

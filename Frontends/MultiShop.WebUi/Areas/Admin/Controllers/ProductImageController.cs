@@ -7,11 +7,11 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductImageController : Controller
     {
-        private readonly IProductImageService _specialOfferService;
+        private readonly IProductImageService _productImageService;
 
-        public ProductImageController(IProductImageService specialOfferService)
+        public ProductImageController(IProductImageService productImageService)
         {
-            _specialOfferService = specialOfferService;
+            _productImageService = productImageService;
         }
 
         private async Task getRoutingsAsync()
@@ -25,7 +25,7 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             await getRoutingsAsync();
-            var values = await _specialOfferService.GetAllProductImageAsync();
+            var values = await _productImageService.GetAllProductImageAsync();
 
             return View(values);
         }
@@ -53,7 +53,7 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
                 if (createProductImageDto == null)
                     return View("Error");
 
-                await _specialOfferService.CreateProductImageAsync(createProductImageDto);
+                await _productImageService.CreateProductImageAsync(createProductImageDto);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -69,7 +69,7 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
                 if (string.IsNullOrEmpty(id))
                     return View("Error");
 
-                await _specialOfferService.DeleteProductImageAsync(id);
+                await _productImageService.DeleteProductImageAsync(id);
 
                 return RedirectToAction("Index");
             }
@@ -89,7 +89,7 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
 
                 await getRoutingsAsync();
 
-                var value = await _specialOfferService.GetProductImageByIdAsync(id);
+                var value = await _productImageService.GetProductImageByIdAsync(id);
                 if (value == null)
                     return View("Error");
 
@@ -109,7 +109,7 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
                 if (updateProductImageDto == null)
                     return View("Error");
 
-                await _specialOfferService.UpdateProductImageAsync(updateProductImageDto);
+                await _productImageService.UpdateProductImageAsync(updateProductImageDto);
 
                 return RedirectToAction("Index");
             }

@@ -8,44 +8,44 @@ namespace MultiShop.Catalog.Services.FeaturedProductServices
 {
     public class FeaturedProductService : IFeaturedProductService
     {
-        private readonly IMongoCollection<FeaturedProduct> _specialOfferCollection;
+        private readonly IMongoCollection<FeaturedProduct> _featuredProductCollection;
         private readonly IMapper _mapper;
 
         public FeaturedProductService(IMapper mapper, IDatabaseSettings _databaseSettings)
         {
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
-            _specialOfferCollection = database.GetCollection<FeaturedProduct>(_databaseSettings.FeaturedProductCollectionName);
+            _featuredProductCollection = database.GetCollection<FeaturedProduct>(_databaseSettings.FeaturedProductCollectionName);
             _mapper = mapper;
         }
 
         public async Task CreateFeaturedProductAsync(CreateFeaturedProductDto createFeaturedProductDto)
         {
             var value = _mapper.Map<FeaturedProduct>(createFeaturedProductDto);
-            await _specialOfferCollection.InsertOneAsync(value);
+            await _featuredProductCollection.InsertOneAsync(value);
         }
 
         public async Task DeleteFeaturedProductAsync(string id)
         {
-            await _specialOfferCollection.DeleteOneAsync(x => x.Id == id);
+            await _featuredProductCollection.DeleteOneAsync(x => x.Id == id);
         }
 
         public async Task<List<ResultFeaturedProductDto>> GetAllFeaturedProductsAsync()
         {
-            var values = await _specialOfferCollection.Find(x => true).ToListAsync();
+            var values = await _featuredProductCollection.Find(x => true).ToListAsync();
             return _mapper.Map<List<ResultFeaturedProductDto>>(values);
         }
 
-        public async Task<GetFeaturedProductByIdDto> GetByIdAsync(string id)
+        public async Task<GetFeaturedProductByIdDto> GetFeaturedProductByIdAsync(string id)
         {
-            var value = await _specialOfferCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            var value = await _featuredProductCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             return _mapper.Map<GetFeaturedProductByIdDto>(value);
         }
 
         public async Task UpdateFeaturedProductAsync(UpdateFeaturedProductDto updateFeaturedProductDto)
         {
             var value = _mapper.Map<FeaturedProduct>(updateFeaturedProductDto);
-            await _specialOfferCollection.FindOneAndReplaceAsync(x => x.Id == updateFeaturedProductDto.Id, value);
+            await _featuredProductCollection.FindOneAndReplaceAsync(x => x.Id == updateFeaturedProductDto.Id, value);
         }
     }
 }

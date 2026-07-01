@@ -7,7 +7,7 @@ namespace MultiShop.WebUi.Controllers
 {
     public class ProductListController(IHttpClientFactory _httpClientFactory) : Controller
     {
-        public async Task<IActionResult> Index(string id)
+        private async Task getRoutingsAsync()
         {
             HttpContext.Items["v0"] = "Ana Sayfa";
             HttpContext.Items["v1"] = "Ürün İşlemleri";
@@ -15,6 +15,11 @@ namespace MultiShop.WebUi.Controllers
 
             HttpContext.Items["a0"] = "/Default/Index";
             HttpContext.Items["a1"] = "/ProductList/Index";
+        }
+
+        public async Task<IActionResult> Index(string id)
+        {
+            await getRoutingsAsync();
 
             ViewBag.categoryId = id;
             return View();
@@ -22,12 +27,7 @@ namespace MultiShop.WebUi.Controllers
 
         public async Task<IActionResult> ProductDetail(string id)
         {
-            HttpContext.Items["v0"] = "Ana Sayfa";
-            HttpContext.Items["v1"] = "Ürün İşlemleri";
-            HttpContext.Items["v2"] = "Ürün Detayı";
-
-            HttpContext.Items["a0"] = "/Default/Index";
-            HttpContext.Items["a1"] = "/ProductList/Index";
+            await getRoutingsAsync();
 
             ViewBag.id = id;
             return View();

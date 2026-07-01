@@ -9,9 +9,9 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
     {
         private readonly IFeaturedProductService _featuredProductService;
 
-        public FeaturedProductController(IFeaturedProductService featureService)
+        public FeaturedProductController(IFeaturedProductService featuredProductService)
         {
-            _featuredProductService = _featuredProductService ?? throw new ArgumentNullException(nameof(featureService));
+            _featuredProductService = featuredProductService ?? throw new ArgumentNullException(nameof(featuredProductService));
         }
 
         private async Task getRoutingsAsync()

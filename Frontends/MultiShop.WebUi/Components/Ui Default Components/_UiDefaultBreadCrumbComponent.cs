@@ -6,7 +6,6 @@ namespace MultiShop.WebUi.Components.Ui_Default_Components
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-
             return View();
         }
     }
