@@ -9,5 +9,6 @@ namespace MultiShop.WebUi.Services.CatalogServices.UserCommentServices
         Task UpdateUserCommentAsync(UpdateUserCommentDto updateUserCommentDto);
         Task DeleteUserCommentAsync(string id);
         Task<GetUserCommentByIdDto> GetUserCommentByIdAsync(string id);
+        Task<List<ResultUserCommentDto>> GetUserCommentsByProductIdAsync(string id);
     }
 }

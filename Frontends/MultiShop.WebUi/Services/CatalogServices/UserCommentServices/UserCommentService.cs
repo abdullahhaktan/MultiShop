@@ -88,6 +88,30 @@ namespace MultiShop.WebUi.Services.CatalogServices.UserCommentServices
             }
         }
 
+        public async Task<List<ResultUserCommentDto>> GetUserCommentsByProductIdAsync(string productId)
+        {
+            try
+            {
+                var responseMessage = await _httpClient.GetAsync("userComments/GetUserCommentsByProductId/" + productId);
+                if (responseMessage == null)
+                    throw new Exception("API'den yanıt alınamadı.");
+
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(jsonData))
+                    return new List<ResultUserCommentDto>();
+
+                var values = JsonConvert.DeserializeObject<List<ResultUserCommentDto>>(jsonData);
+                if (values == null)
+                    return new List<ResultUserCommentDto>();
+
+                return values;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("GetUserCommentsByProductIdAsync işlemi sırasında bir hata oluştu.", ex);
+            }
+        }
         public async Task UpdateUserCommentAsync(UpdateUserCommentDto updateUserCommentDto)
         {
             if (updateUserCommentDto == null)

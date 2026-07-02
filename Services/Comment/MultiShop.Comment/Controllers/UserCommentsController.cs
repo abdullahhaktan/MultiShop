@@ -33,11 +33,11 @@ namespace MultiShop.Comment.Controllers
         }
 
         [HttpGet("GetUserCommentsByProductId/{productId}")]
-        public async Task<IActionResult> GetUserCommentsById(string productId)
+        public async Task<IActionResult> GetUserCommentsByProductId(string productId)
         {
             var values = await _context.UserComments.Where(uc => uc.ProductId == productId).ToListAsync();
             var comments = _mapper.Map<List<ResultUserCommentDto>>(values);
-            return Ok(values);
+            return Ok(comments);
         }
 
         [HttpPost]

@@ -1,35 +1,53 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.ContactDtos;
+using MultiShop.WebUi.Services.CatalogServices.ContactServices;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace MultiShop.WebUi.Controllers
 {
-    public class ContactController(IHttpClientFactory _httpClientFactory) : Controller
+    public class ContactController : Controller
     {
-        public async Task<IActionResult> Index()
+        private readonly IContactService _contactService;
+
+        public ContactController(IContactService contactService)
+        {
+            _contactService = contactService;
+        }
+
+        private async Task getRoutingsAsync()
         {
             HttpContext.Items["v0"] = "Ana Sayfa";
             HttpContext.Items["v1"] = "İletişim";
             HttpContext.Items["a0"] = "/Default/Index";
 
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            await getRoutingsAsync();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(CreateContactDto createContactDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createContactDto);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7070/api/Contacts", content);
-
-            if (responseMessage.IsSuccessStatusCode)
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Contact");
+                return View(createContactDto);
             }
 
-            return View();
+            try
+            {
+                await _contactService.CreateContactAsync(createContactDto);
+
+                return RedirectToAction("Index", "Contact");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Kayıt sırasında bir hata oluştu: " + ex.Message);
+                return View(createContactDto);
+            }
         }
     }
 }

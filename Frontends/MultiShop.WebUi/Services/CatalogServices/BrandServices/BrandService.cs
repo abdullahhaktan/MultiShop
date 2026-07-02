@@ -54,6 +54,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.BrandServices
                     return new List<ResultBrandDto>();
 
                 var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData);
+
                 return values;
             }
             catch (Exception ex)
@@ -91,6 +92,7 @@ namespace MultiShop.WebUi.Services.CatalogServices.BrandServices
             {
                 await _httpClient.PutAsJsonAsync("brands", updateBrandDto);
             }
+
             catch (Exception ex)
             {
                 throw new Exception("UpdateBrandAsync işlemi sırasında bir hata oluştu.", ex);
