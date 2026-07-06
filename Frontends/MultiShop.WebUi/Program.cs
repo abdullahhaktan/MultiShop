@@ -14,9 +14,9 @@ using MultiShop.WebUi.Services.CatalogServices.PrdoductDetailServices;
 using MultiShop.WebUi.Services.CatalogServices.ProductImageServices;
 using MultiShop.WebUi.Services.CatalogServices.ProductServices;
 using MultiShop.WebUi.Services.CatalogServices.SpecialOfferServices;
-using MultiShop.WebUi.Services.CatalogServices.UserCommentServices;
 using MultiShop.WebUi.Services.Concrete;
 using MultiShop.WebUi.Services.Interfaces;
+using MultiShop.WebUi.Services.UserCommentServices;
 using MultiShop.WebUi.Settings;
 using MultiShop.WebUI.Services.CatalogServices.CategoryServices;
 
