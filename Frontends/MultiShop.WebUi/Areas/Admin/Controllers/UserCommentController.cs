@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.UserCommentDtos;
-using MultiShop.WebUi.Services.CatalogServices.UserCommentServices;
+using MultiShop.WebUi.Services.UserCommentServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
