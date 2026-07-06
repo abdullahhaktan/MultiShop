@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.CategoryDtos;
-using MultiShop.WebUi.Services.Catalog_Services.CategoryServices;
+using MultiShop.WebUi.Services.CatalogServices.CategoryServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices;
+using MultiShop.WebUi.Services.CatalogServices.SpecialOfferServices;
 
 namespace MultiShop.WebUi.Components.Ui_Default_Components
 {

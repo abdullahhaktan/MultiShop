@@ -1,18 +1,19 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MultiShop.WebUi.Handlers;
-using MultiShop.WebUi.Services.Catalog_Services.CategoryServices;
-using MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices;
-using MultiShop.WebUi.Services.Catalog_Services.ProductServices;
-using MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices;
+using MultiShop.WebUi.Services.BasketServices;
 using MultiShop.WebUi.Services.CatalogServices.AboutServices;
 using MultiShop.WebUi.Services.CatalogServices.BrandServices;
+using MultiShop.WebUi.Services.CatalogServices.CategoryServices;
 using MultiShop.WebUi.Services.CatalogServices.ContactServices;
 using MultiShop.WebUi.Services.CatalogServices.FeaturedProductdProductServices;
 using MultiShop.WebUi.Services.CatalogServices.FeaturedProductServices;
 using MultiShop.WebUi.Services.CatalogServices.FeatureServices;
+using MultiShop.WebUi.Services.CatalogServices.FeatureSliderServices;
 using MultiShop.WebUi.Services.CatalogServices.PrdoductDetailServices;
 using MultiShop.WebUi.Services.CatalogServices.ProductImageServices;
+using MultiShop.WebUi.Services.CatalogServices.ProductServices;
+using MultiShop.WebUi.Services.CatalogServices.SpecialOfferServices;
 using MultiShop.WebUi.Services.CatalogServices.UserCommentServices;
 using MultiShop.WebUi.Services.Concrete;
 using MultiShop.WebUi.Services.Interfaces;
@@ -123,6 +124,11 @@ builder.Services.AddHttpClient<IContactService, ContactService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IBasketService, BasketService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Basket.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
 var app = builder.Build();
 

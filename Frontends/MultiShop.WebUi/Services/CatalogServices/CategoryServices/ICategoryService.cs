@@ -1,6 +1,6 @@
 ﻿using MultiShop.DtoLayer.CategoryDtos;
 
-namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
+namespace MultiShop.WebUi.Services.CatalogServices.CategoryServices
 {
     public interface ICategoryService
     {

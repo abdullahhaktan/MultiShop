@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.SpecialOfferDtos;
-using MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices;
+using MultiShop.WebUi.Services.CatalogServices.SpecialOfferServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {

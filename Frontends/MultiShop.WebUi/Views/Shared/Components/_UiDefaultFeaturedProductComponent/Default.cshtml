@@ -12,7 +12,7 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="@item.ImageUrl" style="width: 100%; height: 260px; object-fit: cover;" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("GetProductIdByProductName", "Default", new { productName = item.ProductName })"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -23,6 +23,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" href="/ProductList/ProductDetail/@item.Id">@item.ProductName</a>
+                       
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5>$@item.Price</h5><h6 class="text-muted ml-2"><del>$@item.OldPrice</del></h6>
                         </div>

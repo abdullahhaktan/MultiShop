@@ -1,8 +1,8 @@
 ﻿using MultiShop.DtoLayer.ProductDtos;
-using MultiShop.WebUi.Services.Catalog_Services.ProductServices;
+using MultiShop.WebUi.Services.CatalogServices.ProductServices;
 using Newtonsoft.Json;
 
-namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
+namespace MultiShop.WebUi.Services.CatalogServices.CategoryServices
 {
     public class ProductService : IProductService
     {
@@ -135,6 +135,29 @@ namespace MultiShop.WebUi.Services.Catalog_Services.CategoryServices
             catch (Exception ex)
             {
                 throw new Exception("GetProductByIdAsync işlemi sırasında bir hata oluştu.", ex);
+            }
+        }
+
+        public async Task<string> GetProductIdByProductNameAsync(string productName)
+        {
+            if (string.IsNullOrEmpty(productName))
+                throw new ArgumentNullException(nameof(productName));
+
+            try
+            {
+                var responseMessage = await _httpClient.GetAsync("products/GetProductIdByProductName/" + productName);
+                if (responseMessage == null)
+                    throw new Exception("API'den yanıt alınamadı.");
+
+                var value = await responseMessage.Content.ReadAsStringAsync();
+                if (value == null)
+                    throw new Exception("Ürün bulunamadı.");
+
+                return value;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetProductByIdByProductNameAsync işlemi sırasında bir hata oluştu.", ex);
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices;
+using MultiShop.WebUi.Services.CatalogServices.FeatureSliderServices;
 
 namespace MultiShop.WebUi.Components.Ui_Default_Components
 {

@@ -1,5 +1,5 @@
 ﻿using MultiShop.DtoLayer.CategoryDtos;
-using MultiShop.WebUi.Services.Catalog_Services.CategoryServices;
+using MultiShop.WebUi.Services.CatalogServices.CategoryServices;
 using Newtonsoft.Json;
 
 namespace MultiShop.WebUI.Services.CatalogServices.CategoryServices

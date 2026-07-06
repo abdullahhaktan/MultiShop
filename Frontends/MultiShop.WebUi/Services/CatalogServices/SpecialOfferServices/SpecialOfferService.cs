@@ -1,7 +1,7 @@
 ﻿using MultiShop.DtoLayer.SpecialOfferDtos;
 using Newtonsoft.Json;
 
-namespace MultiShop.WebUi.Services.Catalog_Services.SpecialOfferServices
+namespace MultiShop.WebUi.Services.CatalogServices.SpecialOfferServices
 {
     public class SpecialOfferService : ISpecialOfferService
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.ProductDtos;
-using MultiShop.WebUi.Services.Catalog_Services.ProductServices;
+using MultiShop.WebUi.Services.CatalogServices.ProductServices;
 
 namespace MultiShop.WebUi.Components.Ui_Product_Components
 {

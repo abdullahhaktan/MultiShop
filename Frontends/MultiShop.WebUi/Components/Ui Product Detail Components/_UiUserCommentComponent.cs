@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.WebUi.Services.Catalog_Services.ProductServices;
+using MultiShop.WebUi.Services.CatalogServices.ProductServices;
 using MultiShop.WebUi.Services.CatalogServices.UserCommentServices;
 
 namespace MultiShop.WebUi.Components.Ui_Product_Detail_Components

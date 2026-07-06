@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.FeatureSliderDtos;
-using MultiShop.WebUi.Services.Catalog_Services.FeatureSliderServices;
+using MultiShop.WebUi.Services.CatalogServices.FeatureSliderServices;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
