@@ -9,7 +9,7 @@ namespace MultiShop.Discount.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Discounts",
+                name: "DiscountCoupons",
                 columns: table => new
                 {
                     DiscountId = table.Column<int>(type: "int", nullable: false)
@@ -21,14 +21,14 @@ namespace MultiShop.Discount.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discounts", x => x.DiscountId);
+                    table.PrimaryKey("PK_DiscountCoupons", x => x.DiscountId);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Discounts");
+                name: "DiscountCoupons");
         }
     }
 }

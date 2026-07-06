@@ -24,6 +24,5 @@ namespace MultiShop.Discount.Context
         public DbSet<DiscountCoupon> DiscountCoupons { get; set; }
 
         public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
-
     }
 }

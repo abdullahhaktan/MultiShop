@@ -12,8 +12,8 @@ using MultiShop.Discount.Context;
 namespace MultiShop.Discount.Migrations
 {
     [DbContext(typeof(DapperContext))]
-    [Migration("20260517181730_migInitial")]
-    partial class migInitial
+    [Migration("20260706074743_migDiscountTableUpdated")]
+    partial class migDiscountTableUpdated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace MultiShop.Discount.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("MultiShop.Discount.Entities.Coupon", b =>
+            modelBuilder.Entity("MultiShop.Discount.Entities.DiscountCoupon", b =>
                 {
                     b.Property<int>("DiscountId")
                         .ValueGeneratedOnAdd()
