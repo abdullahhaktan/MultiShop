@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiShop.WebUi.Services.CatalogServices.ProductServices;
 
 namespace MultiShop.WebUi.Controllers
 {
-    public class DefaultController : Controller
+    public class DefaultController(IProductService _productService) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -10,6 +11,12 @@ namespace MultiShop.WebUi.Controllers
             var user = User.Claims;
             int x;
             return View();
+        }
+
+        public async Task<IActionResult> GetProductIdByProductName(string productName)
+        {
+            var value = await _productService.GetProductIdByProductNameAsync(productName);
+            return RedirectToAction("AddBasketItem", "ShoppingCart", new { id = value });
         }
     }
 }
