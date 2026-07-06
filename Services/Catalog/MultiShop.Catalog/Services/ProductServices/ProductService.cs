@@ -112,5 +112,15 @@ namespace MultiShop.Catalog.Services.ProductServices
             var value = _mapper.Map<Product>(updateProductDto);
             await _productCollection.FindOneAndReplaceAsync(x => x.Id == updateProductDto.Id, value);
         }
+
+        public async Task<string> GetProductIdByProductName(string productName)
+        {
+            if (string.IsNullOrEmpty(productName))
+                throw new ArgumentException("Name boş olamaz.", nameof(productName));
+
+            var value = await _productCollection.Find(p => p.ProductName == productName).FirstOrDefaultAsync();
+
+            return value.Id;
+        }
     }
 }

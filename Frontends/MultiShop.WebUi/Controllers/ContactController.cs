@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.ContactDtos;
 using MultiShop.WebUi.Services.CatalogServices.ContactServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MultiShop.WebUi.Controllers
 {
