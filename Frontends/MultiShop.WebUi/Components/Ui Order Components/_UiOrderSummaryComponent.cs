@@ -1,0 +1,12 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace MultiShop.WebUi.Components.Ui_Order_Components
+{
+    public class _UiOrderSummaryComponent:ViewComponent
+    {
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            return View();
+        }
+    }
+}
