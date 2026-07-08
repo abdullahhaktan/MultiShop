@@ -12,8 +12,8 @@ using MultiShop.Order.Persistence.Context;
 namespace MultiShop.Order.Persistence.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20260521131240_mig_initial")]
-    partial class mig_initial
+    [Migration("20260708090016_migInitial")]
+    partial class migInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,33 +56,29 @@ namespace MultiShop.Order.Persistence.Migrations
 
             modelBuilder.Entity("MultiShop.Order.Domain.Entities.OrderDetail", b =>
                 {
-                    b.Property<int>("OrderDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"));
+                    b.Property<int>("OrderDetailId")
+                        .HasColumnType("int");
 
                     b.Property<int>("OrderingId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ProductAmount")
                         .HasColumnType("int");
-
-                    b.Property<string>("Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal>("ProductTotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("OrderDetailId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderingId");
 
