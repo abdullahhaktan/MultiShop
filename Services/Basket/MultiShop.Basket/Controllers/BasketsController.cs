@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Basket.Dtos;
 using MultiShop.Basket.LoginServices;
 using MultiShop.Basket.Services;
 
 namespace MultiShop.Basket.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BasketsController : ControllerBase
@@ -29,8 +31,14 @@ namespace MultiShop.Basket.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveMyBasket(BasketTotalDto basketTotalDto)
         {
+            Console.WriteLine("SaveMyBasket çalıştı");
+
             basketTotalDto.UserId = _loginService.GetUserId;
+
+            Console.WriteLine($"UserId = {basketTotalDto.UserId}");
+
             await _basketService.SaveBasket(basketTotalDto);
+
             return Ok("Sepetteki değişiklikler kaydedildi.");
         }
 
