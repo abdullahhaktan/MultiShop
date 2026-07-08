@@ -9,19 +9,20 @@ using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
 // Add services to the container.
-
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
     opt.Authority = builder.Configuration["IdentityServerUrl"];
     opt.Audience = "ResourceBasket";
     opt.RequireHttpsMetadata = false;
+    opt.MapInboundClaims = false;
 });
 
+builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IBasketService, BasketService>();
@@ -33,6 +34,7 @@ builder.Services.AddSingleton<RedisService>(sp =>
     redis.Connect();
     return redis;
 });
+
 
 builder.Services.AddControllers(opt =>
 {
