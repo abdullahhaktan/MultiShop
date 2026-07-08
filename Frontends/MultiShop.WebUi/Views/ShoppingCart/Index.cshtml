@@ -11,7 +11,8 @@
 
         @await Component.InvokeAsync("_UiShoppingCartProductListComponent")
 
-        @await Component.InvokeAsync("_UiShoppingCartDiscountComponent")
+        @await Html.PartialAsync("~/Views/DiscountCoupon/ConfirmDiscountCoupon.cshtml")
 
+        @*@await Component.InvokeAsync("_UiShoppingCartDiscountComponent")*@
     </div>
 </div>
