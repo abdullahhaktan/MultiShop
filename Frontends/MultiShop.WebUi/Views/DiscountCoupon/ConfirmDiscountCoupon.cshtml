@@ -1,0 +1,96 @@
+﻿@*
+    Confirm Discount Coupon Partial View
+*@
+
+<div class="col-lg-4">
+    <div class="card border-0 shadow-sm rounded-lg mb-4 bg-white overflow-hidden">
+        <div class="card-body p-4">
+            <h6 class="text-uppercase text-muted font-weight-bold mb-3" style="letter-spacing: 1px; font-size: 0.85rem;">
+                <i class="fas fa-ticket-alt mr-2 text-primary"></i>İndirim Kuponu
+            </h6>
+            <form asp-controller="DiscountCoupon" asp-action="ConfirmDiscountCoupon" method="post">
+                <div class="input-group shadow-sm rounded">
+                    <input type="text" name="couponCode" value="@ViewBag.code" class="form-control border-light bg-light py-4 px-3" placeholder="Kupon Kodunuz" style="font-size: 0.95rem;">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary px-4 font-weight-medium transition-all">Uygula</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <h5 class="section-title position-relative text-uppercase mb-3 font-weight-bold" style="font-size: 1.1rem; letter-spacing: 0.5px;">
+        <span class="bg-light pr-3 text-dark">Sipariş Özeti</span>
+    </h5>
+
+    <div class="card border-0 shadow-sm rounded-lg bg-white mb-5">
+        <div class="card-body p-4">
+            <div class="border-bottom pb-3">
+                <div class="d-flex justify-content-between mb-2 align-items-center">
+                    <span class="text-muted">Toplam Ürün Fiyatı</span>
+                    <span class="font-weight-medium text-dark">@ViewBag.totalPrice ₺</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2 align-items-center">
+                    <span class="text-muted">KDV Tutarı (%10)</span>
+                    <span class="font-weight-medium text-dark">@ViewBag.tax ₺</span>
+                </div>
+
+                @if (ViewBag.discountRate > 0)
+                {
+                    <div class="d-flex justify-content-between mb-2 align-items-center">
+                        <span class="text-muted">İndirim Oranı</span>
+                        <span class="badge badge-soft-success font-weight-medium text-success" style="font-size: 0.9rem;">%@ViewBag.discountRate</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-0 align-items-center">
+                        <span class="text-muted">İndirimsiz Tutar</span>
+                        <span class="text-dark" style="text-decoration: line-through; opacity: 0.7;">@ViewBag.totalPriceWithTax ₺</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-between mb-0 align-items-center">
+                        <span class="text-muted">Toplam Tutar</span>
+                        <span class="font-weight-medium text-dark">@ViewBag.totalPriceWithTax ₺</span>
+                    </div>
+                }
+            </div>
+
+            <div class="pt-3">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="font-weight-bold text-dark m-0">Ödenecek Tutar</h5>
+                    <h4 class="font-weight-bold text-primary m-0" style="font-size: 1.5rem;">@ViewBag.totalNewPriceWithDiscount ₺</h4>
+                </div>
+
+                <button class="btn btn-block btn-primary font-weight-bold py-3 shadow-sm btn-checkout">
+                    Ödeme Adımına Geç <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-lg {
+        border-radius: 12px !important;
+    }
+
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+
+    .btn-checkout {
+        border-radius: 8px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .btn-checkout:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3) !important;
+        }
+
+    .badge-soft-success {
+        background-color: rgba(40, 167, 69, 0.1);
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+</style>
