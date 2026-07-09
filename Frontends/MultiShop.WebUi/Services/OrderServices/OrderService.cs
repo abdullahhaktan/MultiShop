@@ -4,9 +4,17 @@ namespace MultiShop.WebUi.Services.OrderServices
 {
     public class OrderService : IOrderService
     {
-        public Task CreateOrderAddressAsync(CreateOrderAddressDto createOrderAddressDto)
+        private readonly HttpClient _httpClient;
+
+        public OrderService(HttpClient httpClient)
         {
-            throw new NotImplementedException();
+            _httpClient = httpClient;
+        }
+
+        public async Task CreateOrderAddressAsync(CreateOrderAddressDto createOrderAddressDto)
+        {
+            var response = await _httpClient.PostAsJsonAsync("addresses", createOrderAddressDto);
+            response.EnsureSuccessStatusCode();
         }
     }
 }
