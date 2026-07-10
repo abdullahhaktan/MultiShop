@@ -18,7 +18,6 @@ namespace MultiShop.WebUi.Controllers
             HttpContext.Items["v0"] = "Ana Sayfa";
             HttpContext.Items["v1"] = "İletişim";
             HttpContext.Items["a0"] = "/Default/Index";
-
         }
 
         public async Task<IActionResult> Index()
