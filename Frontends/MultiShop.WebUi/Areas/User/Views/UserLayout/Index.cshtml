@@ -4,12 +4,28 @@
 }
 
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
+@await Component.InvokeAsync("_UserLayoutHeadComponent")
+
 <body>
+
+    <div class="container-scroller d-flex">
+        @await Component.InvokeAsync("_UserLayoutSidebarComponent")
+
+        <div class="container-fluid page-body-wrapper">
+            @await Component.InvokeAsync("_UserLayoutNavbarComponent")
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+
+                @await Component.InvokeAsync("_UserLayoutFooterComponent")
+            </div>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("_UserLayoutScriptComponent")
 </body>
+
 </html>
