@@ -10,7 +10,7 @@ namespace MultiShop.WebUi.Controllers
         private readonly IBasketService _basketService;
 
 
-        public DiscountCouponController(IDiscountService discountService,IBasketService basketService)
+        public DiscountCouponController(IDiscountService discountService, IBasketService basketService)
         {
             _discountService = discountService;
             _basketService = basketService;
@@ -23,7 +23,7 @@ namespace MultiShop.WebUi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmDiscountCoupon([FromForm]string couponCode)
+        public async Task<IActionResult> ConfirmDiscountCoupon([FromForm] string couponCode)
         {
             var values = await _discountService.GetDiscountCouponCountRate(couponCode);
 

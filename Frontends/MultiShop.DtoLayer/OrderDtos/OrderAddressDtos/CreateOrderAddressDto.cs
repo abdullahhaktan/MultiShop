@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MultiShop.DtoLayer.OrderDtos.Order_Address_Dtos
+﻿namespace MultiShop.DtoLayer.OrderDtos.OrderAddressDtos
 {
     public class CreateOrderAddressDto
     {

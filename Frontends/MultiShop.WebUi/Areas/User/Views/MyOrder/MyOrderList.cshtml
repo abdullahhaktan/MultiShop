@@ -1,58 +1,65 @@
-﻿
+﻿@model List<ResultOrderingByUserIdDto>
 @{
-    ViewData["Title"] = "MyOrderList";
+    ViewData["Title"] = "Siparişlerim";
     Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    int count = 0;
+    string tableRowColor = "";
 }
 
 <div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Basic Table</h4>
+                <h4 class="card-title">Siparişlerim</h4>
                 <p class="card-description">
-                    Add class <code>.table</code>
+                    Tüm sipariş geçmişiniz <code>burada listelenmektedir</code>
                 </p>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Profile</th>
-                                <th>VatNo.</th>
-                                <th>Created</th>
-                                <th>Status</th>
+                                <th>Sipariş No</th>
+                                <th>Sipariş Tarihi</th>
+                                <th>Toplam Tutar</th>
+                                <th>Durum</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Jacob</td>
-                                <td>53275531</td>
-                                <td>12 May 2017</td>
-                                <td><label class="badge badge-danger">Pending</label></td>
-                            </tr>
-                            <tr>
-                                <td>Messsy</td>
-                                <td>53275532</td>
-                                <td>15 May 2017</td>
-                                <td><label class="badge badge-warning">In progress</label></td>
-                            </tr>
-                            <tr>
-                                <td>John</td>
-                                <td>53275533</td>
-                                <td>14 May 2017</td>
-                                <td><label class="badge badge-info">Fixed</label></td>
-                            </tr>
-                            <tr>
-                                <td>Peter</td>
-                                <td>53275534</td>
-                                <td>16 May 2017</td>
-                                <td><label class="badge badge-success">Completed</label></td>
-                            </tr>
-                            <tr>
-                                <td>Dave</td>
-                                <td>53275535</td>
-                                <td>20 May 2017</td>
-                                <td><label class="badge badge-warning">In progress</label></td>
-                            </tr>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    count++;
+
+                                    if (count == 1) { tableRowColor = "table-info"; }
+                                    if (count == 2) { tableRowColor = "table-warning"; }
+                                    if (count == 3) { tableRowColor = "table-danger"; }
+                                    if (count == 4) { tableRowColor = "table-success"; }
+                                    if (count == 5) { tableRowColor = "table-primary"; }
+                                    if (count == 6) { tableRowColor = "table-dark"; }
+                                    if (count == 7) { tableRowColor = "table-secondary"; }
+
+                                    <tr class="@tableRowColor">
+                                        <td>#@count</td>
+                                        <td>@item.OrderDate.ToString("dd MMMM yyyy")</td>
+                                        <td>@item.TotalPrice.ToString("C2")</td>
+                                        <td>
+                                            <label class="badge badge-success">Tamamlandı</label>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        <div class="my-4">
+                                            <i class="mdi mdi-cart-off" style="font-size: 48px; color: #6c757d;"></i>
+                                            <p class="mt-2">Henüz hiç siparişiniz bulunmamaktadır.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -60,3 +67,29 @@
         </div>
     </div>
 </div>
+
+<style>
+    .table-hover tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .badge-success {
+        background: linear-gradient(45deg, #2ecc71, #27ae60) !important;
+    }
+
+    .card {
+        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        border: none;
+    }
+
+    .table th {
+        border-top: none;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+</style>

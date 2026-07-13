@@ -30,7 +30,7 @@ namespace MultiShop.Discount.Controllers
         }
 
         [HttpGet("GetDiscountCouponCountRate/{couponCode}")]
-        public  IActionResult GetCodeDetailByCode(string couponCode)
+        public IActionResult GetCodeDetailByCode(string couponCode)
         {
             var value = _discountCouponService.GetDiscountCouponCountRate(couponCode);
             return Ok(value);

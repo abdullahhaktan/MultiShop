@@ -80,7 +80,7 @@ namespace MultiShop.Discount.Services
             string query = "Select Rate From DiscountCoupons Where Code=@couponCode";
             var parameters = new DynamicParameters();
             parameters.Add("@couponCode", couponCode);
-            using(var connection = _context.CreateConnection())
+            using (var connection = _context.CreateConnection())
             {
                 var values = connection.QueryFirstOrDefault<int>(query, parameters);
                 return values;

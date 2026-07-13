@@ -2,7 +2,7 @@
 
 namespace MultiShop.WebUi.Components.Ui_Order_Components
 {
-    public class _UiOrderAdresComponent:ViewComponent
+    public class _UiOrderAdresComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {

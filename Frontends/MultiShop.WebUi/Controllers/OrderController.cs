@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.DtoLayer.OrderDtos.Order_Address_Dtos;
+using MultiShop.DtoLayer.OrderDtos.OrderAddressDtos;
 using MultiShop.WebUi.Services.Interfaces;
-using MultiShop.WebUi.Services.OrderServices;
-using System.Threading.Tasks;
+using MultiShop.WebUi.Services.OrderServices.OrderAddressServices;
 
 namespace MultiShop.WebUi.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly IOrderService _orderAddressService;
+        private readonly IOrderAddressService _orderAddressService;
         private readonly IUserService _userService;
 
-        public OrderController(IOrderService orderService, IUserService userService)
+        public OrderController(IOrderAddressService orderService, IUserService userService)
         {
             _orderAddressService = orderService;
             _userService = userService;
@@ -41,7 +40,7 @@ namespace MultiShop.WebUi.Controllers
 
             await _orderAddressService.CreateOrderAddressAsync(createOrderAddressDto);
 
-            return RedirectToAction("Index","Payment");
+            return RedirectToAction("Index", "Payment");
         }
     }
 }

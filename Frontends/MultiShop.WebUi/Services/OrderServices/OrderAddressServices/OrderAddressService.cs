@@ -1,12 +1,12 @@
-﻿using MultiShop.DtoLayer.OrderDtos.Order_Address_Dtos;
+﻿using MultiShop.DtoLayer.OrderDtos.OrderAddressDtos;
 
-namespace MultiShop.WebUi.Services.OrderServices
+namespace MultiShop.WebUi.Services.OrderServices.OrderAddressServices
 {
-    public class OrderService : IOrderService
+    public class OrderAddressService : IOrderAddressService
     {
         private readonly HttpClient _httpClient;
 
-        public OrderService(HttpClient httpClient)
+        public OrderAddressService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

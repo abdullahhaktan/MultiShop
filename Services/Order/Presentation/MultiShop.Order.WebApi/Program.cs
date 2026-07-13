@@ -23,6 +23,8 @@ builder.Services.AddDbContext<OrderContext>(options =>
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+builder.Services.AddScoped(typeof(IOrderingRepository), typeof(OrderingRepository));
+
 builder.Services.AddApplicationService(builder.Configuration);
 
 #region CQRS Handlers

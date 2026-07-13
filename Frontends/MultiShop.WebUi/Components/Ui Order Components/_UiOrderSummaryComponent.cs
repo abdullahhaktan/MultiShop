@@ -3,7 +3,7 @@ using MultiShop.WebUi.Services.BasketServices;
 
 namespace MultiShop.WebUi.Components.Ui_Order_Components
 {
-    public class _UiOrderSummaryComponent:ViewComponent
+    public class _UiOrderSummaryComponent : ViewComponent
     {
         private readonly IBasketService _basketService;
         public _UiOrderSummaryComponent(IBasketService basketService)

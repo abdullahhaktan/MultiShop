@@ -2,7 +2,7 @@
 
 namespace MultiShop.WebUi.Areas.User.Components.UserLayoutComponents
 {
-    public class _UserLayoutFooterComponent:ViewComponent
+    public class _UserLayoutFooterComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
