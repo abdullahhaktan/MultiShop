@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.WebUi.Services.Interfaces;
 using MultiShop.WebUi.Services.OrderServices.OrderingServices;
-using System;
-using System.Threading.Tasks;
 
 namespace MultiShop.WebUi.Areas.User.Controllers
 {

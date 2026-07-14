@@ -1,9 +1,5 @@
 ﻿using MultiShop.DtoLayer.OrderDtos.OrderOrderingDtos;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace MultiShop.WebUi.Services.OrderServices.OrderingServices
 {

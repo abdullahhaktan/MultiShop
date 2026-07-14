@@ -1,0 +1,93 @@
+﻿@model List<ResultSendboxMessageDto>
+
+@{
+    ViewData["Title"] = "Giden Kutusu";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+}
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">
+            <i class="fas fa-paper-plane me-2"></i> Giden Kutusu
+        </h4>
+    </div>
+
+    <div class="card-body">
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-warning">
+                Gönderilmiş mesaj bulunamadı.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Alıcı</th>
+                            <th>Konu</th>
+                            <th>Mesaj</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model.OrderByDescending(x => x.MessageDate))
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.ReceiverId
+                                </td>
+
+                                <td>
+                                    @item.Subject
+                                </td>
+
+                                <td>
+                                    @(item.MessageDetail.Length > 70
+                                                                ? item.MessageDetail.Substring(0, 70) + "..."
+                                                                : item.MessageDetail)
+                        </td>
+
+                                <td>
+
+                            @if (item.IsRead)
+                                    {
+                                        <span class="badge bg-success">
+                                            Görüldü
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            Gönderildi
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td>
+                                    @item.MessageDate.ToString("dd.MM.yyyy HH:mm")
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+    </div>
+
+</div>
