@@ -21,6 +21,7 @@ using MultiShop.WebUi.Services.MessageServices;
 using MultiShop.WebUi.Services.OrderServices.OrderAddressServices;
 using MultiShop.WebUi.Services.OrderServices.OrderingServices;
 using MultiShop.WebUi.Services.UserCommentServices;
+using MultiShop.WebUi.Services.UserIdentityServices;
 using MultiShop.WebUi.Settings;
 using MultiShop.WebUI.Services.CatalogServices.CategoryServices;
 
@@ -65,6 +66,11 @@ builder.Services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTo
 var values = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
+{
+    opt.BaseAddress = new Uri(values.IdentityServerUrl);
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<IUserIdentityService, UserIdentityService>(opt =>
 {
     opt.BaseAddress = new Uri(values.IdentityServerUrl);
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
