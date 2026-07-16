@@ -1,22 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiShop.WebUi.Services.CargoServices.CargoCustomerServices;
 using MultiShop.WebUi.Services.UserIdentityServices;
-using System.Threading.Tasks;
 
 namespace MultiShop.WebUi.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class UserController : Controller
     {
-        private readonly IUserIdentityService _uerIdentityService;
+        private readonly IUserIdentityService _userIdentityService;
+        private readonly ICargoCustomerService _cargoCustomerService;
 
-        public UserController(IUserIdentityService uerIdentityService)
+        public UserController(IUserIdentityService userIdentityService,ICargoCustomerService cargoCustomerService)
         {
-            _uerIdentityService = uerIdentityService;
+            _userIdentityService = userIdentityService;
+            _cargoCustomerService = cargoCustomerService;
         }
 
         public async Task<IActionResult> UserList()
         {
-            var values = await _uerIdentityService.GetAllUserListAsync();
+            var values = await _userIdentityService.GetAllUserListAsync();
+            return View(values);
+        }
+
+        public async Task<IActionResult> UserAddressInfo(string id)
+        {
+            var values = await _cargoCustomerService.GetByIdCargoCustomerInfoAsync(id);
             return View(values);
         }
     }

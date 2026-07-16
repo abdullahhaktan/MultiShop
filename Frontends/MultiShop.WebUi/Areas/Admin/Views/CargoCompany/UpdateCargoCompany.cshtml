@@ -1,0 +1,56 @@
+﻿@model UpdateCargoCompanyDto
+
+@{
+    ViewData["Title"] = "Kargo Firması Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <div class="box" style="background: #ffffff; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px;">
+
+                <div class="box-header" style="padding: 15px 20px; border-bottom: 1px solid #f4f4f4;">
+                    <h3 class="box-title" style="margin: 0; font-size: 18px; font-weight: 500;">
+                        <i class="fa fa-edit text-warning" style="margin-right: 8px;"></i> Kargo Firması Güncelle
+                    </h3>
+                </div>
+
+                <form method="post" asp-action="UpdateCargoCompany" asp-controller="Cargo" asp-area="Admin">
+
+                    <input type="hidden" asp-for="CargoCompanyId" />
+
+                    <div class="box-body" style="padding: 20px;">
+
+                        <div class="form-group">
+                            <label for="CargoCompanyName" style="font-weight: 600; color: #444; margin-bottom: 8px;">
+                                Kargo Firması Adı
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon" style="background-color: #f9f9f9;"><i class="fa fa-truck"></i></span>
+                                <input type="text"
+                                       class="form-control"
+                                       id="CargoCompanyName"
+                                       asp-for="CargoCompanyName"
+                                       required
+                                       style="border-radius: 0 4px 4px 0; height: 40px;" />
+                            </div>
+                            <span asp-validation-for="CargoCompanyName" class="text-danger" style="font-size: 12px; margin-top: 5px; display: block;"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="box-footer" style="padding: 15px 20px; background-color: #fafafa; border-top: 1px solid #f4f4f4; text-align: right;">
+                        <a href="/Admin/Cargo/CargoCompanyList" class="btn btn-default" style="margin-right: 5px; border-radius: 4px;">
+                            <i class="fa fa-arrow-left"></i> Vazgeç
+                        </a>
+                        <button type="submit" class="btn btn-warning" style="border-radius: 4px; min-width: 120px;">
+                            <i class="fa fa-refresh"></i> Güncelle
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

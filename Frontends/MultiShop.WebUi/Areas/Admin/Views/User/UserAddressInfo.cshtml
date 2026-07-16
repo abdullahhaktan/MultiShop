@@ -1,0 +1,106 @@
+﻿@model GetCargoCustomerByIdDto
+
+@{
+    ViewData["Title"] = "Kullanıcı Kargo ve Adres Bilgileri";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4" style="margin-bottom: 25px;">
+        <div class="col-md-9">
+            <h4 class="font-weight-bold text-primary" style="font-weight: 700; color: #1a73e8; margin-bottom: 5px;">
+                Müşteri Adres Detayları
+            </h4>
+            <p class="text-muted" style="color: #777; margin-bottom: 0;">Müşterinin sistemde kayıtlı güncel kargo, iletişim ve lokasyon bilgilerini inceleyin.</p>
+        </div>
+        <div class="col-md-3 text-right">
+            <a href="/Admin/User/UserList" class="btn btn-default btn-sm shadow-sm" style="border-radius: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); padding: 5px 15px;">
+                <i class="fa fa-arrow-left"></i> Listeye Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-5 mb-4">
+            <div class="card border-0 shadow-sm" style="background: #fff; border-radius: 4px; border: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 30px 20px; text-align: center; height: 100%;">
+
+                <div class="avatar-placeholder bg-light-primary text-primary" style="width: 90px; height: 90px; line-height: 90px; font-size: 28px; font-weight: bold; border-radius: 50%; margin: 0 auto 15px auto; background-color: #e8f0fe; color: #1a73e8; text-align: center;">
+                    @Model.name[0].ToString().ToUpper()@Model.surname[0].ToString().ToUpper()
+                </div>
+
+                <h4 style="font-weight: 600; color: #333; margin-bottom: 5px;">@Model.name @Model.surname</h4>
+                <p class="text-muted" style="font-size: 12px; margin-bottom: 20px;">Kullanıcı Kimliği: <strong style="color: #333;">@Model.userCustomerId</strong></p>
+
+                <hr style="border-top: 1px dashed #eee; margin: 20px 0;">
+
+                <div style="text-align: left; padding: 0 10px;">
+                    <div style="margin-bottom: 15px; display: block; overflow: hidden;">
+                        <div style="width: 40px; height: 40px; line-height: 40px; background: #e8f0fe; color: #1a73e8; border-radius: 4px; text-align: center; float: left; margin-right: 15px;">
+                            <i class="fa fa-envelope" style="font-size: 16px;"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <small class="text-muted" style="font-size: 11px; display: block; color: #999;">E-posta Adresi</small>
+                            <span style="font-weight: 500; color: #333; word-break: break-all;">@Model.email</span>
+                        </div>
+                    </div>
+
+                    <div style="display: block; overflow: hidden;">
+                        <div style="width: 40px; height: 40px; line-height: 40px; background: #e3f2fd; color: #0288d1; border-radius: 4px; text-align: center; float: left; margin-right: 15px;">
+                            <i class="fa fa-phone" style="font-size: 16px;"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <small class="text-muted" style="font-size: 11px; display: block; color: #999;">Telefon Numarası</small>
+                            <span style="font-weight: 500; color: #333;">@Model.phone</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-7 mb-4">
+            <div class="card border-0 shadow-sm" style="background: #fff; border-radius: 4px; border: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); height: 100%;">
+                <div style="padding: 20px 25px 0 25px;">
+                    <h5 style="font-weight: 600; color: #333; margin: 0;"><i class="fa fa-map-marker" style="color: #d9534f; margin-right: 5px;"></i> Konum ve Teslimat Bilgileri</h5>
+                </div>
+                <hr style="margin: 15px 25px; border-top: 1px solid #eee;">
+                <div style="padding: 0 25px 25px 25px;">
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 20px;">
+                            <label style="color: #777; font-size: 11px; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 5px;">İl (Şehir)</label>
+                            <div style="background: #f8f9fa; padding: 12px 15px; border-radius: 4px; font-weight: bold; color: #333;">
+                                <i class="fa fa-building text-danger" style="margin-right: 8px; color: #d9534f;"></i> @Model.city
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="margin-bottom: 20px;">
+                            <label style="color: #777; font-size: 11px; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 5px;">İlçe</label>
+                            <div style="background: #f8f9fa; padding: 12px 15px; border-radius: 4px; font-weight: bold; color: #333;">
+                                <i class="fa fa-compass text-warning" style="margin-right: 8px; color: #f0ad4e;"></i> @Model.district
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="margin-bottom: 20px;">
+                            <label style="color: #777; font-size: 11px; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 5px;">Tam Açık Adres</label>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; color: #333; min-height: 90px; line-height: 1.5;">
+                                <i class="fa fa-home text-info" style="margin-right: 8px; color: #5bc0de; float: left; margin-top: 3px;"></i>
+                                <span style="display: block; margin-left: 22px;">@Model.address</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div style="background-color: #e1f5fe; color: #0288d1; padding: 15px; border-radius: 4px; overflow: hidden; display: block;">
+                                <div style="float: left; margin-right: 15px; margin-top: 2px;">
+                                    <i class="fa fa-truck" style="font-size: 28px; color: #0288d1;"></i>
+                                </div>
+                                <div style="overflow: hidden;">
+                                    <small style="display: block; font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; color: #555;">Sistem Kargo Müşteri ID</small>
+                                    <span style="font-weight: 700; font-size: 18px; color: #222; margin-top: 2px; display: block;">#CARGO-  @Model.cargoCustomerId</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
