@@ -30,6 +30,11 @@ namespace MultiShop.Cargo.BusinnessLayer.Concrete
             return value;
         }
 
+        public async Task<CargoCustomer> TGetCargoCustomerById(string id)
+        {
+            return await _cargoCustomerDal.GetCargoCustomerByIdAsync(id);
+        }
+
         public async Task TInsertAsync(CargoCustomer cargoCustomer)
         {
             await _cargoCustomerDal.Insert(cargoCustomer);

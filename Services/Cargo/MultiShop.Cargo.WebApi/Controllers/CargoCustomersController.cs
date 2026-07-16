@@ -31,8 +31,9 @@ namespace MultiShop.Cargo.WebApi.Controllers
                 Phone = c.Phone,
                 District = c.District,
                 City = c.City,
-                Address = c.Address
-            }).ToList(); // ← ToList() EKLENDİ!
+                Address = c.Address,
+                UserCustomerId = c.UserCustomerId
+            }).ToList();
 
             return Ok(cargoCustomers);
         }
@@ -53,7 +54,8 @@ namespace MultiShop.Cargo.WebApi.Controllers
                 Phone = value.Phone,
                 District = value.District,
                 City = value.City,
-                Address = value.Address
+                Address = value.Address,
+                UserCustomerId = value.UserCustomerId
             };
 
             return Ok(result);
@@ -69,7 +71,8 @@ namespace MultiShop.Cargo.WebApi.Controllers
                 Phone = createCargoCustomerDto.Phone,
                 District = createCargoCustomerDto.District,
                 City = createCargoCustomerDto.City,
-                Address = createCargoCustomerDto.Address
+                Address = createCargoCustomerDto.Address,
+                UserCustomerId = createCargoCustomerDto.UserCustomerId
             };
 
             await _cargoCustomerService.TInsertAsync(cargoCustomer);
@@ -105,9 +108,16 @@ namespace MultiShop.Cargo.WebApi.Controllers
             cargoCustomer.District = updateCargoCustomerDto.District;
             cargoCustomer.City = updateCargoCustomerDto.City;
             cargoCustomer.Address = updateCargoCustomerDto.Address;
+            cargoCustomer.UserCustomerId = updateCargoCustomerDto.UserCustomerId;
 
             await _cargoCustomerService.TUpdateAsync(cargoCustomer);
             return Ok(cargoCustomer); // Güncellenmiş entity'yi dön
+        }
+
+        [HttpGet("GetCargoCustomerById/{id}")]
+        public async Task<IActionResult> GetCargoCustomerById(string id)
+        {
+            return Ok(await _cargoCustomerService.TGetCargoCustomerById(id));
         }
     }
 }
