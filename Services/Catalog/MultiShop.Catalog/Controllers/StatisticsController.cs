@@ -15,7 +15,7 @@ namespace MultiShop.Catalog.Controllers
             _statisticService = statisticService;
         }
 
-        [HttpGet]
+        [HttpGet("GetBrandCount")]
         public async Task<IActionResult> GetBrandCount()
         {
             var value = await _statisticService.GetBrandCount();

@@ -33,43 +33,24 @@ namespace MultiShop.Catalog.Services.StatisticServices
 
         public async Task<string> GetMaxPriceProductName()
         {
-            var filter = Builders<Product>.Filter.Empty;
-            var sort = Builders<Product>.Sort.Descending(p => p.Price);
-            var projection = Builders<Product>.Projection.Include(y =>
-                                                      y.ProductName).Exclude("ProductId");
-            var product = await _productCollection.Find(filter)
-                                                .Sort(sort)
-                                                .Project(projection)
-                                                .FirstOrDefaultAsync();
-            return product.GetValue("ProductName").AsString;
+            var product = await _productCollection.Find(FilterDefinition<Product>.Empty).SortByDescending(p => p.Price).FirstOrDefaultAsync();
+            return product?.ProductName ?? string.Empty;
         }
 
         public async Task<string> GetMinPriceProductName()
         {
-            var filter = Builders<Product>.Filter.Empty;
-            var sort = Builders<Product>.Sort.Ascending(x => x.Price);
-            var projection = Builders<Product>.Projection.Include(y =>
-                                                      y.ProductName).Exclude("ProductId");
-            var product = await _productCollection.Find(filter)
-                                                .Sort(sort)
-                                                .Project(projection)
-                                                .FirstOrDefaultAsync();
-            return product.GetValue("ProductName").AsString;
+            var product = await _productCollection.Find(FilterDefinition<Product>.Empty).SortBy(p => p.Price).FirstOrDefaultAsync();
+            return product?.ProductName ?? string.Empty;
         }
 
         public async Task<decimal> GetProductAvgPrice()
         {
-            var pipeline = new BsonDocument[]
-{
-              new BsonDocument("$group",new BsonDocument
-              {
-                  {"_id",null },
-                  {"averagePrice",new BsonDocument("$avg","$ProductPrice") }
-              })
-};
-            var result = await _productCollection.AggregateAsync<BsonDocument>(pipeline);
-            var price = result.FirstOrDefault().GetValue("averagePrice", decimal.Zero).AsDecimal;
-            return price;
+            var result = await _productCollection.Aggregate().Group(x => 1, g => new
+            {
+                AvgPrice = g.Average(p => p.Price)
+            }).FirstOrDefaultAsync();
+
+            return result?.AvgPrice ?? 0;
         }
 
         public async Task<long> GetProductCount()

@@ -55,7 +55,8 @@ namespace MultiShop.IdentityServer
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
                 AllowedScopes={ "CatalogReadPermission", "CatalogFullPermission", "OcelotFullPermission", "CommentFullPermission", "ImageFullPermission", "CommentFullPermission","BasketFullPermission","MessageFullPermission","CargoFullPermission",
-                 IdentityServerConstants.LocalApi.ScopeName}
+                 IdentityServerConstants.LocalApi.ScopeName},
+                // eğer belirtilmesse default olarak 3600 saniyedir süre
             },
 
             new Client
@@ -68,7 +69,8 @@ namespace MultiShop.IdentityServer
                     IdentityServerConstants.LocalApi.ScopeName,
                     IdentityServerConstants.StandardScopes.Email,
                     IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile}
+                    IdentityServerConstants.StandardScopes.Profile},
+                AccessTokenLifetime = 10000 // eğer belirtilmesse default olarak 3600 saniyedir süre
             },
 
             new Client
