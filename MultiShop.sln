@@ -9,7 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{E04B6850-A4AA-49BB-9084-B782C12C6F5D}"
 	ProjectSection(SolutionItems) = preProject
-		access token ve refresh token nedir.txt = access token ve refresh token nedir.txt
+		access-token-ve-refresh-token-nedir.txt = access-token-ve-refresh-token-nedir.txt
+		admin-statistic-api-for-ui.txt = admin-statistic-api-for-ui.txt
 		font-awesome link.txt = font-awesome link.txt
 		identity-server-version-error-solution.txt = identity-server-version-error-solution.txt
 		ocelot-link.txt = ocelot-link.txt
@@ -89,6 +90,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Message", "Message", "{6F10DCFC-38B3-47E9-9726-93D1512E3DA8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Message", "Services\Message\MultiShop.Message\MultiShop.Message.csproj", "{24E5AFB8-6AD5-433E-B218-F17F7CFF48EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalRRealTime", "SignalRRealTime", "{95BD72F3-6A20-470B-9A9D-F60B1BADF493}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.SignalRRealTime", "Services\SignalRRealTime\MultiShop.SignalRRealTime\MultiShop.SignalRRealTime.csproj", "{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,6 +181,10 @@ Global
 		{24E5AFB8-6AD5-433E-B218-F17F7CFF48EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24E5AFB8-6AD5-433E-B218-F17F7CFF48EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24E5AFB8-6AD5-433E-B218-F17F7CFF48EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,6 +222,8 @@ Global
 		{43E1506E-376C-0810-F28A-FD01CD1AC033} = {1586B124-FAA3-4D58-A087-750CA2C1CA54}
 		{6F10DCFC-38B3-47E9-9726-93D1512E3DA8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{24E5AFB8-6AD5-433E-B218-F17F7CFF48EB} = {6F10DCFC-38B3-47E9-9726-93D1512E3DA8}
+		{95BD72F3-6A20-470B-9A9D-F60B1BADF493} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724} = {95BD72F3-6A20-470B-9A9D-F60B1BADF493}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C0159D9-B829-4B3E-9CE6-60558D3457A1}
