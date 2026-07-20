@@ -34,13 +34,14 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-envelope"></i>
-                        <div class="notify"> <span class="badge">5</span> <span class="point"></span> </div>
+                        <div class="notify"> <span class="badge">@ViewBag.totalCommentCount</span> <span class="point"></span> </div>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
+                        <li class="header">You have @ViewBag.messageCountByReceiver messages</li>
                         <li>
                             <ul class="menu">
                                 <li>
@@ -80,12 +81,11 @@
                         <li class="footer"><a href="#">Check all notifications</a></li>
                     </ul>
                 </li>
-                <!-- messages-menu -->
-                <!-- Notifications Menu -->
+
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-megaphone"></i>
-                        <div class="notify"> <span class="badge">7</span> <span class="point"></span> </div>
+                        <div class="notify"> <span class="badge">@ViewBag.messageCountByReceiver</span> <span class="point"></span> </div>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">Notifications</li>
@@ -100,8 +100,7 @@
                         <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>
-                <!-- Tasks Menu -->
-                <!-- User Account Menu -->
+
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/MainDownload-OvioAdmin-html5-template/html/dist/img/img1.jpg" class="user-image" alt="User Image"> <span class="hidden-xs">Abdullah Haktan</span> </a>
                     <ul class="dropdown-menu">
