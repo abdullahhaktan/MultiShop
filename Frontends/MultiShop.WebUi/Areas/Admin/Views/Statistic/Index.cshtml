@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box">
+                <div class="media-icon pull-left"><i class="fas fa-tag"></i></div>
+                <div class="media-info">
+                    <h5>Toplam Marka</h5>
+                    <h3>@ViewBag.brandCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-sea">
+                <div class="media-icon pull-left"><i class="fas fa-box"></i></div>
+                <div class="media-info">
+                    <h5>Toplam Ürün</h5>
+                    <h3>@ViewBag.productCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-blue">
+                <div class="media-icon pull-left"><i class="fas fa-th-large"></i></div>
+                <div class="media-info">
+                    <h5>Toplam Kategori</h5>
+                    <h3>@ViewBag.categoryCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-green">
+                <div class="media-icon pull-left"><i class="fas fa-users"></i></div>
+                <div class="media-info">
+                    <h5>Toplam Kullanıcı</h5>
+                    <h3>@ViewBag.userCount</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-green">
+                <div class="media-icon pull-left"><i class="fas fa-comments"></i></div>
+                <div class="media-info">
+                    <h5>Toplam Yorum</h5>
+                    <h3>@ViewBag.totalCommentCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-blue">
+                <div class="media-icon pull-left"><i class="fas fa-check-circle"></i></div>
+                <div class="media-info">
+                    <h5>Aktif Yorumlar</h5>
+                    <h3>@ViewBag.activeCommentCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-sea">
+                <div class="media-icon pull-left"><i class="fas fa-times-circle"></i></div>
+                <div class="media-info">
+                    <h5>Pasif Yorumlar</h5>
+                    <h3>@ViewBag.passiveCommentCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box">
+                <div class="media-icon pull-left"><i class="fas fa-envelope"></i></div>
+                <div class="media-info">
+                    <h5>Toplam Mesaj</h5>
+                    <h3>@ViewBag.totalMessageCount</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-sea">
+                <div class="media-icon pull-left"><i class="fas fa-ticket-alt"></i></div>
+                <div class="media-info">
+                    <h5>Kupon Sayısı</h5>
+                    <h3>@ViewBag.discountCouponCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-blue">
+                <div class="media-icon pull-left"><i class="fas fa-arrow-up"></i></div>
+                <div class="media-info">
+                    <h5>En Pahalı Ürün</h5>
+                    <h5 style="font-size: 14px; margin-top: 5px;">@ViewBag.maxPriceProductName</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="media-box bg-green">
+                <div class="media-icon pull-left"><i class="fas fa-arrow-down"></i></div>
+                <div class="media-info">
+                    <h5>En Ucuz Ürün</h5>
+                    <h5 style="font-size: 14px; margin-top: 5px;">@ViewBag.minPriceProductName</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
