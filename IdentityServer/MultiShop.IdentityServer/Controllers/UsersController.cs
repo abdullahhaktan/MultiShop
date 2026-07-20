@@ -22,7 +22,7 @@ namespace MultiShop.IdentityServer.Controllers
         }
 
         [HttpGet("GetUserInfo")]
-        public async Task<IActionResult> GetUserInfo()
+        public async Task<IActionResult> GetUserInfoAsync()
         {
             var userClaims = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
 
