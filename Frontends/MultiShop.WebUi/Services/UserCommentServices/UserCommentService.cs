@@ -65,6 +65,13 @@ namespace MultiShop.WebUi.Services.UserCommentServices
             }
         }
 
+        public async Task<int> GetTotalCommentCount()
+        {
+            var responseMessage = await _httpClient.GetAsync("userComments/GetTotalCommentCount");
+            var values = await responseMessage.Content.ReadFromJsonAsync<int>();
+            return values;
+        }
+
         public async Task<GetUserCommentByIdDto> GetUserCommentByIdAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
