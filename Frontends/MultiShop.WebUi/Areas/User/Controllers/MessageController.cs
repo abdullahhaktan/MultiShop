@@ -18,14 +18,14 @@ namespace MultiShop.WebUi.Areas.User.Controllers
 
         public async Task<IActionResult> Inbox()
         {
-            var user = await _userService.GetUserInfo();
+            var user = await _userService.GetUserInfoAsync();
             var values = await _messageService.GetInboxMessageAsync(user.Id);
             return View(values);
         }
 
         public async Task<IActionResult> Sendbox()
         {
-            var user = await _userService.GetUserInfo();
+            var user = await _userService.GetUserInfoAsync();
             var values = await _messageService.GetSendboxMessageAsync(user.Id);
             return View(values);
         }

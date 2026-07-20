@@ -20,7 +20,7 @@ namespace MultiShop.WebUi.Areas.User.Controllers
         {
             try
             {
-                var user = await _userService.GetUserInfo();
+                var user = await _userService.GetUserInfoAsync();
 
                 if (user == null || string.IsNullOrEmpty(user.Id))
                 {
