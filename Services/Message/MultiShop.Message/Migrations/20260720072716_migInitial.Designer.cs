@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MultiShop.Message.Migrations
 {
     [DbContext(typeof(MessageContext))]
-    [Migration("20260714055656_migInitial")]
+    [Migration("20260720072716_migInitial")]
     partial class migInitial
     {
         /// <inheritdoc />
