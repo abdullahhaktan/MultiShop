@@ -14,7 +14,7 @@ namespace MultiShop.Basket.LoginServices
             _httpClient = httpClient;
         }
 
-        public async Task<UserDetailViewModel> GetUserInfo()
+        public async Task<UserDetailViewModel> GetUserInfoAsync()
         {
             return await _httpClient.GetFromJsonAsync<UserDetailViewModel>("/api/users/getuserinfo");
         }
