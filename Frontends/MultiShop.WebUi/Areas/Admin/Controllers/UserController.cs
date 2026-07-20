@@ -10,7 +10,7 @@ namespace MultiShop.WebUi.Areas.Admin.Controllers
         private readonly IUserIdentityService _userIdentityService;
         private readonly ICargoCustomerService _cargoCustomerService;
 
-        public UserController(IUserIdentityService userIdentityService,ICargoCustomerService cargoCustomerService)
+        public UserController(IUserIdentityService userIdentityService, ICargoCustomerService cargoCustomerService)
         {
             _userIdentityService = userIdentityService;
             _cargoCustomerService = cargoCustomerService;
