@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirement
 		access-token-ve-refresh-token-nedir.txt = access-token-ve-refresh-token-nedir.txt
 		admin-statistic-api-for-ui.txt = admin-statistic-api-for-ui.txt
 		font-awesome link.txt = font-awesome link.txt
+		..\..\..\..\Downloads\cors-policy.txt = ..\..\..\..\Downloads\cors-policy.txt
 		identity-server-version-error-solution.txt = identity-server-version-error-solution.txt
 		ocelot-link.txt = ocelot-link.txt
 		ocelot-sample-jsons.txt = ocelot-sample-jsons.txt
