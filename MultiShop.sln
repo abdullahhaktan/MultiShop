@@ -7,21 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{02
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{2A5D03BF-6B19-4F3F-BC4C-83BAC5AE50C1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{E04B6850-A4AA-49BB-9084-B782C12C6F5D}"
-	ProjectSection(SolutionItems) = preProject
-		access-token-ve-refresh-token-nedir.txt = access-token-ve-refresh-token-nedir.txt
-		admin-statistic-api-for-ui.txt = admin-statistic-api-for-ui.txt
-		font-awesome link.txt = font-awesome link.txt
-		..\..\..\..\Downloads\cors-policy.txt = ..\..\..\..\Downloads\cors-policy.txt
-		identity-server-version-error-solution.txt = identity-server-version-error-solution.txt
-		ocelot-link.txt = ocelot-link.txt
-		ocelot-sample-jsons.txt = ocelot-sample-jsons.txt
-		port-numbers.txt = port-numbers.txt
-		portainer-cmd.txt = portainer-cmd.txt
-		sample-users.txt = sample-users.txt
-		simple-code.txt = simple-code.txt
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.IdentityServer", "IdentityServer\MultiShop.IdentityServer\MultiShop.IdentityServer.csproj", "{EA14094F-FB55-5ABC-1402-B4229C4AD0B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{567B5466-2379-4935-89FA-C71B2031EC42}"
@@ -95,6 +80,25 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalRRealTime", "SignalRRealTime", "{95BD72F3-6A20-470B-9A9D-F60B1BADF493}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.SignalRRealTime", "Services\SignalRRealTime\MultiShop.SignalRRealTime\MultiShop.SignalRRealTime.csproj", "{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Images.WebUi", "Services\Image\MultiShop.Images.WebUi\MultiShop.Images.WebUi.csproj", "{AF8D5D66-FC8F-4382-B1A3-74F28CDFEC48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		Requirements\access-token-ve-refresh-token-nedir.txt = Requirements\access-token-ve-refresh-token-nedir.txt
+		Requirements\admin-statistic-api-for-ui.txt = Requirements\admin-statistic-api-for-ui.txt
+		Requirements\font-awesome link.txt = Requirements\font-awesome link.txt
+		Requirements\google-cloud-storage-document.txt = Requirements\google-cloud-storage-document.txt
+		Requirements\identity-server-version-error-solution.txt = Requirements\identity-server-version-error-solution.txt
+		Requirements\ocelot-link.txt = Requirements\ocelot-link.txt
+		Requirements\ocelot-sample-jsons.txt = Requirements\ocelot-sample-jsons.txt
+		Requirements\port-numbers.txt = Requirements\port-numbers.txt
+		Requirements\portainer-cmd.txt = Requirements\portainer-cmd.txt
+		Requirements\sample-users.txt = Requirements\sample-users.txt
+		Requirements\simple-code.txt = Requirements\simple-code.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Payment", "Services\Payment\MultiShop.Payment\MultiShop.Payment.csproj", "{61895343-B6B8-5ECF-3721-AF7BE948494B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -186,6 +190,14 @@ Global
 		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF8D5D66-FC8F-4382-B1A3-74F28CDFEC48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF8D5D66-FC8F-4382-B1A3-74F28CDFEC48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF8D5D66-FC8F-4382-B1A3-74F28CDFEC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF8D5D66-FC8F-4382-B1A3-74F28CDFEC48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61895343-B6B8-5ECF-3721-AF7BE948494B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61895343-B6B8-5ECF-3721-AF7BE948494B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61895343-B6B8-5ECF-3721-AF7BE948494B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61895343-B6B8-5ECF-3721-AF7BE948494B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,6 +237,8 @@ Global
 		{24E5AFB8-6AD5-433E-B218-F17F7CFF48EB} = {6F10DCFC-38B3-47E9-9726-93D1512E3DA8}
 		{95BD72F3-6A20-470B-9A9D-F60B1BADF493} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724} = {95BD72F3-6A20-470B-9A9D-F60B1BADF493}
+		{AF8D5D66-FC8F-4382-B1A3-74F28CDFEC48} = {14A48B4B-0FAD-484E-A200-909DBED453AE}
+		{61895343-B6B8-5ECF-3721-AF7BE948494B} = {E0135582-ECA2-464C-BC1D-25145A813ACE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C0159D9-B829-4B3E-9CE6-60558D3457A1}
