@@ -1,3 +1,7 @@
+using MultiShop.SignalRRealTime.Hubs;
+using MultiShop.SignalRRealTime.Services.SignalRCommentServices;
+using MultiShop.SignalRRealTime.Services.SignaRMessageServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
@@ -13,6 +17,11 @@ builder.Services.AddCors(opt =>
     });
 });
 
+builder.Services.AddSignalR();
+
+builder.Services.AddScoped<ISignalRMessageService, SignalRMessageService>();
+builder.Services.AddScoped<ISignalRCommentService, SignalRCommentService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,10 +34,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<SignalRHub>("/signalrhub");
 
 app.Run();
