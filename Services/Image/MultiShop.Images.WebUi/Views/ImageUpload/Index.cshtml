@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Resim Yükleme";
+}
+
+<div class="container mt-5">
+    <h2>Google Cloud Storage Resim Yükleme</h2>
+    <hr />
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">@ViewBag.Message</div>
+        @if (ViewBag.ImageUrl != null)
+        {
+            <div class="mt-2">
+                <p>Yüklenen Resim:</p>
+                <img src="@ViewBag.ImageUrl" class="img-thumbnail" style="max-width: 300px;" />
+            </div>
+        }
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form asp-controller="ImageUpload" asp-action="Index" method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="mb-3">
+            <label for="imageFile" class="form-label">Yüklenecek Resmi Seçin:</label>
+            <input type="file" name="imageFile" id="imageFile" class="form-control" accept="image/*" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Bucket'a Yükle</button>
+    </form>
+</div>
