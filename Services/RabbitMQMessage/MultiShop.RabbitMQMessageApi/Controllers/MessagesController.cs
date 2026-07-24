@@ -9,26 +9,62 @@ namespace MultiShop.RabbitMQMessageApi.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> CreateMessage()
+        private readonly ConnectionFactory _connectionFactory;
+
+        public MessagesController()
         {
-            var connectionFactory = new ConnectionFactory()
+            _connectionFactory = new ConnectionFactory()
             {
                 HostName = "localhost"
             };
+        }
 
-            using var connection = await connectionFactory.CreateConnectionAsync(); // using eklendi
-            using var channel = await connection.CreateChannelAsync(); // using eklendi
+        [HttpGet]
+        public async Task<IActionResult> ReadMessage()
+        {
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+            using var channel = await connection.CreateChannelAsync();
 
-            await channel.QueueDeclareAsync("Kuyruk2",false,false,false,arguments:null);
+            await channel.QueueDeclareAsync("Kuyruk2", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-            var messageContent = "Merhaba bu bir rabbitmq kuyruk test mesajıdır";
+            var result = await channel.BasicGetAsync("Kuyruk2", autoAck: true);
+
+            if (result == null)
+            {
+                return NotFound("Kuyrukta okunacak mesaj bulunamadı.");
+            }
+
+            var message = Encoding.UTF8.GetString(result.Body.ToArray());
+
+            return Ok(new
+            {
+                Message = message,
+                MessageCountRemaining = result.MessageCount // Kuyrukta kalan mesaj sayısı
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateMessage([FromBody] string? customMessage)
+        {
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+            using var channel = await connection.CreateChannelAsync();
+
+            await channel.QueueDeclareAsync("Kuyruk2", durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+            var messageContent = string.IsNullOrEmpty(customMessage)
+                ? "Merhaba bu bir rabbitmq kuyruk test mesajıdır"
+                : customMessage;
 
             var byteMessageContent = Encoding.UTF8.GetBytes(messageContent);
 
-            await channel.BasicPublishAsync(exchange: "", routingKey: "Kuyruk2", mandatory:true, basicProperties: new BasicProperties(), body: byteMessageContent);
+            await channel.BasicPublishAsync(
+                exchange: "",
+                routingKey: "Kuyruk2",
+                mandatory: true,
+                basicProperties: new BasicProperties(),
+                body: byteMessageContent);
 
-            return Ok("Mesajınız kuyruğa alınmıştır");
+            return Ok("Mesajınız kuyruğa başarıyla eklendi.");
         }
     }
 }
