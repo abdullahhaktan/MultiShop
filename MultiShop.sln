@@ -90,6 +90,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirement
 		Requirements\ocelot-sample-jsons.txt = Requirements\ocelot-sample-jsons.txt
 		Requirements\port-numbers.txt = Requirements\port-numbers.txt
 		Requirements\portainer-cmd.txt = Requirements\portainer-cmd.txt
+		rabbitmq-document.txt = rabbitmq-document.txt
 		Requirements\sample-users.txt = Requirements\sample-users.txt
 		Requirements\simple-code.txt = Requirements\simple-code.txt
 	EndProjectSection
@@ -97,6 +98,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Payment", "Services\Payment\MultiShop.Payment\MultiShop.Payment.csproj", "{61895343-B6B8-5ECF-3721-AF7BE948494B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Images.WebUi", "Services\Image\MultiShop.Images.WebUi\MultiShop.Images.WebUi.csproj", "{0F820015-27AC-49C7-92B3-9F2187074195}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQMessage", "RabbitMQMessage", "{D7B95F9A-AA6C-4FD8-98FB-4F071A5C7714}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.RabbitMQMessageApi", "Services\RabbitMQMessage\MultiShop.RabbitMQMessageApi\MultiShop.RabbitMQMessageApi.csproj", "{E0FF8553-7C7D-43E3-A99D-2882C8E02832}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,6 +197,10 @@ Global
 		{0F820015-27AC-49C7-92B3-9F2187074195}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F820015-27AC-49C7-92B3-9F2187074195}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F820015-27AC-49C7-92B3-9F2187074195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0FF8553-7C7D-43E3-A99D-2882C8E02832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0FF8553-7C7D-43E3-A99D-2882C8E02832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0FF8553-7C7D-43E3-A99D-2882C8E02832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0FF8553-7C7D-43E3-A99D-2882C8E02832}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,6 +241,8 @@ Global
 		{35B9D789-4DB6-4EA1-A0F5-1169BF48A724} = {95BD72F3-6A20-470B-9A9D-F60B1BADF493}
 		{61895343-B6B8-5ECF-3721-AF7BE948494B} = {E0135582-ECA2-464C-BC1D-25145A813ACE}
 		{0F820015-27AC-49C7-92B3-9F2187074195} = {14A48B4B-0FAD-484E-A200-909DBED453AE}
+		{D7B95F9A-AA6C-4FD8-98FB-4F071A5C7714} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E0FF8553-7C7D-43E3-A99D-2882C8E02832} = {D7B95F9A-AA6C-4FD8-98FB-4F071A5C7714}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C0159D9-B829-4B3E-9CE6-60558D3457A1}
